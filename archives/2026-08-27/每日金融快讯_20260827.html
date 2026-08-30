@@ -206,6 +206,30 @@ footer { text-align: center; padding: 24px 0 32px; color: var(--text-secondary);
 @media print { .export-btn, .theme-toggle, .filter-bar, .sidebar, .reading-progress, .back-to-top { display: none !important; } .page-layout { display: block !important; max-width: 100% !important; } .main-content { max-width: 100% !important; } body { background: #fff !important; color: #000 !important; } }
 @media (max-width: 960px) { .page-layout { flex-direction: column; padding: 12px; } .main-content { max-width: 100%; } .sidebar { width: 100%; position: static; max-height: none; order: -1; } .export-btn { top: 8px; right: 60px; height: 36px; padding: 0 12px; font-size: 12px; } .export-btn .export-label { display: none; } .theme-toggle { top: 8px; right: 8px; width: 36px; height: 36px; font-size: 16px; } }
 @media (max-width: 600px) { header h1 { font-size: 22px; } .signal-card .signal-header { padding: 12px 16px 0; } .signal-card .signal-body { padding: 10px 16px 14px; } .filter-btn { font-size: 12px; padding: 4px 10px; } .report-meta { flex-direction: column; gap: 4px; } }
+
+/* ── 信号灯看板 ── */
+.signal-dashboard { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+.sig-dashboard-header { padding: 14px 20px 10px; font-size: 15px; font-weight: 700; color: var(--primary); border-bottom: 1px solid var(--border-light); display: flex; align-items: center; gap: 6px; }
+.sig-dashboard-hint { font-size: 11px; color: var(--text-tertiary); font-weight: 400; margin-left: auto; }
+.sig-row { display: flex; align-items: center; padding: 7px 20px; border-bottom: 1px solid var(--border-light); gap: 8px; }
+.sig-row:last-child { border-bottom: none; }
+.sig-lamp { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.sig-lamp.red { background: var(--signal-red); box-shadow: 0 0 6px rgba(198,40,40,0.4); }
+.sig-lamp.yellow { background: var(--signal-yellow); box-shadow: 0 0 6px rgba(249,168,37,0.4); }
+.sig-lamp.gray { background: #bdbdbd; }
+.sig-name { font-size: 13px; font-weight: 600; min-width: 70px; flex-shrink: 0; }
+.sig-value { font-size: 13px; font-weight: 700; font-family: "SF Mono","Consolas",monospace; min-width: 90px; }
+.sig-change { font-size: 12px; font-family: "SF Mono","Consolas",monospace; min-width: 70px; text-align: right; }
+.sig-change.flat { color: var(--text-tertiary); }
+.sig-note { font-size: 11px; margin-left: auto; text-align: right; }
+/* ── 趋势图表 ── */
+.sig-charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.sig-chart-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.sig-chart-header { padding: 10px 16px 6px; font-size: 13px; font-weight: 700; color: var(--text-secondary); display: flex; align-items: center; justify-content: space-between; }
+.sig-chart-value { font-size: 15px; font-weight: 700; color: var(--primary); font-family: "SF Mono","Consolas",monospace; }
+.sig-chart-container { padding: 0 12px 12px; height: 120px; }
+@media (max-width: 600px) { .sig-charts-grid { grid-template-columns: 1fr; } .sig-name { min-width: 60px; } .sig-value { min-width: 75px; } }
+
 </style>
 </head>
 <body>
@@ -256,6 +280,120 @@ footer { text-align: center; padding: 24px 0 32px; color: var(--text-secondary);
 <span class="trend-item"><span class="trend-arrow up">▼</span>油价连跌</span>
 <span class="trend-item"><span class="trend-arrow flat">●</span>黄金高位震荡</span>
 <span class="trend-item"><span class="trend-arrow flat">●</span>铜价回落</span>
+      </div>
+    </div>
+
+    
+    <!-- 信号灯看板 -->
+    <div class="signal-dashboard">
+      <div class="sig-dashboard-header">
+        <span>信号灯看板</span>
+        <span class="sig-dashboard-hint">红=重大变化 黄=小幅波动 灰=基本持平</span>
+      </div>
+      <div class="sig-row">
+        <span class="sig-lamp gray"></span>
+        <span class="sig-name">A股上证</span>
+        <span class="sig-value">3,912.52 点</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
+      </div>
+      <div class="sig-row">
+        <span class="sig-lamp gray"></span>
+        <span class="sig-name">创业板</span>
+        <span class="sig-value">3,414.88 点</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
+      </div>
+      <div class="sig-row">
+        <span class="sig-lamp gray"></span>
+        <span class="sig-name">人民币</span>
+        <span class="sig-value">6.7829</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
+      </div>
+      <div class="sig-row">
+        <span class="sig-lamp gray"></span>
+        <span class="sig-name">LPR利率</span>
+        <span class="sig-value">—</span>
+        <span class="sig-change flat">—</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">数据缺失</span>
+      </div>
+      <div class="sig-row">
+        <span class="sig-lamp red"></span>
+        <span class="sig-name">10年国债</span>
+        <span class="sig-value">1.688%</span>
+        <span class="sig-change" style="color:var(--signal-red)">+0.48%</span>
+        <span class="sig-note" style="color:var(--signal-red)">重大变化</span>
+      </div>
+      <div class="sig-row">
+        <span class="sig-lamp red"></span>
+        <span class="sig-name">Shibor</span>
+        <span class="sig-value">1.412%</span>
+        <span class="sig-change" style="color:var(--signal-green)">-1.60%</span>
+        <span class="sig-note" style="color:var(--signal-red)">重大变化</span>
+      </div>
+      <div class="sig-row">
+        <span class="sig-lamp yellow"></span>
+        <span class="sig-name">现货黄金</span>
+        <span class="sig-value">4,610.48 $/oz</span>
+        <span class="sig-change" style="color:var(--signal-green)">-1.11%</span>
+        <span class="sig-note" style="color:var(--signal-yellow)">小幅波动</span>
+      </div>
+      <div class="sig-row">
+        <span class="sig-lamp yellow"></span>
+        <span class="sig-name">布伦特油</span>
+        <span class="sig-value">87.84 $/bbl</span>
+        <span class="sig-change" style="color:var(--signal-green)">-0.84%</span>
+        <span class="sig-note" style="color:var(--signal-yellow)">小幅波动</span>
+      </div>
+      <div class="sig-row">
+        <span class="sig-lamp gray"></span>
+        <span class="sig-name">LME铜</span>
+        <span class="sig-value">14,232.5 $/t</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">基本持平</span>
+      </div>
+      <div class="sig-row">
+        <span class="sig-lamp yellow"></span>
+        <span class="sig-name">美元指数</span>
+        <span class="sig-value">99.1360</span>
+        <span class="sig-change" style="color:var(--signal-red)">+0.22%</span>
+        <span class="sig-note" style="color:var(--signal-yellow)">小幅波动</span>
+      </div>
+      <div class="sig-row">
+        <span class="sig-lamp yellow"></span>
+        <span class="sig-name">美股道指</span>
+        <span class="sig-value">53,463.88 点</span>
+        <span class="sig-change" style="color:var(--signal-green)">-0.21%</span>
+        <span class="sig-note" style="color:var(--signal-yellow)">小幅波动</span>
+      </div>
+    </div>
+
+    <!-- 趋势图表 -->
+    <div class="sig-charts-grid">
+      <div class="sig-chart-card">
+        <div class="sig-chart-header"><span>A股上证</span>
+          <span><span class="sig-chart-value">3,912.52 点</span></span>
+        </div>
+        <div class="sig-chart-container"><canvas id="sseMiniChart"></canvas></div>
+      </div>
+      <div class="sig-chart-card">
+        <div class="sig-chart-header"><span>现货黄金</span>
+          <span><span class="sig-chart-value">4,610.48 $/oz</span></span>
+        </div>
+        <div class="sig-chart-container"><canvas id="goldMiniChart"></canvas></div>
+      </div>
+      <div class="sig-chart-card">
+        <div class="sig-chart-header"><span>人民币中间价</span>
+          <span><span class="sig-chart-value">6.7829</span></span>
+        </div>
+        <div class="sig-chart-container"><canvas id="fxMiniChart"></canvas></div>
+      </div>
+      <div class="sig-chart-card">
+        <div class="sig-chart-header"><span>布伦特原油</span>
+          <span><span class="sig-chart-value">87.84 $/bbl</span></span>
+        </div>
+        <div class="sig-chart-container"><canvas id="oilMiniChart"></canvas></div>
       </div>
     </div>
 
@@ -503,5 +641,29 @@ function exportAsImage(){var btn=document.getElementById('exportBtn'),ov=documen
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
 window.addEventListener('scroll',function(){var bt=document.getElementById('backToTop');if(window.scrollY>400){bt.classList.add('visible');}else{bt.classList.remove('visible');}var rp=document.getElementById('readingProgress');var sh=document.documentElement.scrollHeight-window.innerHeight;rp.style.width=(sh>0?(window.scrollY/sh*100):0)+'%';});
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+  if(typeof Chart==='undefined'){console.warn('Chart.js not loaded');return;}
+  var labels=["08-17", "08-18", "08-19", "08-20", "08-21", "08-23", "08-25", "08-26", "08-27"];
+  function mk(id,color,data){
+    var el=document.getElementById(id);if(!el)return;
+    var isDark=document.documentElement.classList.contains('dark');
+    var grid=isDark?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)';
+    var txt=isDark?'#9aa0a6':'#5f6368';
+    new Chart(el.getContext('2d'),{
+      type:'line',
+      data:{labels:labels,datasets:[{data:data,borderColor:color,backgroundColor:color+'15',borderWidth:2,fill:true,tension:0.3,pointRadius:2,pointHoverRadius:5,pointBackgroundColor:color,spanGaps:true}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{display:false,grid:{display:false}},y:{display:true,grid:{color:grid},ticks:{color:txt,font:{size:9},maxTicksLimit:3},beginAtZero:false}},interaction:{intersect:false,mode:'index'}}
+    });
+  }
+  mk('sseMiniChart','#0d47a1',[3927.18, 3982.65, 3990.3, 3894.42, 3903.72, 3905.2, 3882.01, null, 3912.52]);
+  mk('goldMiniChart','#f9a825',[4370.0, 4369.0, 4375.0, 4379.96, 4519.36, 4547.84, 4654.23, 4662.05, 4610.48]);
+  mk('fxMiniChart','#2e7d32',[6.7878, 6.7873, 6.7873, 6.7905, 6.7854, 6.7817, 6.7841, 6.7829, 6.7829]);
+  mk('oilMiniChart','#e65100',[88.72, 89.0, 89.42, 91.89, 94.0, 93.78, 90.97, 88.58, 87.84]);
+})();
+</script>
+
 </body>
 </html>
