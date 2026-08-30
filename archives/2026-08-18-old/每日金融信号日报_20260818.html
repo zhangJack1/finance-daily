@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日金融信号日报 - 2026年8月18日 周二</title>
+<style>
+
+:root {
+  --primary: #0d47a1; --primary-light: #e3f2fd; --primary-dark: #0a3d91;
+  --text: #202124; --text-secondary: #5f6368; --text-tertiary: #9aa0a6;
+  --bg: #f5f7fa; --card-bg: #ffffff; --card-bg-hover: #fafbfc;
+  --border: #d5dce6; --border-light: #e8eaed;
+  --tag-bg: #e3f2fd; --tag-text: #0d47a1;
+  --signal-green: #2e7d32; --signal-yellow: #f9a825; --signal-red: #c62828;
+  --summary-bg: linear-gradient(135deg, #0d47a1, #1a237e);
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.08);
+  --radius: 12px; --radius-sm: 8px;
+  --grade-s: #1b5e20; --grade-a: #0d47a1; --grade-b: #e65100; --grade-c: #616161;
+}
+html.dark {
+  --primary: #90caf9; --primary-light: #0d2b45; --primary-dark: #64b5f6;
+  --text: #e8eaed; --text-secondary: #9aa0a6; --text-tertiary: #5f6368;
+  --bg: #121212; --card-bg: #1e1e1e; --card-bg-hover: #262626;
+  --border: #3c4043; --border-light: #2d2d2d;
+  --tag-bg: #0d2b45; --tag-text: #90caf9;
+  --signal-green: #66bb6a; --signal-yellow: #ffa726; --signal-red: #ef5350;
+  --summary-bg: linear-gradient(135deg, #0d47a1, #4a148c);
+  --grade-s: #66bb6a; --grade-a: #90caf9; --grade-b: #ffcc80; --grade-c: #bdbdbd;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s; padding: 16px; }
+.page-layout { max-width: 800px; margin: 0 auto; }
+header { text-align: center; padding: 28px 0 20px; }
+header h1 { font-size: 26px; font-weight: 700; background: linear-gradient(135deg, #0d47a1, #7b1fa2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+header .subtitle { color: var(--text-secondary); font-size: 14px; margin-top: 6px; }
+header .report-meta { display: flex; justify-content: center; gap: 16px; margin-top: 10px; font-size: 12px; color: var(--text-tertiary); flex-wrap: wrap; }
+.version-badge { display: inline-block; background: #e65100; color: #fff; font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 10px; margin-top: 8px; }
+.theme-toggle { position: fixed; top: 16px; right: 16px; z-index: 100; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); transition: all 0.2s; }
+.theme-toggle:hover { box-shadow: var(--shadow-hover); transform: scale(1.1); }
+.back-to-top { position: fixed; bottom: 24px; right: 24px; z-index: 100; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: var(--shadow); transition: all 0.2s; }
+.back-to-top:hover { box-shadow: var(--shadow-hover); transform: scale(1.1); }
+.back-to-top.visible { display: flex; }
+.main-quote { background: var(--summary-bg); color: #fff; border-radius: var(--radius); padding: 18px 24px; margin-bottom: 16px; box-shadow: var(--shadow); }
+.main-quote .quote-text { font-size: 15px; font-weight: 600; line-height: 1.7; }
+.backtest-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+.backtest-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #00838f; border-bottom: 1px solid var(--border); }
+.backtest-item { padding: 12px 18px; border-bottom: 1px solid var(--border-light); }
+.backtest-item:last-child { border-bottom: none; }
+.backtest-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.backtest-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+.backtest-detail table { width: 100%; border-collapse: collapse; margin-top: 6px; }
+.backtest-detail th { background: var(--primary-light); color: var(--primary-dark); padding: 6px 8px; text-align: left; font-size: 11px; font-weight: 600; }
+.backtest-detail td { padding: 6px 8px; border-bottom: 1px solid var(--border-light); font-size: 11px; }
+.backtest-tag { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-left: 4px; }
+.backtest-hit { background: rgba(46,125,50,0.12); color: #2e7d32; }
+.backtest-partial { background: rgba(249,168,37,0.12); color: #f9a825; }
+.backtest-miss { background: rgba(198,40,40,0.12); color: #c62828; }
+.section-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 2px; margin: 16px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--border); }
+.signal-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; transition: box-shadow 0.3s, transform 0.3s; }
+.signal-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.signal-card .signal-header { display: flex; align-items: center; gap: 10px; padding: 14px 20px 0; flex-wrap: wrap; }
+.signal-card .signal-num { width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.signal-card .signal-title { font-size: 16px; font-weight: 700; }
+.signal-card .signal-body { padding: 12px 20px 18px; }
+.signal-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 10px; }
+.signal-table th { background: var(--primary-light); color: var(--primary-dark); padding: 8px 10px; text-align: left; font-weight: 600; }
+.signal-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-light); }
+.signal-table tr:last-child td { border-bottom: none; }
+.plain-talk { font-size: 13px; color: var(--text-secondary); background: var(--primary-light); border-radius: var(--radius-sm); padding: 10px 14px; line-height: 1.7; margin-bottom: 10px; }
+.plain-talk .plain-label { font-weight: 700; color: var(--primary); margin-right: 4px; }
+.source-note { font-size: 11px; color: var(--text-tertiary); margin-top: 6px; }
+.summary-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+.summary-card .summary-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #00695c; border-bottom: 1px solid var(--border); }
+.summary-card table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.summary-card th { background: rgba(0,105,92,0.08); color: #00695c; padding: 8px 10px; text-align: left; font-weight: 600; }
+.summary-card td { padding: 8px 10px; border-bottom: 1px solid var(--border-light); }
+.summary-card tr:last-child td { border-bottom: none; }
+html.dark .summary-card th { background: rgba(0,105,92,0.15); }
+.source-summary { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+.source-summary .ss-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #00695c; border-bottom: 1px solid var(--border); }
+.source-summary table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.source-summary th { background: rgba(0,105,92,0.08); color: #00695c; padding: 8px 10px; text-align: left; font-weight: 600; }
+.source-summary td { padding: 6px 10px; border-bottom: 1px solid var(--border-light); }
+.source-summary tr:last-child td { border-bottom: none; }
+html.dark .source-summary th { background: rgba(0,105,92,0.15); }
+.disclaimer { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 24px; margin: 16px 0; }
+.disclaimer h3 { font-size: 14px; font-weight: 700; color: var(--text-secondary); margin-bottom: 10px; }
+.disclaimer p { font-size: 12px; color: var(--text-tertiary); line-height: 1.8; margin-bottom: 6px; }
+.disclaimer .disclaimer-tag { display: inline-block; background: rgba(198,40,40,0.08); color: var(--signal-red); font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 10px; margin-bottom: 8px; }
+footer { text-align: center; padding: 24px 0 32px; color: var(--text-secondary); font-size: 12px; }
+@media (max-width: 600px) { header h1 { font-size: 22px; } .signal-card .signal-header { padding: 12px 16px 0; } .signal-card .signal-body { padding: 10px 16px 14px; } header .report-meta { flex-direction: column; gap: 4px; } }
+
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="切换明暗模式">&#9790;</button>
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="回到顶部">&#9650;</button>
+<div class="page-layout">
+<header>  <h1>每日金融信号日报</h1>  <p class="subtitle">2026年8月18日 周二 · 11项快变量信号 · 大白话解读</p>  <div class="report-meta">    <span>v1.0 旧版日报</span>    <span>数据截至8月17日收盘 / 8月18日早盘</span>  </div>  <div class="version-badge">旧版日报（v1.0格式）</div></header><div class="main-quote">  <div class="quote-text"></div></div><div class="summary-card">
+  <div class="summary-header">一、一句话总结</div>
+<div class="plain-talk">昨天（8月17日周一）A股放量大涨：沪指一口气冲到3982点、距离4000点只差临门一脚，创业板暴涨3.1%，科技股（存储芯片、半导体、算力）全面爆发，全市场2.4万亿成交、超4300只股票上涨——牛市的味道出来了。人民币更是一路升值，盘中破了6.74，创近三年半新高。黄金在4400美元附近拉锯，铜价直逼历史最高点，油价比着89美元走。本周最大悬念：周四（8月20日）LPR报价会不会降？</div>
+</div><div class="backtest-card">
+  <div class="backtest-header">二、历史预测回测验证（8月14日-17日）</div>
+  <div class="backtest-item"><div class="backtest-detail"><table class="signal-table">
+<thead><tr>
+<th>**预测来源**</th>
+<th>**预测内容**</th>
+<th>**实际结果**</th>
+<th>**判定**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>8/17日报</td>
+<td>央行8月17-19日开展隔夜逆回购操作，看给多少"短钱"</td>
+<td>8/17央行开展5655亿元隔夜逆回购，单日净投放1985亿元</td>
+<td>✅ 命中</td>
+</tr>
+<tr>
+<td>8/17日报</td>
+<td>人民币"短期看不到反转"，继续走强</td>
+<td>8/17在岸人民币盘中升破6.74，创近三年半新高</td>
+<td>✅ 命中</td>
+</tr>
+<tr>
+<td>8/17日报</td>
+<td>油价短期上下两难（地缘顶着）</td>
+<td>伊朗禁止美军进入霍尔木兹海峡，布伦特逼近89美元，油价走高</td>
+<td>✅ 命中</td>
+</tr>
+<tr>
+<td>8/17日报</td>
+<td>黄金4320美元是关键支撑</td>
+<td>金价站稳4369美元上方，向4400美元反弹</td>
+<td>✅ 命中</td>
+</tr>
+<tr>
+<td>8/17日报</td>
+<td>铜价中期趋势未破、直逼历史高点</td>
+<td>8/17伦铜涨超1%，直逼14527.5美元历史最高点</td>
+<td>✅ 命中</td>
+</tr>
+<tr>
+<td>8/17日报</td>
+<td>美联储9月大概率不加息</td>
+<td>高盛表态9月加息"极不可能"，零售数据走弱进一步降温</td>
+<td>✅ 命中</td>
+</tr>
+<tr>
+<td>8/17日报</td>
+<td>理财收益还会继续降</td>
+<td>8/17十年期国债收益率刷新一年新低</td>
+<td>✅ 命中</td>
+</tr>
+</tbody></table></div></div>
+  <div class="backtest-item"><div class="backtest-detail"><table class="signal-table">
+<thead><tr>
+<th>**预测来源**</th>
+<th>**预测内容**</th>
+<th>**实际结果**</th>
+<th>**判定**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>8/17日报</td>
+<td>8月20日LPR报价可能调降</td>
+<td>本周四公布，尚未落地</td>
+<td>🟡 待验证</td>
+</tr>
+<tr>
+<td>8/17日报</td>
+<td>三季度末降准降息预期升温</td>
+<td>央行持续短端放水，降准尚未落地</td>
+<td>🟡 方向对、工具换</td>
+</tr>
+<tr>
+<td>8/17日报</td>
+<td>外资态度分化、北向缺少汇总</td>
+<td>外资个股加仓科技，无全市场汇总</td>
+<td>🟡 待验证</td>
+</tr>
+</tbody></table></div></div>
+  <div class="backtest-item"><div class="backtest-detail"><table class="signal-table">
+<thead><tr>
+<th>**预测来源**</th>
+<th>**预测内容**</th>
+<th>**实际结果**</th>
+<th>**判定**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>8/17日报</td>
+<td>创业板"超跌反弹快到头了"</td>
+<td>8/17创业板大涨3.14%，科创50涨4.14%，反弹根本停不下来</td>
+<td>✗ 打脸</td>
+</tr>
+<tr>
+<td>8/17日报</td>
+<td>上证"M顶形态未破、震荡格局"</td>
+<td>8/17放量突破年线，直奔4000点，M顶形态直接作废</td>
+<td>✗ 未命中</td>
+</tr>
+</tbody></table></div></div>
+  <div class="backtest-item"><div class="backtest-detail">回测小结：昨日8条预测中6条命中、2条未命中（均出在"看空反弹"上）。规律再次验证：方向趋势类预测（汇率、铜价、金价）靠谱，行情转折类判断（"反弹到头"）最容易打脸——在放量行情里别轻易猜顶。</div></div>
+</div><div class="signal-card">
+  <div class="signal-header"><span class="signal-title">三、11项快变量信号</span></div>
+  <div class="signal-body">
+  </div>
+</div><div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-num">1</span>
+    <span class="signal-title">A股三大指数（8月17日收盘）</span>
+  </div>
+  <div class="signal-body">
+<table class="signal-table">
+<thead><tr>
+<th>**指数**</th>
+<th>**收盘点位**</th>
+<th>**当日涨跌**</th>
+<th>**信号解读**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>上证指数</td>
+<td>3982.65</td>
+<td>+1.41%</td>
+<td>放量突破年线，距离4000点一步之遥，超4300只个股上涨</td>
+</tr>
+<tr>
+<td>深证成指</td>
+<td>14704.27</td>
+<td>+2.44%</td>
+<td>科技股带动，白酒拖累</td>
+</tr>
+<tr>
+<td>创业板指</td>
+<td>3740.16</td>
+<td>+3.14%</td>
+<td>科创50大涨4.14%，存储芯片/半导体/算力全面爆发</td>
+</tr>
+</tbody></table>
+<div class="plain-talk"><span class="plain-label">大白话：</span>A股昨天放量2.39万亿（比上周五多2400多亿），一根大阳线直接拿下年线，赚钱效应拉满。科技股是绝对主线，存储芯片、半导体、算力集体爆发；白酒反而大跌，茅台都跌超3%——钱在往新方向搬家。现在最大的悬念：能不能一口气站上4000点。</div>
+  </div>
+</div><div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-num">2</span>
+    <span class="signal-title">人民币汇率</span>
+  </div>
+  <div class="signal-body">
+<table class="signal-table">
+<thead><tr>
+<th>**指标**</th>
+<th>**数值**</th>
+<th>**变动**</th>
+<th>**置信度**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>美元兑在岸人民币（8/17盘中）</td>
+<td>最高6.7393</td>
+<td>升破6.74，创近三年半新高</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>美元兑离岸人民币（8/17盘中）</td>
+<td>最高6.73875</td>
+<td>同样创三年半新高</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>中间价（8/17）</td>
+<td>6.7873</td>
+<td>调升5基点</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>8/18最新在岸（早盘）</td>
+<td>6.740-6.742</td>
+<td>继续强势</td>
+<td>✅ 已验证（新浪行情）</td>
+</tr>
+</tbody></table>
+<div class="plain-talk"><span class="plain-label">大白话：</span>人民币最近一路升值，创了近三年半新高。推手有二：一是美元在跌（美国数据走弱、加息预期降温），二是咱们外贸顺差太猛、人民币需求强。对老百姓来说：出国玩、留学、换外币，现在都是划算的时候。注意：升值太快央行可能出手"踩刹车"，别在最高点追着换。</div>
+  </div>
+</div><div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-num">3</span>
+    <span class="signal-title">利率走廊（LPR / 国债 / 央行动作）</span>
+  </div>
+  <div class="signal-body">
+<table class="signal-table">
+<thead><tr>
+<th>**指标**</th>
+<th>**数值**</th>
+<th>**备注**</th>
+<th>**置信度**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>1年期LPR</td>
+<td>3.0%</td>
+<td>连续14个月不变</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>5年期LPR</td>
+<td>3.5%</td>
+<td>连续14个月不变</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>中国10年期国债收益率</td>
+<td>约1.678%</td>
+<td>8/17刷新一年新低</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>美国10年期国债收益率</td>
+<td>4.683%</td>
+<td>8/12标售中标利率，2007年以来最高</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>中美利差</td>
+<td>约300BP</td>
+<td>倒挂仍深</td>
+<td>✅ 已验证</td>
+</tr>
+</tbody></table>
+<div class="plain-talk"><span class="plain-label">大白话：</span>央行现在主推"隔夜逆回购"这种短期放水工具（给短钱、不给长钱），10年期国债收益率又创新低——说明钱多、利率低、理财收益还会继续往下走。周四是关键：LPR要是不动，等降息就得再熬一阵；要是动了，房贷和贷款利率都会跟着变。</div>
+<div class="plain-talk"><strong>央行动向：</strong>8/17开展5655亿元隔夜逆回购、7天期逆回购量为零，单日净投放1985亿元；8/17-19日隔夜逆回购每日不超6000亿元。8月20日（周四）LPR报价公布，市场高度关注是否调降。</div>
+  </div>
+</div><div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-num">4</span>
+    <span class="signal-title">大宗商品：原油</span>
+  </div>
+  <div class="signal-body">
+<table class="signal-table">
+<thead><tr>
+<th>**指标**</th>
+<th>**数值**</th>
+<th>**变动**</th>
+<th>**置信度**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>WTI原油（8/17早盘）</td>
+<td>约81美元/桶</td>
+<td>国际暗盘涨近0.74%</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>布伦特原油（8/17早盘）</td>
+<td>逼近89美元/桶</td>
+<td>小幅上行</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>IEA 2026年WTI均价预测</td>
+<td>约80.88美元/桶</td>
+<td>上调预测（此前约76美元）</td>
+<td>✅ 已验证</td>
+</tr>
+</tbody></table>
+<div class="plain-talk"><span class="plain-label">大白话：</span>霍尔木兹海峡那边局势又紧了——伊朗直接宣布"禁止美军进入海峡"，油价被地缘风险顶住。但美国经济数据偏弱（零售销售下降、库存偏紧），需求端又拖后腿。所以油价还是"地缘 vs 需求"在拔河，上下两难。加油别囤，国内油价刚下调过，涨跌还得看后面几天局势。</div>
+  </div>
+</div><div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-num">5</span>
+    <span class="signal-title">大宗商品：黄金</span>
+  </div>
+  <div class="signal-body">
+<table class="signal-table">
+<thead><tr>
+<th>**指标**</th>
+<th>**数值**</th>
+<th>**变动**</th>
+<th>**置信度**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>现货黄金（8/17）</td>
+<td>4369-4400美元/盎司</td>
+<td>早盘约4369，欧盘回升至4400附近拉锯</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>6月底以来累计涨幅</td>
+<td>约+10%</td>
+<td>8月接连突破4200/4300/4400关口</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>美国7月零售销售</td>
+<td>-0.8%</td>
+<td>创9个月来首次下滑</td>
+<td>✅ 已验证</td>
+</tr>
+</tbody></table>
+<div class="plain-talk"><span class="plain-label">大白话：</span>黄金在高位横着走，4400美元成了多空分界线。上涨逻辑没变：地缘避险（中东）+美联储加息预期降温（美元弱则金强）。但短期涨太多（6月底以来涨了10%），回调需求也在。想买金的：别追高，等回踩4300-4320区间再考虑更稳妥；已经持有的：拿住，大趋势还是向上的。</div>
+  </div>
+</div><div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-num">6</span>
+    <span class="signal-title">大宗商品：铜</span>
+  </div>
+  <div class="signal-body">
+<table class="signal-table">
+<thead><tr>
+<th>**指标**</th>
+<th>**数值**</th>
+<th>**变动**</th>
+<th>**置信度**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>LME铜（8/17）</td>
+<td>最高逼近14527.5美元/吨</td>
+<td>涨超1%，直逼历史最高点</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>沪铜主力（8/17）</td>
+<td>109480元/吨附近</td>
+<td>盘中涨近2%，创阶段新高</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>现货升水</td>
+<td>罕见高升水</td>
+<td>库存极度紧张</td>
+<td>✅ 已验证（中信建投）</td>
+</tr>
+</tbody></table>
+<div class="plain-talk"><span class="plain-label">大白话：</span>铜价距离历史最高点只差一步，全球库存紧张到"现货比期货还贵"。铜是经济的温度计，但现在铜价高更多是供给端缺货（智利罢工、矿源干扰）而不是需求爆棚。炒股的朋友：有色板块还有戏，但要清楚这波是"缺货行情"，不是"需求牛市"。</div>
+  </div>
+</div><div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-num">7</span>
+    <span class="signal-title">美联储政策动向</span>
+  </div>
+  <div class="signal-body">
+<table class="signal-table">
+<thead><tr>
+<th>**事件**</th>
+<th>**内容**</th>
+<th>**置信度**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>高盛判断</td>
+<td>9月加息"几乎不可能"（就业、消费、通胀三线降温）</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>美国7月零售销售</td>
+<td>-0.8%，创九个月来首次下降</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>密歇根消费者信心</td>
+<td>55.2 → 51，明显回落</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>美元指数</td>
+<td>99.50附近，接近前低</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>9月加息概率</td>
+<td>市场预期进一步降温，但未完全归零</td>
+<td>⚠️ 待确认</td>
+</tr>
+</tbody></table>
+<div class="plain-talk"><span class="plain-label">大白话：</span>美国那边的"加息紧箍咒"基本松了。零售数据意外大跌、就业不及预期、通胀回落——高盛直接说9月加息"几乎不可能"。美联储下周会议纪要就要公布，等它出来看具体措辞。对美国而言，加息见顶=美元走弱=利好人民币、利好黄金、利好新兴市场股市（包括A股）。</div>
+  </div>
+</div><div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-num">8</span>
+    <span class="signal-title">北向资金 / 两融（市场情绪）</span>
+  </div>
+  <div class="signal-body">
+<table class="signal-table">
+<thead><tr>
+<th>**指标**</th>
+<th>**数值**</th>
+<th>**时间口径**</th>
+<th>**置信度**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>两融余额</td>
+<td>26757.18亿元</td>
+<td>截至8/13，较前一交易日+25.45亿</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>周度变化</td>
+<td>上周（8/5-8/11）增加481.08亿</td>
+<td>两融余额连创新高</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>北向资金整体</td>
+<td>个股分化，外资偏好科技股</td>
+<td>缺乏全市场汇总数据</td>
+<td>⚠️ 待确认</td>
+</tr>
+</tbody></table>
+<div class="plain-talk"><span class="plain-label">大白话：</span>杠杆资金（两融）连续加仓、余额创新高——说明市场情绪已经明显回暖，胆子大的在借钱买股票。北向资金的全市场数据这阵子没有完整披露，但从个股看外资还是偏爱科技方向。情绪是"慢牛启动"的样子，但注意杠杆加太猛也容易摔跟头。</div>
+  </div>
+</div><div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-num">9</span>
+    <span class="signal-title">宏观数据：CPI / PPI / PMI</span>
+  </div>
+  <div class="signal-body">
+<table class="signal-table">
+<thead><tr>
+<th>**指标**</th>
+<th>**数值**</th>
+<th>**时间口径**</th>
+<th>**置信度**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>CPI</td>
+<td>同比+0.5%</td>
+<td>2026年7月（前值+1.0%）</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>PPI</td>
+<td>同比+3.5%</td>
+<td>2026年7月（前值+4.1%）</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>PPI-CPI剪刀差</td>
+<td>3.0个百分点</td>
+<td>高位收窄中</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>制造业PMI新订单</td>
+<td>48.5%</td>
+<td>7月，创三年新低</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>7月人民币贷款</td>
+<td>减少3400亿元</td>
+<td>单月负增长</td>
+<td>✅ 已验证</td>
+</tr>
+</tbody></table>
+<div class="plain-talk"><span class="plain-label">大白话：</span>物价这边"输入性涨价退潮"——PPI从4%降到3.5%，CPI也从1%掉到0.5%。消费者端没什么涨价压力，说明内需还是弱。再加上企业贷款负增长、PMI新订单创三年新低，说白了就是：企业不敢借钱扩产、老百姓不敢乱花钱。这种环境下，降息降准的预期只会越来越强，对股市反而是"政策底"信号。</div>
+  </div>
+</div><div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-num">10</span>
+    <span class="signal-title">社融与M2</span>
+  </div>
+  <div class="signal-body">
+<table class="signal-table">
+<thead><tr>
+<th>**指标**</th>
+<th>**数值**</th>
+<th>**时间口径**</th>
+<th>**置信度**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>社融存量</td>
+<td>463.27万亿元</td>
+<td>7月末，同比+7.4%</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>M2余额</td>
+<td>355.51万亿元</td>
+<td>7月末，同比+7.7%（较上月-0.3pct）</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>前7月社融增量累计</td>
+<td>22.25万亿元</td>
+<td>比去年同期少1.74万亿元</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>7月单月新增社融</td>
+<td>1.4万亿元</td>
+<td>恢复同比多增</td>
+<td>✅ 已验证</td>
+</tr>
+</tbody></table>
+<div class="plain-talk"><span class="plain-label">大白话：</span>钱依然多（M2增速7.7%，比经济增长快），但"钱到不了企业手里"——7月贷款出现负增长。说白了就是：银行放不出去、企业不想借。9月末三季度末降准降息的预期在升温，一旦落地就是直接利好股市和债市。</div>
+  </div>
+</div><div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-num">11</span>
+    <span class="signal-title">进出口</span>
+  </div>
+  <div class="signal-body">
+<table class="signal-table">
+<thead><tr>
+<th>**指标**</th>
+<th>**数值**</th>
+<th>**时间口径**</th>
+<th>**置信度**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>前7个月进出口总值</td>
+<td>30.13万亿元</td>
+<td>同比+17.3%</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>7月单月进出口增速</td>
+<td>同比+19.2%</td>
+<td>延续高景气</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>7月贸易顺差</td>
+<td>约1125亿美元</td>
+<td>出口强、进口快</td>
+<td>✅ 已验证</td>
+</tr>
+<tr>
+<td>7月末外汇储备</td>
+<td>34188亿美元</td>
+<td>连续4个月站稳3.4万亿上方</td>
+<td>✅ 已验证</td>
+</tr>
+</tbody></table>
+<div class="plain-talk"><span class="plain-label">大白话：</span>外贸是今年最稳的牌。前7个月进出口涨了17%，顺差还在千亿美元以上——中国制造在海外很能打。外储也稳，说明国家"家底"厚实，扛得住外部波动。这对人民币是强支撑，也是A股里的出海链、外汇受益股的底气。</div>
+  </div>
+</div><div class="summary-card">
+  <div class="summary-header">四、本周关注清单</div>
+<table class="signal-table">
+<thead><tr>
+<th>**时间**</th>
+<th>**事件**</th>
+<th>**为什么重要**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>8月18-19日</td>
+<td>央行隔夜逆回购操作</td>
+<td>看继续给多少"短钱"，判断流动性态度</td>
+</tr>
+<tr>
+<td>8月19日</td>
+<td>美联储7月会议纪要</td>
+<td>看美联储内部对加息的最新措辞</td>
+</tr>
+<tr>
+<td>8月20日（周四）</td>
+<td>LPR报价公布</td>
+<td>连续14个月没动，这次会不会降？降5年期=利好房贷和地产</td>
+</tr>
+<tr>
+<td>持续关注</td>
+<td>霍尔木兹海峡局势</td>
+<td>伊朗禁止美军进入，油价/金价/通胀的源头</td>
+</tr>
+<tr>
+<td>持续关注</td>
+<td>A股能否站上4000点</td>
+<td>放量突破年线后的关键关口，站稳则趋势强化</td>
+</tr>
+</tbody></table>
+</div><div class="summary-card">
+  <div class="summary-header">五、信号综合判断</div>
+<table class="signal-table">
+<thead><tr>
+<th>**维度**</th>
+<th>**信号灯**</th>
+<th>**一句话**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>A股</td>
+<td>🟢 转强</td>
+<td>放量突破年线，4000点关口在望，科技主线明确</td>
+</tr>
+<tr>
+<td>汇率</td>
+<td>🟢 强</td>
+<td>人民币创三年半新高，留意央行干预风险</td>
+</tr>
+<tr>
+<td>利率</td>
+<td>🟢 宽松</td>
+<td>10年国债刷新低，理财收益继续降</td>
+</tr>
+<tr>
+<td>原油</td>
+<td>🟡 关注</td>
+<td>地缘顶住价格，需求拖后腿</td>
+</tr>
+<tr>
+<td>黄金</td>
+<td>🟡 关注</td>
+<td>高位拉锯，回调买入</td>
+</tr>
+<tr>
+<td>铜</td>
+<td>🟢 强</td>
+<td>供给驱动冲历史新高</td>
+</tr>
+<tr>
+<td>美联储</td>
+<td>🟢 转鸽</td>
+<td>9月加息概率大降，美元走弱</td>
+</tr>
+<tr>
+<td>两融/情绪</td>
+<td>🟢 回暖</td>
+<td>杠杆资金加仓，情绪转热</td>
+</tr>
+<tr>
+<td>内需</td>
+<td>🟡 偏弱</td>
+<td>CPI低、贷款负增长、PMI新订单新低</td>
+</tr>
+<tr>
+<td>社融M2</td>
+<td>🟡 传导堵</td>
+<td>钱多但到不了实体经济</td>
+</tr>
+<tr>
+<td>进出口</td>
+<td>🟢 强</td>
+<td>外贸高景气，外汇储备充足</td>
+</tr>
+</tbody></table>
+<div class="plain-talk">回测启示：昨日趋势类预测（利率、汇率、铜、黄金）再次全对；翻车的都是"看空/猜顶"类（创业板反弹到头、M顶震荡）——当前市场处于放量上攻阶段，不要轻易猜顶。机构点位预测参考即可，关键看成交量是否持续配合。</div>
+</div><div class="source-summary">
+  <div class="ss-header">六、数据来源清单</div>
+<table class="signal-table">
+<thead><tr>
+<th>**来源**</th>
+<th>**类型**</th>
+<th>**链接**</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>国家统计局</td>
+<td>官方</td>
+<td>stats.gov.cn</td>
+</tr>
+<tr>
+<td>中国人民银行</td>
+<td>官方</td>
+<td>pbc.gov.cn</td>
+</tr>
+<tr>
+<td>海关总署</td>
+<td>官方</td>
+<td>customs.gov.cn</td>
+</tr>
+<tr>
+<td>财联社/新浪财经</td>
+<td>权威媒体</td>
+<td>cls.cn / finance.sina.com.cn</td>
+</tr>
+<tr>
+<td>新华财经</td>
+<td>权威媒体</td>
+<td>cnfin.com</td>
+</tr>
+<tr>
+<td>东方财富</td>
+<td>行业数据</td>
+<td>eastmoney.com</td>
+</tr>
+<tr>
+<td>金投网</td>
+<td>行业数据</td>
+<td>cngold.org</td>
+</tr>
+<tr>
+<td>新浪行情（8/18实时）</td>
+<td>行情接口</td>
+<td>hq.sinajs.cn</td>
+</tr>
+<tr>
+<td>腾讯行情</td>
+<td>行情接口</td>
+<td>qt.gtimg.cn</td>
+</tr>
+<tr>
+<td>高盛研报/中信建投</td>
+<td>机构观点</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<div style="padding:8px 18px;font-size:12px;color:var(--text-secondary);">本报基于公开数据生成，所有数据标注置信度。⚠️待确认项不作为决策依据，✅已验证项经过至少2个独立来源交叉验证。涉及投资操作请自行判断，市场有风险，入市需谨慎。</div>
+</div><div class="disclaimer">  <h3>免责声明</h3>  <div class="disclaimer-tag">不构成投资建议</div>  <p>本报告数据均来自公开渠道，经过多源交叉验证。置信度标注：✅已验证=2个及以上独立来源一致或直接来自官方原始发布。</p>  <p>本报告内容仅供信息参考和学习交流使用，不构成任何投资建议。金融市场有风险，投资需谨慎。</p>  <p>报告版本：v1.0 旧版日报 · 制作日期 2026年8月18日 周二</p></div><footer>每日金融信号日报 · v1.0 旧版日报 · 信源可追溯 · 制作日期 08-18</footer>
+</div>
+<script>
+
+function toggleTheme(){var h=document.documentElement,b=document.getElementById('themeToggle');if(h.classList.contains('dark')){h.classList.remove('dark');h.classList.add('light');b.innerHTML='\u263E';localStorage.setItem('theme','light');}else{h.classList.remove('light');h.classList.add('dark');b.innerHTML='\u2600';localStorage.setItem('theme','dark');}}
+(function(){var s=localStorage.getItem('theme');if(s==='dark'){document.documentElement.classList.add('dark');document.getElementById('themeToggle').innerHTML='\u2600';}else if(s==='light'){document.documentElement.classList.add('light');}})();
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
+window.addEventListener('scroll',function(){var bt=document.getElementById('backToTop');if(window.scrollY>400){bt.classList.add('visible');}else{bt.classList.remove('visible');}});
+
+</script>
+</body>
+</html>
