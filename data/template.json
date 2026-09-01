@@ -1,0 +1,139 @@
+{
+  "date": "2026-09-01",
+  "data_deadline": "2026-09-01 15:00",
+  "next_issue": "2026-09-02",
+  "quote": {
+    "text": "在这里填写今日金句",
+    "source": "每日金融快讯编辑部"
+  },
+  "key_points": [
+    "要点1（一句话概括）",
+    "要点2",
+    "要点3"
+  ],
+  "weekly_trends": [
+    {
+      "dir": "up",
+      "text": "趋势1"
+    },
+    {
+      "dir": "down",
+      "text": "趋势2"
+    },
+    {
+      "dir": "flat",
+      "text": "趋势3"
+    }
+  ],
+  "signals": [
+    {
+      "name": "A股",
+      "category": "股市",
+      "lamp": "green",
+      "lamp_text": "走强",
+      "data_rows": [
+        {
+          "metric": "上证指数",
+          "value": "3,952.18",
+          "change": "+0.11%",
+          "period": "9/1收盘"
+        },
+        {
+          "metric": "创业板指",
+          "value": "3,424.40",
+          "change": "-1.41%",
+          "period": "9/1收盘"
+        }
+      ],
+      "plain_text": "大白话解读，非金融读者能懂",
+      "credibility": "verified",
+      "institution": {
+        "org": "机构名",
+        "analyst": "分析师名",
+        "view": "机构观点"
+      },
+      "sources": [
+        {
+          "url": "https://example.com",
+          "grade": "S",
+          "time": "9/1 15:02",
+          "org": "来源机构"
+        }
+      ]
+    }
+  ],
+  "source_summary": [
+    {
+      "grade": "S",
+      "org": "国家统计局",
+      "content": "7月CPI同比+2.1%",
+      "time": "8/09 09:30"
+    }
+  ],
+  "rate_anchors": [
+    {
+      "name": "1年期LPR",
+      "value": "3.0%"
+    },
+    {
+      "name": "5年期LPR",
+      "value": "3.5%"
+    }
+  ],
+  "tips": [
+    {
+      "term": "LPR",
+      "definition": "贷款市场报价利率，银行对其最优质客户执行的贷款利率"
+    }
+  ],
+  "events": [
+    {
+      "name": "美联储议息会议",
+      "date": "9/17-18",
+      "status": "upcoming",
+      "status_text": "即将到来"
+    }
+  ],
+  "policies": [
+    {
+      "title": "政策标题",
+      "tag": "央行"
+    }
+  ],
+  "backtest": [
+    {
+      "prediction": "原预测内容",
+      "actual": "实际情况",
+      "result": "hit"
+    }
+  ],
+  "stats": "8组关键词搜索 · 5轮交叉验证 · S级来源6个 · A级来源9个",
+  "predictions": [
+    {
+      "content": "A股9/2走势取决于美股隔夜表现：若纳指涨>0.5%则A股高开尝试3950-4000区间",
+      "direction": "股市",
+      "verify_date": "9/2",
+      "special_tag": "情景推演·含外盘前置条件"
+    },
+    {
+      "content": "人民币短期维持6.71-6.79区间震荡",
+      "direction": "汇率",
+      "verify_date": "9/5",
+      "special_tag": ""
+    }
+  ],
+  "ts_values": {
+    "sse_close": 3952.18,
+    "chinext_close": 3424.4,
+    "cny_midpoint": 6.7811,
+    "lpr_1y": 3.0,
+    "lpr_5y": 3.5,
+    "cn_10y_yield": 1.697,
+    "shibor_overnight": 1.316,
+    "gold_spot": 4453.67,
+    "brent_oil": 87.72,
+    "lme_copper": 14278.66,
+    "dollar_index": 99.66,
+    "dow_jones": 53559.99
+  }
+}

@@ -1,0 +1,259 @@
+{
+  "date": "2026-09-01",
+  "data_deadline": "2026-09-01 09:30",
+  "next_issue": "2026-09-02",
+  "quote": {
+    "text": "潮水的方向，债市先知道：10年期美债收益率创2025年1月以来新高，是今天全球市场最大的背景音。",
+    "source": "每日金融快讯编辑部"
+  },
+  "key_points": [
+    "A股8月收官放量上涨：上证指数+0.86%报3986.30点、逼近4000点整数关口，两市成交2.13万亿元",
+    "美联储主席沃什放鹰（\"还有很多工作要做\"），9月加息25bp概率升至70%左右，10年期美债收益率4.761%创2025年1月以来新高",
+    "美伊冲突升级推动国际油价大涨：布伦特+2.71%报90.49美元/桶，盘中一度突破91美元",
+    "8月制造业PMI回升至49.8%（环比+0.6pct），连续改善但仍处荣枯线下方",
+    "央行、金融监管总局发布房地产信贷新规：房贷期限最长40年、存量房贷利率可协商调整"
+  ],
+  "weekly_trends": [
+    {
+      "dir": "up",
+      "text": "A股量价齐升：8月收官日成交2.13万亿元，上证指数逼近4000点关口"
+    },
+    {
+      "dir": "down",
+      "text": "美元指数8月累计下跌0.5%：加息预期升温但美元并未走强"
+    },
+    {
+      "dir": "flat",
+      "text": "LPR连续15个月按兵不动，宽松预期转向存量房贷利率等结构性工具"
+    }
+  ],
+  "signals": [
+    {
+      "name": "A股上证",
+      "category": "股市",
+      "data_rows": [
+        {"metric": "上证指数", "value": "3,986.30", "change": "+0.86%", "period": "8/31收盘"},
+        {"metric": "创业板指", "value": "3,438.68", "change": "+0.42%", "period": "8/31收盘"},
+        {"metric": "北证50", "value": "1,065.29", "change": "—", "period": "8/31收盘"},
+        {"metric": "两市成交额", "value": "2.13万亿", "change": "放量约293亿", "period": "8/31"},
+        {"metric": "涨跌家数", "value": "3181涨 / 2218跌", "change": "—", "period": "8/31"}
+      ],
+      "plain_text": "8月最后一个交易日，A股放量上攻：上证指数涨0.86%报3986.30点、距离4000点整数关口仅一步之遥，两市成交2.13万亿元、比前一天多出约293亿。超六成个股上涨，赚钱效应不错。板块上，短剧、AI语料、影视院线等题材最火；黄金股因为金价回调而大跌。MSCI中国指数调整于8/31收盘后生效（新纳入33只），为市场带来增量资金预期。",
+      "credibility": "verified",
+      "sources": [
+        {"url": "https://caifuhao.eastmoney.com/news/20260901080315964264010", "grade": "S", "time": "9/1 08:03", "org": "东方财富·早盘信息差"},
+        {"url": "https://www.nbd.com.cn/articles/2026-08-31/4567975.html", "grade": "A", "time": "8/31", "org": "每日经济新闻·早参"}
+      ]
+    },
+    {
+      "name": "创业板",
+      "category": "股市",
+      "data_rows": [
+        {"metric": "创业板指", "value": "3,438.68", "change": "+0.42%", "period": "8/31收盘"},
+        {"metric": "北证50", "value": "1,065.29", "change": "—", "period": "8/31收盘"},
+        {"metric": "恒生指数", "value": "25,566.99", "change": "-0.07%", "period": "8/31收盘"}
+      ],
+      "plain_text": "创业板指微涨0.42%，涨幅小于上证主板，说明科技成长股相对温和、资金更偏向题材轮动。港股恒生指数几乎平收（-0.07%），但盘中黄金股集体大跌（紫金黄金国际-8.31%），与金价高位回调相互印证。",
+      "credibility": "verified",
+      "sources": [
+        {"url": "https://caifuhao.eastmoney.com/news/20260901080315964264010", "grade": "S", "time": "9/1 08:03", "org": "东方财富·早盘信息差"},
+        {"url": "https://www.nbd.com.cn/articles/2026-08-31/4567975.html", "grade": "A", "time": "8/31", "org": "每日经济新闻·早参"}
+      ]
+    },
+    {
+      "name": "人民币",
+      "category": "汇率",
+      "data_rows": [
+        {"metric": "美元兑人民币中间价", "value": "6.7828", "change": "调贬17bp", "period": "9/1 09:15"},
+        {"metric": "在岸USD/CNY", "value": "6.7198", "change": "—", "period": "8/31收盘"},
+        {"metric": "离岸USD/CNH", "value": "6.7179", "change": "—", "period": "9/1早间"}
+      ],
+      "plain_text": "9/1人民币中间价报6.7828，较前一日调贬17个基点，属于正常范围内的波动，官方没有释放明显的引导信号。在岸、离岸即期价都稳在6.72附近，与中间价的价差处于正常区间。在美元指数走弱的背景下，人民币整体保持韧性。",
+      "credibility": "verified",
+      "sources": [
+        {"url": "https://finance.sina.cn/2026-09-01/detail-iniqhmwh1502274.d.html", "grade": "A", "time": "9/1", "org": "新浪财经·国际金融要情"},
+        {"url": "https://caifuhao.eastmoney.com/news/20260901080315964264010", "grade": "S", "time": "9/1 08:03", "org": "东方财富·早盘信息差"}
+      ]
+    },
+    {
+      "name": "LPR利率",
+      "category": "利率",
+      "data_rows": [
+        {"metric": "1年期LPR", "value": "3.0%", "change": "持平（连续15个月）", "period": "8/20报价"},
+        {"metric": "5年期LPR", "value": "3.5%", "change": "持平（连续15个月）", "period": "8/20报价"}
+      ],
+      "plain_text": "8月LPR报价连续第15个月保持不变：1年期3.0%、5年期3.5%。在银行净息差持续承压的背景下，直接降息的门槛较高，政策重心转向存量房贷利率协商调整、现房销售等结构性工具。",
+      "credibility": "verified",
+      "sources": [
+        {"url": "https://finance.sina.com.cn/roll/2026-08-20/doc-ininztwt6446902.shtml", "grade": "A", "time": "8/20", "org": "新浪财经"},
+        {"url": "https://www.nbd.com.cn/articles/2026-08-31/4567975.html", "grade": "A", "time": "8/31", "org": "每日经济新闻·早参"}
+      ]
+    },
+    {
+      "name": "10年国债",
+      "category": "债市",
+      "data_rows": [
+        {"metric": "中国10年期国债收益率", "value": "1.690%", "change": "-0.7bp", "period": "8/31"},
+        {"metric": "中国30年期国债收益率", "value": "2.185%", "change": "—", "period": "8/31"},
+        {"metric": "美国10年期国债收益率", "value": "4.761%", "change": "创2025年1月以来新高", "period": "8/31纽约尾盘"}
+      ],
+      "plain_text": "国内债市平稳，10年期国债收益率1.690%，在低位窄幅波动。真正的看点在海外：美国10年期国债收益率升到4.761%、创2025年1月以来新高。中美10年期利差倒挂已超过300个基点（美国比中国高3个多百分点），这是人民币汇率和资金流向上绕不开的约束。",
+      "credibility": "verified",
+      "sources": [
+        {"url": "https://finance.sina.cn/2026-09-01/detail-iniqhmwh1502274.d.html", "grade": "A", "time": "9/1", "org": "新浪财经·国际金融要情"},
+        {"url": "https://www.163.com/dy/article/L5NMEE3705198NMR.html", "grade": "A", "time": "9/1", "org": "华尔街见闻·早餐FM"}
+      ]
+    },
+    {
+      "name": "Shibor",
+      "category": "资金面",
+      "data_rows": [
+        {"metric": "Shibor隔夜", "value": "1.413%", "change": "+7.4bp", "period": "8/31"},
+        {"metric": "央行公开市场操作", "value": "净回笼2,210亿", "change": "—", "period": "8/31"}
+      ],
+      "plain_text": "月末资金面边际收紧：隔夜Shibor利率上行7.4个基点至1.413%。8/31央行公开市场净回笼2210亿元，属于月末常规操作（月末有财政资金投放，央行顺势回笼多余流动性），不用过度解读。跨月后资金面料将回落。",
+      "credibility": "verified",
+      "sources": [
+        {"url": "https://www.fx678.com/C/20260831/202608311102352464.html", "grade": "A", "time": "8/31 11:02", "org": "汇通财经"},
+        {"url": "https://finance.sina.cn/2026-09-01/detail-iniqhmwh1502274.d.html", "grade": "A", "time": "9/1", "org": "新浪财经·国际金融要情"}
+      ]
+    },
+    {
+      "name": "现货黄金",
+      "category": "商品",
+      "data_rows": [
+        {"metric": "现货黄金（伦敦金）", "value": "4,447.12 美元/盎司", "change": "-0.18%", "period": "8/31纽约尾盘"},
+        {"metric": "8月累计涨幅", "value": "+9.9%", "change": "—", "period": "8月"}
+      ],
+      "plain_text": "金价在历史高位附近小幅回调0.18%，但8月累计上涨9.9%，牛市格局没有改变。短期压制来自美联储加息预期升温（利率越高、持有黄金的机会成本越大）；支撑则来自美伊冲突带来的避险需求。港股黄金股8/31大跌（紫金黄金国际-8.31%），反映部分资金高位兑现，属于牛市中的正常波动。",
+      "credibility": "verified",
+      "sources": [
+        {"url": "https://finance.sina.cn/2026-09-01/detail-iniqhmwh1502274.d.html", "grade": "A", "time": "9/1", "org": "新浪财经·国际金融要情"},
+        {"url": "https://www.163.com/dy/article/L5NMEE3705198NMR.html", "grade": "A", "time": "9/1", "org": "华尔街见闻·早餐FM"}
+      ]
+    },
+    {
+      "name": "布伦特油",
+      "category": "商品",
+      "data_rows": [
+        {"metric": "布伦特原油", "value": "90.49 美元/桶", "change": "+2.71%", "period": "8/31收盘"},
+        {"metric": "WTI原油", "value": "85.76 美元/桶", "change": "+2.83%", "period": "8/31收盘"}
+      ],
+      "plain_text": "美伊冲突升级：伊朗打击约旦、阿联酋境内的美军目标，且有油轮疑似触雷，国际油价应声大涨，布伦特一度突破91美元/桶。油价大涨是\"双重利空\"：一方面推高全球通胀预期，另一方面让美联储更难降息（通胀顽固就要维持高利率）。后续关注航线保险费和航运绕行情况，那是油价能否站稳90美元的关键。",
+      "credibility": "verified",
+      "sources": [
+        {"url": "https://caifuhao.eastmoney.com/news/20260901080315964264010", "grade": "S", "time": "9/1 08:03", "org": "东方财富·早盘信息差"},
+        {"url": "https://www.nbd.com.cn/articles/2026-08-31/4567975.html", "grade": "A", "time": "8/31", "org": "每日经济新闻·早参"}
+      ]
+    },
+    {
+      "name": "LME铜",
+      "category": "商品",
+      "data_rows": [
+        {"metric": "LME铜（3个月）", "value": "14,285 美元/吨", "change": "持平", "period": "8/31"}
+      ],
+      "plain_text": "铜价在高位持平于14285美元/吨。好消息是中国8月制造业PMI回升至49.8%（环比+0.6个百分点），国内需求边际改善；压制则来自美伊局势带来的避险情绪和美元资产的虹吸效应。铜被称为\"经济体温计\"，目前的横盘说明市场在等待更多需求侧的证据。",
+      "credibility": "verified",
+      "sources": [
+        {"url": "https://finance.sina.cn/2026-09-01/detail-iniqhmwh1502274.d.html", "grade": "A", "time": "9/1", "org": "新浪财经·国际金融要情"},
+        {"url": "https://www.fx678.com/C/20260831/202608311102352464.html", "grade": "A", "time": "8/31 11:02", "org": "汇通财经"}
+      ]
+    },
+    {
+      "name": "美元指数",
+      "category": "外汇",
+      "data_rows": [
+        {"metric": "美元指数（DXY）", "value": "99.43", "change": "-0.28%", "period": "8/31纽约尾盘"},
+        {"metric": "8月累计涨跌", "value": "-0.5%", "change": "—", "period": "8月"}
+      ],
+      "plain_text": "美元指数回落至99.43，8月累计下跌0.5%。有意思的是：美联储主席放鹰、加息预期升温，美元却没有走强——说明市场对\"再加息\"的定价已经比较充分。美元不涨，对人民币汇率和新兴市场资产就是边际利好。",
+      "credibility": "verified",
+      "sources": [
+        {"url": "https://baijiahao.baidu.com/s?id=1875071274972092894", "grade": "S", "time": "9/1", "org": "新华社"},
+        {"url": "https://finance.sina.cn/2026-09-01/detail-iniqhmwh1502274.d.html", "grade": "A", "time": "9/1", "org": "新浪财经·国际金融要情"}
+      ]
+    },
+    {
+      "name": "美股道指",
+      "category": "股市",
+      "data_rows": [
+        {"metric": "道琼斯指数", "value": "53,185.90", "change": "-0.70%", "period": "8/31收盘"},
+        {"metric": "纳斯达克指数", "value": "26,370.89", "change": "-0.12%", "period": "8/31收盘"},
+        {"metric": "标普500指数", "value": "7,686.14", "change": "-0.33%", "period": "8/31收盘"}
+      ],
+      "plain_text": "美股三大指数8/31集体收跌，道指跌0.70%领跌。核心压力是\"利率\"：10年期美债收益率升至4.761%高位，直接压低股票估值；美联储主席沃什在杰克逊霍尔年会放鹰（\"还有很多工作要做\"）后，市场对9月加息25个基点的押注升至70%左右。这是今天A股开盘面临的最大外部变量。",
+      "credibility": "verified",
+      "institution": {
+        "org": "巴克莱银行",
+        "analyst": "",
+        "view": "美联储9月、12月将各加息25个基点（较此前预期上调）；特朗普则公开批评\"加息荒谬\""
+      },
+      "sources": [
+        {"url": "https://caifuhao.eastmoney.com/news/20260901080315964264010", "grade": "S", "time": "9/1 08:03", "org": "东方财富·早盘信息差"},
+        {"url": "https://www.163.com/dy/article/L5NMEE3705198NMR.html", "grade": "A", "time": "9/1", "org": "华尔街见闻·早餐FM"}
+      ]
+    }
+  ],
+  "source_summary": [
+    {"grade": "S", "org": "东方财富·早盘信息差", "content": "美股8/31收盘（道指-0.70%）/A股8/31收评/美联储动态", "time": "9/1 08:03"},
+    {"grade": "S", "org": "新华社", "content": "美元指数8/31纽约尾盘99.428（-0.28%），8月累跌0.5%", "time": "9/1"},
+    {"grade": "S", "org": "国家统计局", "content": "8月制造业PMI 49.8%，环比+0.6pct", "time": "8/31"},
+    {"grade": "A", "org": "新浪财经·国际金融要情", "content": "人民币中间价6.7828/Shibor 1.413%/10Y国债1.690%/10Y美债4.761%/LME铜14285", "time": "9/1"},
+    {"grade": "A", "org": "华尔街见闻·早餐FM", "content": "美联储主席沃什放鹰，9月加息25bp概率升至70%", "time": "9/1"},
+    {"grade": "A", "org": "每日经济新闻·早参", "content": "LPR连续15个月不变/美伊冲突推升油价", "time": "8/31"},
+    {"grade": "A", "org": "汇通财经", "content": "Shibor全线上行，隔夜品种报1.413%（+7.4bp）", "time": "8/31 11:02"},
+    {"grade": "A", "org": "新浪财经", "content": "8月LPR报价：1年期3.0%、5年期3.5%", "time": "8/20"},
+    {"grade": "A", "org": "中国人民银行（公开数据）", "content": "8/31公开市场净回笼2,210亿元", "time": "8/31"}
+  ],
+  "rate_anchors": [],
+  "tips": [
+    {"term": "杰克逊霍尔会议", "definition": "全球央行年会，每年8月在美国怀俄明州杰克逊霍尔举行。美联储主席常在此释放货币政策信号，被市场视为美联储政策转向的风向标"},
+    {"term": "中美利差倒挂", "definition": "中国国债收益率低于美国国债收益率的现象。倒挂幅度越大，资金外流压力和人民币贬值压力越大，目前中美10年期利差倒挂已超300个基点"},
+    {"term": "非农就业报告", "definition": "美国非农就业数据，每月第一个周五公布，是美联储判断就业市场、决定利率路径的最重要参考之一。本周五（9/4）将公布8月非农"}
+  ],
+  "events": [
+    {"name": "中国8月财新制造业PMI", "date": "9/1 09:45", "status": "upcoming", "status_text": "今日公布"},
+    {"name": "欧元区8月CPI", "date": "9/1", "status": "upcoming", "status_text": "今日公布"},
+    {"name": "美国8月ISM制造业PMI", "date": "9/1 22:00", "status": "upcoming", "status_text": "今日公布"},
+    {"name": "美国8月非农就业报告", "date": "9/4 20:30", "status": "upcoming", "status_text": "本周焦点"}
+  ],
+  "policies": [
+    {"title": "央行、金融监管总局：房贷期限最长40年、存量房贷利率可协商调整", "tag": "央行"},
+    {"title": "住建部等三部门：推进现房销售制度建设", "tag": "住建部"},
+    {"title": "商务部等7部门：商品消费扩容行动，2030年社零总额目标60万亿", "tag": "商务部"}
+  ],
+  "predictions": [
+    {
+      "content": "A股9/1走势：隔夜美股下跌（道指-0.70%）+10Y美债4.761%高位形成压制，但MSCI调仓生效+8/31放量上攻提供支撑，预计上证在3960-4010区间震荡整理",
+      "direction": "股市",
+      "verify_date": "9/2",
+      "special_tag": "情景推演·含外盘前置条件"
+    },
+    {
+      "content": "人民币兑美元短期维持6.71-6.79区间震荡，中间价持续释放稳定信号",
+      "direction": "汇率",
+      "verify_date": "9/5",
+      "special_tag": ""
+    },
+    {
+      "content": "现货黄金在9/4非农数据公布前维持4400-4500美元/盎司高位震荡；若非农大幅超预期，则短线回调",
+      "direction": "商品",
+      "verify_date": "9/5",
+      "special_tag": ""
+    }
+  ],
+  "ts_values": {
+    "sse_close": 3986.30,
+    "chinext_close": 3438.68,
+    "cny_midpoint": 6.7828,
+    "lpr_1y": 3.0,
+    "lpr_5y": 3.5,
+    "cn_10y_yield": 1.690,
+    "shibor_overnight": 1.413,
+    "gold_spot": 4447.12,
+    "brent_oil": 90.49,
+    "lme_copper": 14285.0,
+    "dollar_index": 99.428,
+    "dow_jones": 53185.90
+  }
+}
