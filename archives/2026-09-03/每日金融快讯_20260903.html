@@ -159,6 +159,35 @@
   .policy-tag { background: #f3e5f5; color: #6a1b9a; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
   .html.dark .policy-tag { background: #1a002e; color: #ce93d8; }
   .backtest-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+  /* ── 行业动态卡片 ── */
+  .industry-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; border-left: 4px solid #1565c0; }
+  .industry-header { padding: 14px 20px 10px; border-bottom: 1px solid var(--border); }
+  .industry-rating { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .industry-stars { font-size: 14px; color: #1565c0; font-weight: 700; }
+  .industry-type-tag { font-size: 11px; padding: 2px 10px; border-radius: 10px; font-weight: 600; background: #e3f2fd; color: #0d47a1; }
+  .industry-event-title { font-size: 15px; font-weight: 700; color: var(--text); margin-top: 6px; }
+  .industry-body { padding: 12px 20px 18px; }
+  .industry-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 12px; }
+  .industry-table th { background: rgba(21,101,192,0.08); color: #1565c0; padding: 6px 10px; text-align: left; font-weight: 600; }
+  .industry-table td { padding: 6px 10px; border-bottom: 1px solid var(--border-light); }
+  .industry-table tr:last-child td { border-bottom: none; }
+  .company-matrix { width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 12px; }
+  .company-matrix th { background: rgba(21,101,192,0.06); color: #1565c0; padding: 6px 8px; text-align: left; font-weight: 600; }
+  .company-matrix td { padding: 5px 8px; border-bottom: 1px solid var(--border-light); }
+  .catalyst-chain { font-size: 12px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 10px; padding: 10px 14px; background: rgba(21,101,192,0.04); border-radius: var(--radius-sm); }
+  .catalyst-chain .chain-step { display: block; margin-bottom: 4px; }
+  .catalyst-chain .chain-num { font-weight: 700; color: #1565c0; margin-right: 4px; }
+  .elasticity-rank { font-size: 12px; color: var(--text); margin-bottom: 10px; padding: 6px 12px; background: var(--tag-bg); border-radius: var(--radius-sm); }
+  .industry-plain { font-size: 13px; color: var(--text-secondary); background: var(--primary-light); border-radius: var(--radius-sm); padding: 10px 14px; line-height: 1.7; margin-bottom: 10px; }
+  .industry-plain .plain-label { font-weight: 700; color: var(--primary); margin-right: 4px; }
+  .industry-risk { font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; }
+  .industry-risk .risk-label { font-weight: 700; color: var(--signal-red); }
+  .industry-risk ol { padding-left: 20px; }
+  .industry-risk li { margin-bottom: 3px; }
+  html.dark .industry-card { border-left-color: #64b5f6; }
+  html.dark .industry-type-tag { background: #0d2b45; color: #90caf9; }
+  html.dark .industry-table th { background: rgba(21,101,192,0.15); }
+  html.dark .industry-plain { background: var(--primary-light); }
   .backtest-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #00838f; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 6px; }
   .backtest-item { padding: 12px 18px; border-bottom: 1px solid var(--border); }
   .backtest-item:last-child { border-bottom: none; }
@@ -268,25 +297,25 @@
         <span class="sig-dashboard-hint">红=重大变化 黄=小幅波动 灰=基本持平</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp yellow"></span>
+        <span class="sig-lamp gray"></span>
         <span class="sig-name">A股上证</span>
         <span class="sig-value">3,941.39 点</span>
-        <span class="sig-change" style="color:var(--signal-green)">-0.97%</span>
-        <span class="sig-note" style="color:var(--signal-yellow)">小幅波动</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp red"></span>
+        <span class="sig-lamp gray"></span>
         <span class="sig-name">创业板</span>
         <span class="sig-value">3,312.24 点</span>
-        <span class="sig-change" style="color:var(--signal-green)">-2.39%</span>
-        <span class="sig-note" style="color:var(--signal-red)">重大变化</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp red"></span>
+        <span class="sig-lamp gray"></span>
         <span class="sig-name">人民币</span>
         <span class="sig-value">6.7829</span>
-        <span class="sig-change" style="color:var(--signal-red)">↓贬值</span>
-        <span class="sig-note" style="color:var(--signal-red)">↓贬值</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
       </div>
       <div class="sig-row">
         <span class="sig-lamp gray"></span>
@@ -296,53 +325,53 @@
         <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp red"></span>
+        <span class="sig-lamp gray"></span>
         <span class="sig-name">10年国债</span>
         <span class="sig-value">1.686%</span>
-        <span class="sig-change" style="color:var(--signal-red)">+0.36%</span>
-        <span class="sig-note" style="color:var(--signal-red)">重大变化</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp yellow"></span>
+        <span class="sig-lamp gray"></span>
         <span class="sig-name">Shibor</span>
         <span class="sig-value">1.363%</span>
-        <span class="sig-change" style="color:var(--signal-green)">-0.07%</span>
-        <span class="sig-note" style="color:var(--signal-yellow)">小幅波动</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp yellow"></span>
+        <span class="sig-lamp gray"></span>
         <span class="sig-name">现货黄金</span>
         <span class="sig-value">4,384.10 $/oz</span>
-        <span class="sig-change" style="color:var(--signal-red)">+1.29%</span>
-        <span class="sig-note" style="color:var(--signal-yellow)">小幅波动</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
       </div>
       <div class="sig-row">
         <span class="sig-lamp gray"></span>
         <span class="sig-name">布伦特油</span>
         <span class="sig-value">95.63 $/bbl</span>
         <span class="sig-change flat">持平</span>
-        <span class="sig-note" style="color:var(--text-tertiary)">基本持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp red"></span>
+        <span class="sig-lamp gray"></span>
         <span class="sig-name">LME铜</span>
         <span class="sig-value">14,236.5 $/t</span>
-        <span class="sig-change" style="color:var(--signal-green)">-1.11%</span>
-        <span class="sig-note" style="color:var(--signal-red)">重大变化</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
       </div>
       <div class="sig-row">
         <span class="sig-lamp gray"></span>
         <span class="sig-name">美元指数</span>
         <span class="sig-value">99.5800</span>
         <span class="sig-change flat">持平</span>
-        <span class="sig-note" style="color:var(--text-tertiary)">基本持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp red"></span>
+        <span class="sig-lamp gray"></span>
         <span class="sig-name">美股道指</span>
         <span class="sig-value">53,061.95 点</span>
-        <span class="sig-change" style="color:var(--signal-red)">+0.56%</span>
-        <span class="sig-note" style="color:var(--signal-red)">重大变化</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
       </div>
     </div>
 
@@ -394,7 +423,7 @@
       <div class="signal-header">
         <span class="signal-num">2</span>
         <span class="signal-title">创业板</span>
-        <span class="signal-lamp red">走弱</span>
+        <span class="signal-lamp yellow">震荡</span>
         <span class="credibility-tag credibility-high">✅ 已验证</span>
       </div>
       <div class="signal-body">
@@ -408,7 +437,7 @@
       <div class="signal-header">
         <span class="signal-num">3</span>
         <span class="signal-title">人民币</span>
-        <span class="signal-lamp red">↓贬值</span>
+        <span class="signal-lamp yellow">持平</span>
         <span class="credibility-tag credibility-high">✅ 已验证</span>
       </div>
       <div class="signal-body">
@@ -436,7 +465,7 @@
       <div class="signal-header">
         <span class="signal-num">5</span>
         <span class="signal-title">10年国债</span>
-        <span class="signal-lamp red">收益率上行</span>
+        <span class="signal-lamp yellow">持平</span>
         <span class="credibility-tag credibility-high">✅ 已验证</span>
       </div>
       <div class="signal-body">
@@ -492,7 +521,7 @@
       <div class="signal-header">
         <span class="signal-num">9</span>
         <span class="signal-title">LME铜</span>
-        <span class="signal-lamp red">铜价走弱</span>
+        <span class="signal-lamp yellow">震荡</span>
         <span class="credibility-tag credibility-high">✅ 已验证</span>
       </div>
       <div class="signal-body">
@@ -520,7 +549,7 @@
       <div class="signal-header">
         <span class="signal-num">11</span>
         <span class="signal-title">美股道指</span>
-        <span class="signal-lamp green">美股走强</span>
+        <span class="signal-lamp yellow">震荡</span>
         <span class="credibility-tag credibility-high">✅ 已验证</span>
       </div>
       <div class="signal-body">
@@ -530,6 +559,48 @@
         <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1875264552931741395" target="_blank">国际金融报·美股9/2收盘</a> <span class="source-time">9/3 07:19</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1875140323511284289" target="_blank">百家号·美联储鹰派连续发言（汇通财经）</a> <span class="source-time">9/1 21:54</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1875202574531173053" target="_blank">百家号·9月加息概率飙至66%</a> <span class="source-time">9/2 15:02</span></span></div></div>
       </div>
     </div>
+
+    <div class="section-title">重量级行业动态</div>
+    <div class="industry-card">
+  <div class="industry-header">
+    <div class="industry-rating">
+      <span class="industry-stars">★★★ 行业级结构性</span>
+      <span class="industry-type-tag">A型（技术突破/重大产品发布）</span>
+    </div>
+    <div class="industry-event-title">国产AI芯片"四小龙"齐聚：燧原科技9/2科创板申购，国产算力拼图补齐</div>
+  </div>
+  <div class="industry-body">
+    <table class="industry-table"><thead><tr><th style="width:30%">维度</th><th>内容</th></tr></thead><tbody><tr><td style='width:30%'>行业</td><td>半导体/云端AI芯片</td></tr><tr><td style='width:30%'>事件</td><td>IPO申购</td></tr><tr><td style='width:30%'>性质</td><td>产业里程碑</td></tr></tbody></table>
+    <table class="industry-table"><thead><tr><th colspan="2">核心参数</th></tr></thead><tbody><tr><td style='width:40%'>发行价</td><td>142.18元/股</td></tr><tr><td style='width:40%'>募集资金</td><td>约61亿元（计划60亿）</td></tr><tr><td style='width:40%'>上市市值</td><td>约612亿元</td></tr><tr><td style='width:40%'>发行数量</td><td>4303.52万股（约10%）</td></tr><tr><td style='width:40%'>技术迭代</td><td>8年4代架构5款云端AI芯片</td></tr><tr><td style='width:40%'>募投方向</td><td>第五代+第六代芯片研发产业化、软硬件协同创新</td></tr><tr><td style='width:40%'>最大客户</td><td>腾讯（亦为最大外部股东）</td></tr><tr><td style='width:40%'>盈利状态</td><td>尚未盈利，2026H1营收11.2亿（+279%）</td></tr></tbody></table>
+    <table class="company-matrix"><thead><tr><th>公司</th><th>代码</th><th>上市时间</th><th>定位</th></tr></thead><tbody><tr><td>燧原科技</td><td>688801.SH</td><td>2026.9（申购中）</td><td>云端AI芯片，四小龙最后一家</td></tr><tr><td>摩尔线程</td><td>—（科创板）</td><td>2025.12</td><td>GPU/图形+AI</td></tr><tr><td>沐曦股份</td><td>—（科创板）</td><td>2025.12</td><td>通用GPU</td></tr><tr><td>壁仞科技</td><td>—（港交所）</td><td>2026.1</td><td>通用GPU/AI加速</td></tr><tr><td>寒武纪</td><td>688256.SH</td><td>2020.7</td><td>云端AI芯片（已上市）</td></tr><tr><td>海光信息</td><td>688041.SH</td><td>2022.8</td><td>CPU+DCU（已上市）</td></tr></tbody></table>
+    <div class="catalyst-chain"><span class="chain-step"><span class="chain-num">1.</span>美国对华AI芯片管制持续加码（2022年起多轮，2026年转向按总部归属限制）</span><span class="chain-step"><span class="chain-num">2.</span>国产替代加速：2025年国产AI加速卡出货165万张，份额首破40%</span><span class="chain-step"><span class="chain-num">3.</span>四小龙2025.12-2026.1密集IPO，燧原9/2申购补齐最后一块拼图</span><span class="chain-step"><span class="chain-num">4.</span>60亿募资投入第五代/第六代芯片研发，对标国际高端AI芯片</span><span class="chain-step"><span class="chain-num">5.</span>全链条自主可控：本地设计+制造+封测+EDA/IP+模型+应用</span></div>
+    <div class="elasticity-rank"><b>弹性排序：</b>AI芯片设计（燧原/寒武纪） > 先进封装（通富微电/长电科技） > 半导体设备（中微/北方华创） > 算力租赁/IDC</div>
+    <div class="industry-plain"><span class="plain-label">大白话：</span>9月2日，燧原科技正式开启科创板申购，发行价142.18元，一签需缴款7.11万元。这家2018年成立的公司是国产GPU"四小龙"中最后一家上市的企业——摩尔线程、沐曦股份去年底先后登陆科创板，壁仞科技今年1月在港交所上市。至此，国产高端AI芯片四家头部初创公司全部进入资本市场。燧原8年自研了4代架构5款芯片，客户包括腾讯等大厂，2026上半年营收11.2亿同比暴增279%，但还在亏损。60亿募资主要投第五代和第六代芯片研发。这件事的背景是美国芯片管制越来越严，国产替代从"备选"变成"必选"——去年国产AI加速卡出货量份额已经从零头涨到41%。燧原上市标志着国产AI芯片赛道从"各自突围"进入"资本化集群作战"阶段。</div>
+    <div class="industry-risk"><span class="risk-label">风险提示：</span><ol><li>公司尚未盈利，静态市销率61.8倍估值偏高（虽低于同行均值100.6倍）</li><li>若上市后未盈利，将触发科创板特殊退市条款（需关注后续盈利路径）</li><li>美国管制可能进一步升级，供应链（制造/封测/EDA）仍有被卡风险</li><li>国产AI芯片竞争加剧，四小龙+华为昇腾+海光信息赛道拥挤</li></ol></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1875103958340918664" target="_blank">百家号·燧原定价142.18元</a> <span class="source-time">· 9/1</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1875124500299785056" target="_blank">百家号·四小龙最后一块拼图</a> <span class="source-time">· 9/1</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="http://finance.sina.com.cn/stock/relnews/cn/2026-09-02/doc-iniqmshw7657814.shtml" target="_blank">新浪·四小龙会师资本市场</a> <span class="source-time">· 9/2</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1875207078382098271" target="_blank">百家号·2026国产AI芯片深度观察</a> <span class="source-time">· 9/2</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1875184206334176896" target="_blank">百家号·燧原申购（中金研报）</a> <span class="source-time">· 9/2</span></span></div></div>
+  </div>
+</div>
+
+    <div class="industry-card">
+  <div class="industry-header">
+    <div class="industry-rating">
+      <span class="industry-stars">★★☆ 板块级催化</span>
+      <span class="industry-type-tag">C型（政策驱动）</span>
+    </div>
+    <div class="industry-event-title">工信部启动AI应用服务商培育专项行动：2026年底资源池突破2000家</div>
+  </div>
+  <div class="industry-body">
+    <table class="industry-table"><thead><tr><th style="width:30%">维度</th><th>内容</th></tr></thead><tbody><tr><td style='width:30%'>行业</td><td>人工智能应用</td></tr><tr><td style='width:30%'>事件</td><td>政策发布</td></tr><tr><td style='width:30%'>性质</td><td>生态建设</td></tr></tbody></table>
+    <table class="industry-table"><thead><tr><th colspan="2">核心参数</th></tr></thead><tbody><tr><td style='width:40%'>发布机构</td><td>工业和信息化部办公厅</td></tr><tr><td style='width:40%'>发布时间</td><td>8/31印发，9/1公开</td></tr><tr><td style='width:40%'>近期目标</td><td>2026年底服务商资源池突破2000家</td></tr><tr><td style='width:40%'>远期目标</td><td>构建多层次服务商梯队</td></tr><tr><td style='width:40%'>核心机制</td><td>首购首用+风险补偿，降低采购方试错成本</td></tr><tr><td style='width:40%'>采购重点</td><td>大模型、智能体、Token等服务</td></tr><tr><td style='width:40%'>四项原则</td><td>扩量提质、梯次培育、创新引领、应用导向</td></tr><tr><td style='width:40%'>上位政策</td><td>国务院《深入实施"人工智能+"行动的意见》</td></tr></tbody></table>
+    <table class="company-matrix"><thead><tr><th>受益方向</th><th>代表企业</th><th>受益逻辑</th></tr></thead><tbody><tr><td>AI应用服务商</td><td>科大讯飞/云从科技/拓尔思</td><td>直接进入资源池，获政策背书+订单</td></tr><tr><td>算力基础设施</td><td>浪潮信息/中科曙光</td><td>服务商扩量带动算力采购需求</td></tr><tr><td>大模型/智能体</td><td>智谱AI/百川智能/月之暗面</td><td>首购首用机制降低企业采购门槛</td></tr><tr><td>数据服务</td><td>星环科技/海天瑞声</td><td>AI应用落地需高质量数据支撑</td></tr></tbody></table>
+    <div class="catalyst-chain"><span class="chain-step"><span class="chain-num">1.</span>国务院发布《深入实施"人工智能+"行动的意见》，提出培育AI应用服务商</span><span class="chain-step"><span class="chain-num">2.</span>工信部8/31印发专项行动通知，明确2000家资源池目标+首购首用机制</span><span class="chain-step"><span class="chain-num">3.</span>9/1政策公开后A股AI智能体板块当日震荡走高（中文在线涨超9%）</span><span class="chain-step"><span class="chain-num">4.</span>首购首用+风险补偿降低企业用AI的试错成本，预计加速AI从"概念"到"落地"</span><span class="chain-step"><span class="chain-num">5.</span>服务商资源池形成后，政府和国企采购AI服务将有标准化目录</span></div>
+    <div class="elasticity-rank"><b>弹性排序：</b>AI应用服务商 > 大模型/智能体公司 > 算力基础设施 > 数据服务</div>
+    <div class="industry-plain"><span class="plain-label">大白话：</span>工信部8月31日印发通知，启动"人工智能应用服务商培育专项行动"。简单说，政府要建一个AI服务商"资源池"，今年底收录超过2000家企业。关键看点是"首购首用+风险补偿"——意思是企业第一次购买AI服务如果效果不好，政府给兜底一部分成本。这相当于政府出钱帮企业"试错"，解决了很多公司"想用AI但怕白花钱"的顾虑。政策出来当天A股AI智能体板块就涨了，中文在线涨超9%。这个政策的上层逻辑是：中国AI不缺技术（大模型一堆），缺的是"怎么用起来"，所以要培育一批专门帮企业落地AI的中间商——他们懂行业痛点、会做集成交付、能搞定安全合规。</div>
+    <div class="industry-risk"><span class="risk-label">风险提示：</span><ol><li>政策落地效果取决于地方执行力度和资金配套</li><li>"资源池"准入标准与退出机制尚待明确，可能出现"只入不出"</li><li>首购首用涉及财政资金使用，合规审计要求高，推行节奏可能偏慢</li><li>AI应用服务商自身盈利模式仍在探索，政策催化≠业绩兑现</li></ol></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://m.thepaper.cn/newsDetail_forward_33985144" target="_blank">澎湃·工信部通知全文</a> <span class="source-time">· 9/1</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="http://www.legaldaily.com.cn/index/content/2026-09/02/content_9450554.html" target="_blank">法治网·工信部AI应用服务商专项行动</a> <span class="source-time">· 9/2</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://www.nbd.com.cn/rss/zaker/articles/4568053.html" target="_blank">每经网·首购首用+风险补偿专家解读</a> <span class="source-time">· 9/1</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1875098265918233172" target="_blank">百家号·A股AI智能体板块走高</a> <span class="source-time">· 9/1</span></span></div></div>
+  </div>
+</div>
+
 
     <div class="backtest-card"><div class="backtest-header">🎯 预测回测</div><div class="backtest-item"><div class="backtest-title">A股9/2走势：隔夜美股大跌（道指-0.79%、纳指-1.03%）+全球债市抛售+金价暴跌，外部环境恶化；但A股9/1已缩量回调释放部分压力，预计上证在3940-3990区间弱势震荡，创业板承压更大</div><div class="backtest-detail">实际：上证收3941.39（-0.97%），落在预测区间3940-3990下沿；创业板指-2.39%跌幅远超上证，'创业板承压更大'判断正确 → <span class="backtest-tag backtest-hit">✅命中</span></div></div><div class="backtest-item"><div class="backtest-title">人民币短期维持6.71-6.73区间，美元指数走强（99.68→逼近100）带来边际贬值压力，但中间价稳定引导仍在起作用</div><div class="backtest-detail">实际：在岸收6.7213、离岸6.7178，均在6.71-6.73区间内；美元指数先升后降至99.58 → <span class="backtest-tag backtest-hit">✅命中</span></div></div><div class="backtest-item"><div class="backtest-title">现货黄金9/4非农前维持4250-4400美元/盎司区间弱势震荡；若非农大幅超预期（就业>20万），金价可能进一步下探4200；若不及预期则反弹至4400上方</div><div class="backtest-detail">实际：9/2现货金4384.10美元/盎司，在4250-4400区间内运行，非农尚未公布 → <span class="backtest-tag backtest-hit">✅命中</span></div></div></div>
     <div class="source-summary"><div class="ss-header">来源汇总</div><table><thead><tr><th>等级</th><th>来源</th><th>引用内容</th><th>时间</th></tr></thead><tbody><tr><td>S</td><td>国际金融报·国际金融要情（周四9/3）</td><td>全球股市/大宗/汇率/债市/利率全景数据；美军完成新一轮对伊打击</td><td>9/3 07:19</td></tr><tr><td>S</td><td>百家号·A股收评</td><td>上证-0.97%报3941.39,创业板-2.39%,两市1.79万亿,缩量2422亿</td><td>9/2 15:02</td></tr><tr><td>S</td><td>百家号·9月加息概率飙至66%</td><td>两周前30%→杰克逊霍尔后60%→巴尔放鹰后66%；JOLTS体现劳动力韧性</td><td>9/2 15:02</td></tr><tr><td>S</td><td>百家号·美联储鹰派连续发言</td><td>沃什杰克逊霍尔放鹰+巴尔支持加息，政策预期反转</td><td>9/1 21:54</td></tr><tr><td>S</td><td>东方财富·港股收评</td><td>恒指-0.07%报25311.21,恒生科技-0.74%报4517.16</td><td>9/2 16:10</td></tr><tr><td>S</td><td>百家号·央行9/2操作（中新网）</td><td>7天逆回购操作量为零,净回笼5985亿</td><td>9/2 09:42</td></tr><tr><td>A</td><td>网易·中美利差逼近历史高位（彭博）</td><td>美10Y盘中4.81%创三年新高,中10Y 1.69%,利差312bp</td><td>9/2 14:27</td></tr><tr><td>A</td><td>新浪·美国10Y收益率4.81%</td><td>盘中触及4.81%为2023年末以来最高</td><td>9/2 09:14</td></tr><tr><td>A</td><td>汇通财经·Shibor</td><td>隔夜1.363%(-0.1bp),7天1.377%(-1.4bp)</td><td>9/2 11:09</td></tr><tr><td>A</td><td>金投网·人民币中间价</td><td>9/2中间价6.7829,调贬20bp</td><td>9/2 09:30</td></tr><tr><td>A</td><td>金投网·美元指数收盘概况</td><td>美元指数99.6770(9/1收盘),9/2日间99.79</td><td>9/2 10:10</td></tr><tr><td>A</td><td>21世纪经济报道·A股收评</td><td>上证-0.97%/创业板-2.39%,成交1.79万亿</td><td>9/2 15:29</td></tr></tbody></table></div>
@@ -568,7 +639,7 @@ window.addEventListener('scroll',function(){var bt=document.getElementById('back
 <script>
 (function(){
   if(typeof Chart==='undefined'){console.warn('Chart.js not loaded');return;}
-  var labels=["08-17", "08-18", "08-19", "08-20", "08-21", "08-23", "08-25", "08-26", "08-27", "08-28", "08-30", "09-01", "09-02", "09-03"];
+  var labels=["08-17", "08-18", "08-19", "08-20", "08-21", "08-23", "08-25", "08-26", "08-27", "08-28", "08-30", "09-01", "09-02", "09-03", "09-03"];
   function mk(id,color,data){
     var el=document.getElementById(id);if(!el)return;
     var isDark=document.documentElement.classList.contains('dark');
@@ -580,10 +651,10 @@ window.addEventListener('scroll',function(){var bt=document.getElementById('back
       options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{display:false,grid:{display:false}},y:{display:true,grid:{color:grid},ticks:{color:txt,font:{size:9},maxTicksLimit:3},beginAtZero:false}},interaction:{intersect:false,mode:'index'}}
     });
   }
-  mk('sseMiniChart','#0d47a1',[3927.18, 3982.65, 3990.3, 3894.42, 3903.72, 3905.2, 3882.01, null, 3912.52, 3956.57, 3952.18, 3986.3, 3979.89, 3941.39]);
-  mk('goldMiniChart','#f9a825',[4370.0, 4369.0, 4375.0, 4379.96, 4519.36, 4547.84, 4654.23, 4662.05, 4610.48, 4588.98, 4453.67, 4447.12, 4328.36, 4384.1]);
-  mk('fxMiniChart','#2e7d32',[6.7878, 6.7873, 6.7873, 6.7905, 6.7854, 6.7817, 6.7841, 6.7829, 6.7829, 6.7811, 6.7811, 6.7828, 6.7809, 6.7829]);
-  mk('oilMiniChart','#e65100',[88.72, 89.0, 89.42, 91.89, 94.0, 93.78, 90.97, 88.58, 87.84, 89.7, 87.718, 90.49, 95.19, 95.63]);
+  mk('sseMiniChart','#0d47a1',[3927.18, 3982.65, 3990.3, 3894.42, 3903.72, 3905.2, 3882.01, null, 3912.52, 3956.57, 3952.18, 3986.3, 3979.89, 3941.39, 3941.39]);
+  mk('goldMiniChart','#f9a825',[4370.0, 4369.0, 4375.0, 4379.96, 4519.36, 4547.84, 4654.23, 4662.05, 4610.48, 4588.98, 4453.67, 4447.12, 4328.36, 4384.1, 4384.1]);
+  mk('fxMiniChart','#2e7d32',[6.7878, 6.7873, 6.7873, 6.7905, 6.7854, 6.7817, 6.7841, 6.7829, 6.7829, 6.7811, 6.7811, 6.7828, 6.7809, 6.7829, 6.7829]);
+  mk('oilMiniChart','#e65100',[88.72, 89.0, 89.42, 91.89, 94.0, 93.78, 90.97, 88.58, 87.84, 89.7, 87.718, 90.49, 95.19, 95.63, 95.63]);
 })();
 </script>
 
