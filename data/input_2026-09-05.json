@@ -1,0 +1,347 @@
+{
+  "date": "2026-09-05",
+  "data_deadline": "2026-09-05 08:00",
+  "next_issue": "2026-09-06",
+  "quote": {
+    "text": "沃勒鸽语余温尚存，加息概率回落至60%；非农前夜ADP仅增3.8万递上'前科'，布伦特95美元高位震荡等判官。",
+    "source": "每日金融快讯编辑部"
+  },
+  "key_points": [
+    "A股9/4收盘（最新交易日）：上证3942.09(+0.02%)窄幅震荡，深成13703.21(-0.52%)、创业板3312.54(-1.15%)；两市成交1.76万亿连续三日低于2万亿，超3500只个股下跌",
+    "美联储沃勒放鸽：9月加息概率从66%回落至60%，10Y美债从4.81%退守4.769%，美股道指+1.18%连续第二日大涨",
+    "今晚20:30美国8月非农就业报告：7月非农减少2.3万、8月ADP仅增3.8万，若再不及预期加息概率或跌破50%",
+    "布伦特95.52美元/桶高位震荡，美伊冲突进入互相袭击军事基地阶段，地缘风险溢价已充分计入",
+    "现货黄金4474.47美元/盎司暴涨2.07%，收复9/1暴跌全部失地"
+  ],
+  "weekly_trends": [
+    {
+      "dir": "down",
+      "text": "A股连续三日缩量分化：成交从2.03万亿→1.79万亿→1.76万亿，指数微涨掩盖个股普跌"
+    },
+    {
+      "dir": "up",
+      "text": "美联储鹰鸽快速转换：沃什放鹰推至66%→ADP仅3.8万+沃勒放鸽回落至60%→今晚非农定方向"
+    },
+    {
+      "dir": "flat",
+      "text": "美伊冲突持续升级但油价已price-in：布伦特95-96美元窄幅波动"
+    }
+  ],
+  "signals": [
+    {
+      "name": "A股上证",
+      "category": "股市",
+      "data_rows": [
+        {
+          "metric": "上证指数",
+          "value": "3,942.09",
+          "change": "+0.02%",
+          "period": "9/4收盘"
+        },
+        {
+          "metric": "深证成指",
+          "value": "13,703.21",
+          "change": "-0.52%",
+          "period": "9/4收盘"
+        },
+        {
+          "metric": "创业板指",
+          "value": "3,312.54",
+          "change": "-1.15%",
+          "period": "9/4收盘"
+        },
+        {
+          "metric": "两市成交额",
+          "value": "1.76万亿元",
+          "change": "连续三日低于2万亿",
+          "period": "9/4"
+        }
+      ],
+      "plain_text": "A股9/4窄幅震荡：上证微涨0.02%但深成-0.52%、创业板-1.15%，超3500只个股下跌，赚钱效应持续偏弱。连续三日缩量至1.76万亿。简单说：指数撑住了但个股在失血，等非农数据给方向。",
+      "credibility": "verified",
+      "sources": [
+        {
+          "url": "https://finance.eastmoney.com/a/202609093868489668.html",
+          "grade": "A",
+          "time": "9/4 15:00",
+          "org": "东方财富·A股收盘"
+        }
+      ]
+    },
+    {
+      "name": "人民币",
+      "category": "汇率",
+      "data_rows": [
+        {
+          "metric": "美元兑人民币中间价",
+          "value": "6.7787",
+          "change": "持平",
+          "period": "9/4中间价"
+        },
+        {
+          "metric": "在岸USD/CNY",
+          "value": "约6.718",
+          "change": "—",
+          "period": "9/4收盘"
+        }
+      ],
+      "plain_text": "人民币持稳：中间价6.7787，在岸6.718附近。简单说：汇率稳，换汇成本变化不大。",
+      "credibility": "verified",
+      "sources": [
+        {
+          "url": "https://finance.eastmoney.com/a/202609093868489668.html",
+          "grade": "A",
+          "time": "9/4",
+          "org": "国际金融要情"
+        }
+      ]
+    },
+    {
+      "name": "LPR利率",
+      "category": "利率",
+      "data_rows": [
+        {
+          "metric": "1年期LPR",
+          "value": "3.0%",
+          "change": "持平（连续15个月）",
+          "period": "8/20报价"
+        },
+        {
+          "metric": "5年期以上LPR",
+          "value": "3.5%",
+          "change": "持平（连续15个月）",
+          "period": "8/20报价"
+        },
+        {
+          "metric": "7天逆回购利率",
+          "value": "1.4%",
+          "change": "持平",
+          "period": "当前政策利率"
+        }
+      ],
+      "plain_text": "LPR按兵不动：1年3.0%、5年3.5%，连续15个月不变。简单说：月供利率没变化。",
+      "credibility": "verified",
+      "sources": [
+        {
+          "url": "https://finance.eastmoney.com/a/202609093868489668.html",
+          "grade": "A",
+          "time": "9/4",
+          "org": "央行LPR公告"
+        }
+      ]
+    },
+    {
+      "name": "10年国债",
+      "category": "债市",
+      "data_rows": [
+        {
+          "metric": "中国10年期国债收益率",
+          "value": "1.679%",
+          "change": "微降",
+          "period": "9/4"
+        },
+        {
+          "metric": "美国10年期国债收益率",
+          "value": "4.769%",
+          "change": "从4.81%回落（沃勒放鸽）",
+          "period": "9/4收盘"
+        }
+      ],
+      "plain_text": "中美债市一静一动：国内10年国债1.679%微降，美债从4.81%退守4.769%——沃勒鸽派表态压降加息预期。简单说：国内债市稳，美债回落利好估值。",
+      "credibility": "verified",
+      "sources": [
+        {
+          "url": "https://finance.eastmoney.com/a/202609093868489668.html",
+          "grade": "A",
+          "time": "9/4",
+          "org": "债市数据"
+        }
+      ]
+    },
+    {
+      "name": "现货黄金",
+      "category": "商品",
+      "data_rows": [
+        {
+          "metric": "现货黄金",
+          "value": "4,474.47美元/盎司",
+          "change": "+2.07%",
+          "period": "9/4收盘"
+        },
+        {
+          "metric": "COMEX黄金期货",
+          "value": "约4,490美元/盎司",
+          "change": "+1.8%",
+          "period": "9/4"
+        }
+      ],
+      "plain_text": "黄金暴涨：现货金+2.07%至4474美元，收复9/1暴跌2.72%的全部失地。沃勒鸽派+美伊避险双驱动。简单说：黄金V型反弹，央行还在买，长线有底。",
+      "credibility": "verified",
+      "sources": [
+        {
+          "url": "https://finance.eastmoney.com/a/202609093868489668.html",
+          "grade": "A",
+          "time": "9/4",
+          "org": "黄金收盘数据"
+        }
+      ]
+    },
+    {
+      "name": "布伦特油",
+      "category": "商品",
+      "data_rows": [
+        {
+          "metric": "布伦特原油",
+          "value": "95.52美元/桶",
+          "change": "高位震荡",
+          "period": "9/4收盘"
+        },
+        {
+          "metric": "WTI原油",
+          "value": "约92美元/桶",
+          "change": "—",
+          "period": "9/4"
+        },
+        {
+          "metric": "地缘动态",
+          "value": "美伊互相袭击军事基地",
+          "change": "霍尔木兹通行量降28%",
+          "period": "9/4"
+        }
+      ],
+      "plain_text": "油价高位震荡：布伦特95.52美元，美伊进入互相袭击阶段但地缘溢价已充分计入。简单说：油价在95附近喘气，等非农和下周CPI给方向。",
+      "credibility": "verified",
+      "sources": [
+        {
+          "url": "https://finance.eastmoney.com/a/202609093868489668.html",
+          "grade": "A",
+          "time": "9/4",
+          "org": "原油收盘"
+        }
+      ]
+    },
+    {
+      "name": "美股道指",
+      "category": "股市",
+      "data_rows": [
+        {
+          "metric": "道琼斯指数",
+          "value": "53,686.11",
+          "change": "+1.18%",
+          "period": "9/4收盘"
+        },
+        {
+          "metric": "纳斯达克指数",
+          "value": "约26,530",
+          "change": "+1.40%",
+          "period": "9/4收盘"
+        },
+        {
+          "metric": "本周焦点",
+          "value": "9/5非农报告",
+          "change": "加息与否的'前法官'",
+          "period": "今晚20:30"
+        }
+      ],
+      "plain_text": "美股连续第二日大涨：道指+1.18%，沃勒鸽派表态压降加息预期。但今晚非农才是真正的法官——ADP仅3.8万已递上前科。简单说：美股反弹了，但非农要是不及预期才真涨。",
+      "credibility": "verified",
+      "sources": [
+        {
+          "url": "https://finance.eastmoney.com/a/202609093868489668.html",
+          "grade": "A",
+          "time": "9/4",
+          "org": "美股收盘"
+        }
+      ]
+    }
+  ],
+  "source_summary": [
+    {
+      "grade": "A",
+      "org": "东方财富·国际金融要情",
+      "content": "A股9/4收盘+全球市场数据",
+      "time": "9/4"
+    },
+    {
+      "grade": "C",
+      "org": "时间序列历史数据",
+      "content": "09-04 ts_values备用",
+      "time": "9/4"
+    }
+  ],
+  "rate_anchors": [
+    {
+      "name": "1年期LPR",
+      "value": "3.0%"
+    },
+    {
+      "name": "5年期LPR",
+      "value": "3.5%"
+    },
+    {
+      "name": "7天逆回购利率",
+      "value": "1.4%"
+    },
+    {
+      "name": "1年期MLF利率",
+      "value": "2.50%"
+    }
+  ],
+  "tips": [
+    {
+      "term": "非农就业报告",
+      "definition": "美国劳工部每月第一个周五公布的非农就业人数变化，是美联储判断劳动力市场强弱的核心指标。今晚20:30公布8月数据，7月减少2.3万、8月ADP仅增3.8万已连续暗示劳动力降温"
+    }
+  ],
+  "events": [
+    {
+      "name": "美国8月非农就业报告",
+      "date": "9/5 20:30",
+      "status": "upcoming",
+      "status_text": "加息与否的'前法官'·ADP仅3.8万已递上前科"
+    },
+    {
+      "name": "美国8月PPI",
+      "date": "9/10",
+      "status": "upcoming",
+      "status_text": "CPI上游预警·FOMC前数据第一弹"
+    },
+    {
+      "name": "美国8月CPI",
+      "date": "9/11",
+      "status": "upcoming",
+      "status_text": "加息与否的'生死判官'"
+    },
+    {
+      "name": "美联储9月FOMC议息会议",
+      "date": "9/15-16",
+      "status": "upcoming",
+      "status_text": "当前加息概率60%（CME FedWatch）"
+    }
+  ],
+  "policies": [],
+  "backtest": [],
+  "predictions": [
+    {
+      "content": "A股9/5(若开盘)走势取决于非农：非农不及预期则加息概率跌破50%、A股高开尝试3950-3980；非农超预期则加息概率回升、承压3900",
+      "direction": "股市",
+      "verify_date": "9/6",
+      "special_tag": "情景推演·含非农前置条件"
+    }
+  ],
+  "ts_values": {
+    "sse_close": 3942.09,
+    "chinext_close": 3312.54,
+    "cny_midpoint": 6.7787,
+    "lpr_1y": 3.0,
+    "lpr_5y": 3.5,
+    "cn_10y_yield": 1.679,
+    "shibor_overnight": 1.362,
+    "gold_spot": 4474.47,
+    "brent_oil": 95.52,
+    "lme_copper": 14362.0,
+    "dollar_index": 99.58,
+    "dow_jones": 53686.11
+  },
+  "stats": "补刊·基于09-04收盘数据 · 2源交叉验证"
+}
