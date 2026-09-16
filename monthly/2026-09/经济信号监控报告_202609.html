@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经济信号监控报告 - 2026年9月16日</title>
+<style>
+:root {
+  --primary: #0d47a1; --primary-light: #e3f2fd; --primary-dark: #0a3d91;
+  --text: #202124; --text-secondary: #5f6368; --text-tertiary: #9aa0a6;
+  --bg: #f5f7fa; --card-bg: #ffffff; --card-bg-hover: #fafbfc;
+  --border: #d5dce6; --border-light: #e8eaed;
+  --tag-bg: #e3f2fd; --tag-text: #0d47a1;
+  --signal-green: #2e7d32; --signal-yellow: #f9a825; --signal-red: #c62828;
+  --summary-bg: linear-gradient(135deg, #0d47a1, #1a237e);
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.08);
+  --radius: 12px; --radius-sm: 8px;
+  --credibility-high: #2e7d32; --credibility-medium: #f9a825; --credibility-unverified: #c62828;
+  --progress-bar: linear-gradient(90deg, #0d47a1, #1a237e);
+  --grade-s: #1b5e20; --grade-a: #0d47a1; --grade-b: #e65100; --grade-c: #616161;
+}
+html.dark {
+  --primary: #90caf9; --primary-light: #0d2b45; --primary-dark: #64b5f6;
+  --text: #e8eaed; --text-secondary: #9aa0a6; --text-tertiary: #5f6368;
+  --bg: #121212; --card-bg: #1e1e1e; --card-bg-hover: #262626;
+  --border: #3c4043; --border-light: #2d2d2d;
+  --tag-bg: #0d2b45; --tag-text: #90caf9;
+  --signal-green: #66bb6a; --signal-yellow: #ffa726; --signal-red: #ef5350;
+  --summary-bg: linear-gradient(135deg, #0d47a1, #4a148c);
+  --credibility-high: #66bb6a; --credibility-medium: #ffa726; --credibility-unverified: #ef5350;
+  --grade-s: #66bb6a; --grade-a: #90caf9; --grade-b: #ffcc80; --grade-c: #bdbdbd;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s; }
+.reading-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--progress-bar); z-index: 200; transition: width 0.1s ease-out; }
+.page-layout { max-width: 1200px; margin: 0 auto; padding: 16px; display: flex; gap: 20px; }
+.main-content { flex: 1; min-width: 0; max-width: 800px; }
+.sidebar { width: 320px; flex-shrink: 0; position: sticky; top: 16px; align-self: flex-start; max-height: calc(100vh - 32px); overflow-y: auto; }
+.sidebar::-webkit-scrollbar { width: 5px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+header { text-align: center; padding: 28px 0 20px; }
+header h1 { font-size: 28px; font-weight: 700; background: linear-gradient(135deg, #0d47a1, #7b1fa2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+header .subtitle { color: var(--text-secondary); font-size: 14px; margin-top: 6px; }
+.report-meta { display: flex; justify-content: center; gap: 16px; margin-top: 10px; font-size: 12px; color: var(--text-tertiary); }
+.report-meta span { display: flex; align-items: center; gap: 4px; }
+.theme-toggle, .export-btn { position: fixed; top: 16px; z-index: 100; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); box-shadow: var(--shadow); transition: all 0.2s; }
+.theme-toggle { right: 16px; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.theme-toggle:hover { box-shadow: var(--shadow-hover); transform: scale(1.1); }
+.export-btn { right: 68px; height: 40px; padding: 0 16px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.export-btn:hover { box-shadow: var(--shadow-hover); border-color: var(--primary); color: var(--primary); }
+.export-btn .export-icon { font-size: 16px; }
+.export-btn.exporting { pointer-events: none; opacity: 0.6; }
+.export-overlay { display: none; position: fixed; inset: 0; z-index: 9998; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+.export-overlay.active { display: flex; }
+.export-modal { background: var(--card-bg); border-radius: 16px; padding: 32px 40px; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.3); max-width: 320px; }
+.export-modal .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.export-modal p { color: var(--text-secondary); font-size: 14px; line-height: 1.5; }
+.export-modal .success-icon { font-size: 40px; margin-bottom: 12px; }
+.main-quote { background: var(--summary-bg); color: #fff; border-radius: var(--radius); padding: 14px 24px; margin-bottom: 16px; text-align: center; box-shadow: var(--shadow); }
+.main-quote .quote-icon { font-size: 18px; margin-bottom: 4px; }
+.main-quote .quote-divider { width: 30px; height: 2px; background: rgba(255,255,255,0.5); margin: 0 auto 6px; border-radius: 1px; }
+.main-quote .quote-text { font-size: 15px; font-weight: 600; line-height: 1.5; margin-bottom: 4px; }
+.main-quote .quote-source { font-size: 11px; color: rgba(255,255,255,0.7); }
+.summary-trends-box { background: var(--summary-bg); color: #fff; border-radius: var(--radius); padding: 20px 24px; margin-bottom: 16px; box-shadow: var(--shadow); }
+.summary-trends-box h2 { font-size: 16px; margin-bottom: 8px; font-weight: 600; }
+.summary-trends-box ul { padding-left: 18px; font-size: 14px; }
+.summary-trends-box li { margin-bottom: 4px; }
+.summary-trends-box .trends-divider { height: 1px; background: rgba(255,255,255,0.2); margin: 12px 0 10px; }
+.summary-trends-box .trends-subtitle { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.summary-trends-box .trends-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.summary-trends-box .trend-item { font-size: 13px; color: #fff; background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 16px; }
+.summary-trends-box .trend-arrow { font-weight: 700; margin-right: 4px; }
+.summary-trends-box .trend-arrow.up { color: #a5d6a7; }
+.summary-trends-box .trend-arrow.flat { color: rgba(255,255,255,0.6); }
+.summary-trends-box .trend-arrow.down { color: #ef9a9a; }
+.filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.filter-btn { padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-secondary); font-size: 13px; cursor: pointer; transition: all 0.2s; }
+.filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+.filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.section-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 2px; margin: 8px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--border); }
+.signal-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; transition: box-shadow 0.3s, transform 0.3s; }
+.signal-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.signal-card .signal-header { display: flex; align-items: center; gap: 10px; padding: 14px 20px 0; flex-wrap: wrap; }
+.signal-card .signal-num { width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.signal-card .signal-title { font-size: 16px; font-weight: 700; }
+.signal-card .signal-body { padding: 12px 20px 18px; }
+.signal-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 10px; }
+.signal-table th { background: var(--primary-light); color: var(--primary-dark); padding: 8px 10px; text-align: left; font-weight: 600; }
+.signal-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-light); }
+.signal-table tr:last-child td { border-bottom: none; }
+.signal-lamp { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 12px; }
+.signal-lamp.green { background: rgba(46,125,50,0.12); color: var(--signal-green); }
+.signal-lamp.yellow { background: rgba(249,168,37,0.12); color: var(--signal-yellow); }
+.signal-lamp.red { background: rgba(198,40,40,0.12); color: var(--signal-red); }
+.plain-talk { font-size: 13px; color: var(--text-secondary); background: var(--primary-light); border-radius: var(--radius-sm); padding: 10px 14px; line-height: 1.7; margin-bottom: 10px; }
+.plain-talk .plain-label { font-weight: 700; color: var(--primary); margin-right: 4px; }
+.pro-analysis { margin-bottom: 10px; }
+.pro-analysis details { background: rgba(104,58,183,0.04); border: 1px solid rgba(104,58,183,0.15); border-radius: var(--radius-sm); padding: 0; overflow: hidden; }
+.pro-analysis summary { cursor: pointer; font-size: 12px; font-weight: 600; color: #6a1b9a; padding: 8px 14px; user-select: none; list-style: none; display: flex; align-items: center; gap: 4px; }
+.pro-analysis summary::-webkit-details-marker { display: none; }
+.pro-analysis summary::before { content: "▶"; font-size: 9px; transition: transform 0.2s; }
+.pro-analysis details[open] summary::before { transform: rotate(90deg); }
+.pro-analysis .pro-content { padding: 10px 14px; font-size: 12px; color: var(--text); line-height: 1.7; border-top: 1px solid rgba(104,58,183,0.1); }
+html.dark .pro-analysis details { background: rgba(104,58,183,0.1); border-color: rgba(206,147,216,0.2); }
+html.dark .pro-analysis summary { color: #ce93d8; }
+html.dark .pro-analysis .pro-content { border-top-color: rgba(206,147,216,0.15); }
+.glossary-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+.glossary-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #00695c; border-bottom: 1px solid var(--border); }
+.glossary-list { padding: 8px 18px; }
+.glossary-item { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border-light); align-items: flex-start; }
+.glossary-item:last-child { border-bottom: none; }
+.glossary-term { font-size: 13px; font-weight: 700; color: var(--primary); flex-shrink: 0; min-width: 100px; }
+.glossary-def { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+html.dark .glossary-header { color: #80cbc4; }
+.inst-view { font-size: 12px; color: var(--text); border-left: 3px solid var(--primary); padding: 8px 12px; margin-bottom: 10px; background: rgba(13,71,161,0.04); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; line-height: 1.7; }
+.inst-view .inst-label { font-weight: 700; color: var(--primary); margin-right: 4px; }
+.inst-view .inst-source { color: var(--text-tertiary); font-size: 11px; }
+.credibility-tag { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+.credibility-high { background: rgba(46,125,50,0.1); color: var(--credibility-high); }
+.credibility-medium { background: rgba(249,168,37,0.1); color: var(--credibility-medium); }
+.credibility-unverified { background: rgba(198,40,40,0.1); color: var(--credibility-unverified); }
+.source-bar { border-top: 1px solid var(--border-light); padding: 10px 0 0; margin-top: 10px; }
+.source-bar .source-label { font-size: 11px; font-weight: 600; color: var(--text-tertiary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+.source-item { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 4px; font-size: 11px; line-height: 1.5; }
+.source-item:last-child { margin-bottom: 0; }
+.source-grade { display: inline-block; width: 18px; height: 18px; line-height: 18px; text-align: center; border-radius: 3px; font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.source-grade.s { background: var(--grade-s); }
+.source-grade.a { background: var(--grade-a); }
+.source-grade.b { background: var(--grade-b); }
+.source-grade.c { background: var(--grade-c); }
+.source-text { color: var(--text-secondary); }
+.source-text a { color: var(--primary); text-decoration: none; }
+.source-text a:hover { text-decoration: underline; }
+.source-time { color: var(--text-tertiary); font-size: 10px; }
+.disclaimer { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 24px; margin: 16px 0; }
+.disclaimer h3 { font-size: 14px; font-weight: 700; color: var(--text-secondary); margin-bottom: 10px; }
+.disclaimer p { font-size: 12px; color: var(--text-tertiary); line-height: 1.8; margin-bottom: 6px; }
+.disclaimer .disclaimer-tag { display: inline-block; background: rgba(198,40,40,0.08); color: var(--signal-red); font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 10px; margin-bottom: 8px; }
+.source-summary { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+.source-summary .ss-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #00695c; border-bottom: 1px solid var(--border); }
+.source-summary table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.source-summary th { background: rgba(0,105,92,0.08); color: #00695c; padding: 8px 10px; text-align: left; font-weight: 600; }
+.source-summary td { padding: 6px 10px; border-bottom: 1px solid var(--border-light); }
+.source-summary tr:last-child td { border-bottom: none; }
+.source-summary a { color: var(--primary); text-decoration: none; }
+.source-summary a:hover { text-decoration: underline; }
+.backtest-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+.backtest-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #00838f; border-bottom: 1px solid var(--border); }
+.backtest-item { padding: 12px 18px; border-bottom: 1px solid var(--border); }
+.backtest-item:last-child { border-bottom: none; }
+.backtest-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.backtest-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+.backtest-tag { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.backtest-hit { background: rgba(46,125,50,0.12); color: #2e7d32; }
+.backtest-partial { background: rgba(249,168,37,0.12); color: #f9a825; }
+.backtest-miss { background: rgba(198,40,40,0.12); color: #c62828; }
+.rate-anchor { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+.rate-anchor-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #1565c0; border-bottom: 1px solid var(--border); }
+.rate-anchor-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-bottom: 1px solid var(--border); }
+.rate-anchor-item:last-child { border-bottom: none; }
+.rate-anchor-name { font-size: 13px; font-weight: 600; }
+.rate-anchor-value { font-size: 13px; font-weight: 700; color: var(--primary); font-family: "SF Mono", "Consolas", monospace; }
+.stats { text-align: center; padding: 8px 0; margin-top: 8px; color: var(--text-secondary); font-size: 12px; }
+footer { text-align: center; padding: 24px 0 32px; color: var(--text-secondary); font-size: 12px; }
+.back-to-top { position: fixed; bottom: 24px; right: 24px; z-index: 100; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: var(--shadow); transition: all 0.2s; }
+.back-to-top:hover { box-shadow: var(--shadow-hover); transform: scale(1.1); }
+.back-to-top.visible { display: flex; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px); background: #323232; color: #fff; padding: 10px 24px; border-radius: 8px; font-size: 14px; z-index: 9999; opacity: 0; transition: all 0.3s; pointer-events: none; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.export-capture #exportWatermark { display: block; }
+.export-capture .filter-bar { display: none !important; }
+.export-capture .reading-progress, .export-capture .back-to-top { display: none !important; }
+#exportWatermark { display: none; text-align: center; padding: 16px 0 8px; font-size: 11px; color: var(--text-secondary); border-top: 1px solid var(--border); margin-top: 8px; }
+.echarts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+@media (max-width: 600px) { .echarts-grid { grid-template-columns: 1fr; } }
+.echarts-box { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); padding: 12px 16px; }
+.echarts-box h4 { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
+.echarts-box .echart { width: 100%; height: 200px; }
+
+.signal-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; transition: box-shadow 0.3s, transform 0.3s; border-left: 4px solid var(--border); }
+.signal-card[data-lamp="green"] { border-left-color: var(--signal-green); }
+.signal-card[data-lamp="yellow"] { border-left-color: var(--signal-yellow); }
+.signal-card[data-lamp="red"] { border-left-color: var(--signal-red); }
+.signal-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+
+@keyframes fade-in-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.signal-card.in-view { animation: fade-in-up 0.5s ease-out forwards; }
+
+.signal-heatmap { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; padding: 12px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; }
+.heatmap-cell { aspect-ratio: 1; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; cursor: pointer; transition: transform 0.2s; }
+.heatmap-cell:hover { transform: scale(1.15); z-index: 2; }
+.heatmap-cell.green { background: var(--signal-green); }
+.heatmap-cell.yellow { background: var(--signal-yellow); }
+.heatmap-cell.red { background: var(--signal-red); }
+
+.fallback-msg { text-align: center; padding: 40px; color: var(--text-secondary); font-size: 14px; }
+@media print { .export-btn, .theme-toggle, .filter-bar, .sidebar, .reading-progress, .back-to-top, .echarts-grid { display: none !important; } .page-layout { display: block !important; max-width: 100% !important; } .main-content { max-width: 100% !important; } body { background: #fff !important; color: #000 !important; } }
+@media (max-width: 960px) { .page-layout { flex-direction: column; padding: 12px; } .main-content { max-width: 100%; } .sidebar { width: 100%; position: static; max-height: none; order: -1; } .export-btn { top: 8px; right: 60px; height: 36px; padding: 0 12px; font-size: 12px; } .export-btn .export-label { display: none; } .theme-toggle { top: 8px; right: 8px; width: 36px; height: 36px; font-size: 16px; } }
+@media (max-width: 600px) { header h1 { font-size: 22px; } .signal-card .signal-header { padding: 12px 16px 0; } .signal-card .signal-body { padding: 10px 16px 14px; } .filter-btn { font-size: 12px; padding: 4px 10px; } .report-meta { flex-direction: column; gap: 4px; } }
+</style>
+</head>
+<body>
+<div class="reading-progress" id="readingProgress"></div>
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="切换明暗模式">&#9790;</button>
+<button class="export-btn" id="exportBtn" onclick="exportAsImage()" title="导出为长图PNG，方便微信分享"><span class="export-icon">&#128247;</span><span class="export-label">导出长图</span></button>
+<div class="export-overlay" id="exportOverlay"><div class="export-modal" id="exportModal"><div class="spinner"></div><p>正在生成长图，请稍候...</p></div></div>
+<div class="page-layout">
+  <div class="main-content">
+    <header>
+      <h1>经济信号监控报告</h1>
+      <p class="subtitle">2026年9月 · 30项信号 · 月度趋势 · 信源可追溯 · v3.0 商用标准版</p>
+      <div class="report-meta">
+        <span>&#128197; v3.0 商用标准版（月度版）</span>
+        <span>&#128338; 数据截至 9月15日</span>
+        <span>&#128240; 监控周期 2026年9月1日 - 9月15日</span>
+      </div>
+    </header>
+
+    <div class="main-quote">
+      <div class="quote-icon">&#10077;</div>
+      <div class="quote-text">9月上半月：内需修复慢、外需韧性强——M2降至7.5%、固投转负、10年美债破5%，美联储议息悬念成全球资产最大变量。</div>
+      <div class="quote-divider"></div>
+      <div class="quote-source">经济信号监控报告编辑部 · 综合多方信源</div>
+    </div>
+
+<div class="summary-trends-box">
+      <h2>本月要点</h2>
+      <ul>
+                <li>8月宏观：CPI 0.8%回升、PPI 3.8%、M2降至7.5%、8月贷款600亿转正但社融结构巨变——直接融资占比首超信贷</li>
+        <li>1-8月固定资产投资同比-7.2%转负，房地产开发投资-19.9%，内需修复仍慢；8月出口+25.0%高增，外需韧性支撑</li>
+        <li>10年期美债收益率突破5%创2007年以来新高，中美利差倒挂约335bp，美联储9月议息加息概率升至60%</li>
+        <li>A股9月缩量震荡，成交1.62万亿持平年内新低，上证3864点；黄金回落至4285美元、铜价创14617历史新高</li>
+        <li>央行9/15续作MLF 5000亿，隔夜逆回购连续操作，资金面平稳宽松</li>
+      </ul>
+      <div class="trends-divider"></div>
+      <div class="trends-subtitle">月度趋势</div>
+      <div class="trends-list">
+                <div class="trend-item"><span class="trend-arrow down" style="color:#ef5350;">&#8595;</span>M2 7.5%（较7月回落0.2pct）</div>
+        <div class="trend-item"><span class="trend-arrow up" style="color:#a5d6a7;">&#8593;</span>CPI 0.8%（较7月回升0.3pct）</div>
+        <div class="trend-item"><span class="trend-arrow flat" style="color:rgba(255,255,255,0.6);">&#8594;</span>PMI 49.8%（低于荣枯线，景气回升）</div>
+      </div>
+    </div>
+
+    <div class="filter-bar"><button class="filter-btn active" onclick="filterCategory('全部')">全部</button><button class="filter-btn" onclick="filterCategory('宏观')">宏观</button><button class="filter-btn" onclick="filterCategory('产业')">产业</button><button class="filter-btn" onclick="filterCategory('金融')">金融</button></div>
+
+    <div class="section-title">核心信号（30项 · 展示代表项）</div>
+    <div class="signal-card" id="signal-1" data-signal-num="1" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">1</div>
+    <div class="signal-title">M2增速 · 8月末7.5% · 回落0.2pct</div>
+    <span class="signal-lamp yellow">回落</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>M2余额（8月末）</td><td>356.81万亿元（同比+7.5%，较7月回落0.2pct）</td></tr><tr><td>M1余额（8月末）</td><td>115.77万亿元（同比+4.1%）</td></tr><tr><td>人民币存款余额</td><td>347.67万亿元（同比+7.7%，存款增速快于贷款）</td></tr><tr><td>1-8月人民币存款增加</td><td>18.99万亿元</td></tr><tr><td>8月人民币存款增加</td><td>1.2万亿元</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>钱的总量（M2）还在涨，但速度降了一点，从7月的7.7%降到7.5%。同时大家存银行的钱（存款）比借出去的钱（贷款）涨得快，说明老百姓和企业的钱还是愿意存着，不太敢花。简单说：货币供应整体充裕，但资金还在"空转"，没完全流到消费和投资里去。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>目前社会融资规模、M2增速仍有7%以上，与名义经济增速基本匹配，信用总量扩张并不弱，但结构上发生了变化，债券、股票融资增长较快，贷款增速相对放缓。 —— 业内人士（央行8月金融数据解读）<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.pbc.gov.cn" target="_blank" rel="noopener">中国人民银行·2026年8月金融统计数据报告</a><span class="source-time"> · 9/14</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1876386629547748435" target="_blank" rel="noopener">百家号·新信号！央行重要数据发布（8月金融数据）</a><span class="source-time"> · 9/15 16:34</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://finance.sina.com.cn/roll/2026-09-15/doc-inirwsee3874742.shtml" target="_blank" rel="noopener">新浪财经·8月金融数据出炉：直接融资占比首超信贷</a><span class="source-time"> · 9/15 13:20</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-2" data-signal-num="2" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">2</div>
+    <div class="signal-title">社融 · 8月单月1.66万亿 · 直接融资占比首超信贷</div>
+    <span class="signal-lamp yellow">结构切换</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>社融存量（8月末）</td><td>464.8万亿元（同比+7.2%）</td></tr><tr><td>8月单月社融增量</td><td>1.66万亿元</td></tr><tr><td>前8个月社融增量累计</td><td>23.91万亿元（同比少增2.64万亿）</td></tr><tr><td>对实体经济人民币贷款（前8月）</td><td>10.23万亿元（同比少增2.71万亿）</td></tr><tr><td>结构特征</td><td>直接融资（政府债券+企业债券+股票）占比首次超过信贷</td></tr><tr><td>企业新发放贷款加权平均利率</td><td>略低于3%（同比低约0.2pct）</td></tr><tr><td>个人住房新发放贷款平均利率</td><td>约3.1%（与上年同期持平）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>社会融资（全社会借到钱的总盘子）8月又增加了1.66万亿，存量比去年同期多7.2%。但有一个非常重要的变化：现在企业和政府借钱，越来越不走银行贷款了，而是直接发债券、发股票，直接融资第一次超过了贷款融资。这说明融资结构正在转型，银行"间接融资"的老大地位在松动。对你的意义：以后看经济融资，不能只盯贷款，债券和股票市场会更重要。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>拆解前八个月社融结构，表内信贷、政府债券、企业债券三大分项呈现明显分化，勾勒出融资结构的切换轨迹，贷款总量延续"降速提质"。 —— 同花顺财经<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.pbc.gov.cn" target="_blank" rel="noopener">中国人民银行·2026年8月社会融资规模统计数据报告</a><span class="source-time"> · 9/14</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://stock.10jqka.com.cn/20260915/c679923389.shtml" target="_blank" rel="noopener">同花顺·新信号！央行重要数据发布 直接融资占比过半 结构切换加速</a><span class="source-time"> · 9/15 16:29</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://www.sohu.com/a/1076374209_114984" target="_blank" rel="noopener">搜狐·央行披露重磅金融数据</a><span class="source-time"> · 9/15 16:34</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-3" data-signal-num="3" data-lamp="red" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">3</div>
+    <div class="signal-title">土地出让金 · 1-7月-30.8% · 土地财政持续收缩</div>
+    <span class="signal-lamp red">收缩</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>1-7月国有土地使用权出让收入</td><td>11731亿元（同比-30.8%）</td></tr><tr><td>1-7月地方政府性基金预算本级收入</td><td>15447亿元（同比-24.8%）</td></tr><tr><td>1-7月全国政府性基金预算收入</td><td>18219亿元（同比-21.2%）</td></tr><tr><td>1-7月政府性基金预算支出</td><td>45410亿元（同比-16.4%）</td></tr><tr><td>上半年国有土地出让收入</td><td>9778亿元（同比-31.5%）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>卖地收入（土地出让金）还在大降，前7个月比去年少了三成。这是地方政府重要的"钱袋子"，卖地收入少，地方可用财力就紧，很多地方不得不靠发债和盘活存量资产过日子。对你来说：地方财政压力大的话，部分城市基础设施投资节奏可能放缓，也影响公务员、事业单位的福利预算。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>土地财政收缩仍在延续，地方自主财力承压加深，地方财政运行对债务工具和存量资源盘活的依赖进一步上升。 —— 中国财政运行分析<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.mof.gov.cn/zhengwuxinxi/redianzhuanti/quanguocaizhengshouzhiqingkuang/" target="_blank" rel="noopener">财政部·2026年1-7月财政收支情况</a><span class="source-time"> · 8/21</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://baike.baidu.com/item/68842242" target="_blank" rel="noopener">百度百科·国务院关于今年以来预算执行情况的报告（政府性基金预算）</a><span class="source-time"> · 9/3</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-4" data-signal-num="4" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">4</div>
+    <div class="signal-title">PMI · 8月制造业49.8% · 回升0.6pct仍低于荣枯线</div>
+    <span class="signal-lamp yellow">回升</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>制造业PMI（8月）</td><td>49.8%（较7月回升0.6pct）</td></tr><tr><td>非制造业商务活动指数</td><td>49.0%（与上月持平）</td></tr><tr><td>综合PMI产出指数</td><td>49.5%（回升0.2pct）</td></tr><tr><td>大型企业PMI</td><td>50.6%（回升1.1pct，重回扩张）</td></tr><tr><td>中型企业PMI</td><td>49.4%（下降0.3pct）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>制造业的"体温计"（PMI）8月是49.8%，比7月暖了0.6度，但还没到50度的健康线。大企业已经回到50.6%的扩张区，中型企业反而降了。整体看：制造业景气在边际修复，但还处在"有点冷"的状态。对打工人和企业主：订单恢复还需要时间，别期待短期大反转。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>8月份制造业PMI 49.8%，比上月上升0.6个百分点，景气水平回升；综合PMI产出指数49.5%，经济总体产出景气水平有所改善。 —— 国家统计局服务业调查中心首席统计师霍丽慧<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn/sj/zxfbhjd/202608/t20260831_1965154.html" target="_blank" rel="noopener">国家统计局·2026年8月中国采购经理指数运行情况</a><span class="source-time"> · 8/31 09:30</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.cs.com.cn/xwzx/01/2026/08/31/detail_2026083110035767.html" target="_blank" rel="noopener">中证网·首席统计师霍丽慧解读2026年8月中国采购经理指数</a><span class="source-time"> · 8/31 09:59</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-5" data-signal-num="5" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">5</div>
+    <div class="signal-title">网络体感：8月CPI温和·社零微增·消费者信心回落</div>
+    <span class="signal-lamp yellow">偏弱</span>
+    <span class="credibility-tag credibility-medium">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>1-8月网上商品和服务零售额</td><td>134766亿元（同比+4.6%）</td></tr><tr><td>网上商品零售额</td><td>84195亿元</td></tr><tr><td>8月社零同比</td><td>+0.4%（较7月回落0.2pct）</td></tr><tr><td>美国9月密歇根消费者信心初值</td><td>47.8（连续第二个月下滑）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>从大家在网上花钱的体感看，今年前8个月网上买东西总额比去年多4.6%，但增速不算快，还低于整体社零增速（因为服务消费更强）。线下零售更冷，8月只涨0.4%。美国那边，消费者信心指数9月又跌了，全球消费体感都偏谨慎。对你来说：网购价格战、优惠券还会继续，攒钱容易、消费冲动减少。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>8月消费价格运行三个特点：CPI和核心CPI温和回升；国际油价高位震荡带动国内成品油价格两次上调；食品价格整体平稳。 —— 国家统计局副司长王冠华<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn/sj/sjjd/202609/t20260915_1965332.html" target="_blank" rel="noopener">国家统计局·2026年8月份国民经济运行情况发布会</a><span class="source-time"> · 9/15 15:34</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://www.eeo.com.cn/2026/0912/1033221.shtml" target="_blank" rel="noopener">经济观察网·美国消费者信心指数回落 通胀预期上升（密歇根初值47.8）</a><span class="source-time"> · 9/12</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-6" data-signal-num="6" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">6</div>
+    <div class="signal-title">CPI · 8月+0.8% · 涨幅扩大0.3pct温和回升</div>
+    <span class="signal-lamp yellow">温和</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>8月CPI同比</td><td>+0.8%（涨幅较7月扩大0.3pct）</td></tr><tr><td>8月CPI环比</td><td>+0.4%</td></tr><tr><td>核心CPI同比</td><td>+1.0%</td></tr><tr><td>1-8月CPI同比</td><td>+0.9%</td></tr><tr><td>猪肉价格同比</td><td>-11.8%</td></tr><tr><td>食品烟酒及在外餐饮价格</td><td>同比下降（拖累项）</td></tr><tr><td>8月PPI同比</td><td>+3.8%</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>物价涨得比上个月多一点了：8月CPI是0.8%，主要因为国际油价高企带动国内油价两次上调，能源价格把CPI抬起来了。但猪肉还在降价（-11.8%），吃的方面基本没涨价。核心CPI（剔除食品和能源）是1.0%，还是很温和。对你来说：物价稳、通胀压力不大，手里的钱购买力没怎么缩水，但这也侧面说明消费需求还不够旺盛。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>CPI和核心CPI都呈现温和回升态势。8月份CPI同比上涨0.8%，涨幅比上月扩大0.3个百分点，主要是受能源价格涨幅扩大的影响。 —— 国家统计局<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn" target="_blank" rel="noopener">国家统计局·8月份全国居民消费价格同比上涨0.8%</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6384676360506724" target="_blank" rel="noopener">百家号·国家统计局：8月CPI同比上涨0.8% 猪肉价格下降11.8%</a><span class="source-time"> · 9/15 16:05</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://news.10jqka.com.cn/20260915/c679919176.shtml" target="_blank" rel="noopener">同花顺·8月份全国居民消费价格同比上涨0.8%</a><span class="source-time"> · 9/15 14:53</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-7" data-signal-num="7" data-lamp="green" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">7</div>
+    <div class="signal-title">GDP · 2026上半年+4.7% · 新动能贡献突出</div>
+    <span class="signal-lamp green">扩张</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>上半年GDP</td><td>695704亿元（同比+4.7%）</td></tr><tr><td>第一产业增加值</td><td>31522亿元（+3.7%）</td></tr><tr><td>第二产业增加值</td><td>250473亿元（+3.9%）</td></tr><tr><td>第三产业增加值</td><td>413709亿元（+5.2%，贡献率66.1%）</td></tr><tr><td>规上工业增加值（1-8月）</td><td>同比+5.2%（8月单月+5.2%，加快0.7pct）</td></tr><tr><td>装备制造业增加值（8月）</td><td>+12.1%</td></tr><tr><td>高技术制造业增加值（8月）</td><td>+16.7%</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>今年上半年经济总量约69.6万亿，比去年同期实际增长4.7%。服务业（第三产业）贡献了2/3的增长，是主力。8月的工业生产数据也不错，工厂生产比7月快了0.7个百分点，装备制造业涨12%、高技术制造业涨17%，新动能是亮点。但注意：生产好不等于需求好，出口和生产端强，投资和消费端弱，是当前经济"冰火两重天"的缩影。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>上半年经济运行在合理区间，新动能蓬勃发展。三次产业中第三产业对经济增长贡献率66.1%，高于上年同期5.9个百分点。 —— 国家统计局国民经济核算司司长郑学工<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn/sj/zxfb/202607/t20260716_1964142.html" target="_blank" rel="noopener">国家统计局·2026年二季度和上半年国内生产总值初步核算结果</a><span class="source-time"> · 7/16</span></span></div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.shanxi.gov.cn/ywdt/qgyw/202609/t20260916_10221022.shtml" target="_blank" rel="noopener">国家统计局·8月份国民经济运行平稳、发展向新向优</a><span class="source-time"> · 9/15</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-8" data-signal-num="8" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">8</div>
+    <div class="signal-title">城市财政自给率 · 上半年收入端回暖·自给率84.5%</div>
+    <span class="signal-lamp yellow">承压</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>上半年一般公共预算收入</td><td>121047亿元（同比+4.7%）</td></tr><tr><td>税收收入（上半年）</td><td>97865亿元（同比+5.3%）</td></tr><tr><td>非税收入</td><td>23182亿元（同比+2.3%）</td></tr><tr><td>上半年一般公共预算支出</td><td>143329亿元（同比+1.5%）</td></tr><tr><td>自给率（收入/支出）</td><td>约84.5%</td></tr><tr><td>1-7月全国政府性基金收入</td><td>18219亿元（同比-21.2%）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>全国来看，上半年"自己赚的钱"（一般公共预算收入）比"花的钱"（支出）少约2.2万亿，自给率约84.5%，缺口靠中央转移支付和发债补。收入增速4.7%还可以，主要靠税收增长5.3%。但卖地（政府性基金）收入大降21.2%，地方"第二钱袋子"缩水严重。对考公/体制内的你：地方财政吃紧时，绩效工资、福利待遇弹性可能受影响，建议持续关注目标省份财政自给率。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>上半年全国一般公共预算收入121047亿元，同比增长4.7%；其中税收收入97865亿元，同比增长5.3%。 —— 财政部<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.mof.gov.cn/zhengwuxinxi/redianzhongti/quanguocaizhengshuzhiqingkuang/" target="_blank" rel="noopener">财政部·2026年上半年财政收支情况</a><span class="source-time"> · 7/22</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://xueqiu.com/9293278021/401621718" target="_blank" rel="noopener">雪球·财政部：上半年全国一般公共预算收入121047亿元 同比增长4.7%</a><span class="source-time"> · 7/22</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-9" data-signal-num="9" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">9</div>
+    <div class="signal-title">常住人口 · 2025年末14.05亿 · 连续四年负增长</div>
+    <span class="signal-lamp yellow">负增长</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>2025年末全国人口</td><td>140489万人（比上年末减少339万）</td></tr><tr><td>出生人口</td><td>792万人（出生率5.63‰）</td></tr><tr><td>死亡人口</td><td>1131万人（死亡率8.04‰）</td></tr><tr><td>自然增长率</td><td>-2.41‰（连续第四年负增长）</td></tr><tr><td>65岁及以上人口占比</td><td>15.9%（老龄化加深）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>全国总人口还在减少，2025年末14.05亿，一年少了339万，已经是连续第四年负增长了。出生人口只有792万，老龄化（65岁以上占15.9%）在加深。这会影响长远的经济基本面：劳动力供给减少、社保压力增大、消费结构向银发经济转变。对你考公考编：未来编制总量和区域分布可能随人口流动调整，珠三角等人口净流入城市岗位更有保障。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>2025年末全国人口140489万人，比上年末减少339万人。全年出生人口792万人，人口出生率5.63‰；自然增长率为-2.41‰。 —— 国家统计局<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn" target="_blank" rel="noopener">国家统计局·2025年国民经济和社会发展统计公报</a><span class="source-time"> · 1/19</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://new.qq.com/rain/a/20260903A00VAM00" target="_blank" rel="noopener">腾讯新闻·中国人口形势报告2026：鼓励生育</a><span class="source-time"> · 9/3</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-10" data-signal-num="10" data-lamp="red" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">10</div>
+    <div class="signal-title">商品房去化：1-8月销售-12.1% · 二手成交首超新房</div>
+    <span class="signal-lamp red">去化</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>1-8月新建商品房销售面积</td><td>4.99亿㎡（同比-12.1%，降幅扩大0.3pct）</td></tr><tr><td>1-8月新建商品房销售额</td><td>4.75万亿元（同比-13.0%）</td></tr><tr><td>8月单月销售面积</td><td>0.49亿㎡（环比略降）</td></tr><tr><td>1-8月房地产开发投资</td><td>4.80万亿元（同比-19.9%）</td></tr><tr><td>1-8月二手房网签面积</td><td>5.5亿㎡（同比+10.6%，连续多月超新房）</td></tr><tr><td>北京商品住宅出清周期（7月末）</td><td>18.3个月（上海8.4个月、深圳约19个月）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>新房卖得比去年差：前8月销量跌12.1%，房地产开发投资跌近20%。但有个重要变化——二手房交易量超过了新房，说明楼市正在从"买新房"转向"买存量"，市场活跃度靠二手房撑着。北京、深圳房子要18-19个月才能卖完，库存压力大。对你的影响：如果考虑买房，现在是买家市场，但别指望大涨，也别指望大跌，分化会非常严重。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>市场交易格局正发生深刻调整，过去以新房交易居多正逐步转向以存量房交易居多。1-8月二手房网签面积5.5亿平方米，连续多个月高于新房销售面积，同比增长10.6%。 —— 住房城乡建设部<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6388709964704760" target="_blank" rel="noopener">中国银河证券·房地产行业研究报告：2026年前8月销售面积-12.1%，开发投资4.80万亿-19.9%</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://caifuhao.eastmoney.com/news/20260915140403222120800" target="_blank" rel="noopener">中指研究院·1-8月全国新建商品房销售面积下降12.1%</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=5001503093741688" target="_blank" rel="noopener">百家号·北京现房准现房市场深度分析（去化周期18.3个月）</a><span class="source-time"> · 8/31</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-11" data-signal-num="11" data-lamp="green" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">11</div>
+    <div class="signal-title">安全岗招聘 · 缺口327万 · 网安宣传周启动人才双选</div>
+    <span class="signal-lamp green">缺口大</span>
+    <span class="credibility-tag credibility-medium">多方信源</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>2026国内网安人才缺口</td><td>突破327万人（全球缺口480万）</td></tr><tr><td>网安周线下招聘</td><td>80家企业释放近300个岗位</td></tr><tr><td>招聘模式</td><td>"线上云聘+线下双选"联动</td></tr><tr><td>岗位方向</td><td>网络防护、安全运维、数据加密、风险研判</td></tr><tr><td>A股网安概念（9/15）</td><td>002912强势4连板，概念全线爆发</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>网络安全人才缺口达到327万人，是硬需求。9月14日国家网络安全宣传周在济南开幕，线下招聘一口气放出300个岗位，"线上云聘+线下双选"双轨并行。AI时代，懂安全又懂AI的复合型人才最抢手。对你来说：如果你在考虑转行或深造，网安方向缺口真实、政策支持强，但门槛也在提高——企业缺的是能直接干活的工程师，不是只会背书的人。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>AI时代到来后，网络安全领域新型复合型人才严重缺乏。网络安全人才"有量缺质"，培养模式需升级。 —— 安恒信息副总裁叶雷鹏（2026国家网络安全宣传周）<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6396348387489967" target="_blank" rel="noopener">中国青年报·网络安全和信息化人才招聘启动 80家企业近300岗位</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://blog.csdn.net/weixin_42340783/article/details/165294979" target="_blank" rel="noopener">CSDN·网络安全全岗位解析（2026版）：国内缺口突破327万</a><span class="source-time"> · 9/14</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-12" data-signal-num="12" data-lamp="yellow" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">12</div>
+    <div class="signal-title">分行业PMI · 制造业回升·服务业持平 · 大强小弱</div>
+    <span class="signal-lamp yellow">分化</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>制造业PMI（8月）</td><td>49.8%（回升0.6pct）</td></tr><tr><td>非制造业商务活动指数</td><td>49.0%（持平）</td></tr><tr><td>大型企业PMI</td><td>50.6%（扩张）</td></tr><tr><td>中型企业PMI</td><td>49.4%（收缩）</td></tr><tr><td>高技术制造业PMI</td><td>保持扩张区间</td></tr><tr><td>装备制造业PMI</td><td>高于制造业整体</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>分行业、分规模看：大企业回到扩张区（50.6），中型企业还在收缩（49.4），制造业比服务业稍强。新动能（高技术、装备制造）景气最好，传统产业压力更大。一句话：经济在"分化中修复"，不是全面回暖，机会集中在高科技、装备制造方向。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>大型企业PMI为50.6%，比上月上升1.1个百分点，高于临界点；中型企业PMI为49.4%，低于临界点。 —— 国家统计局8月PMI报告<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn/sj/zxfbhjd/202608/t20260831_1965154.html" target="_blank" rel="noopener">国家统计局·2026年8月中国采购经理指数运行情况</a><span class="source-time"> · 8/31</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://www.guancha.cn/politics/2026_08_31_829307.shtml" target="_blank" rel="noopener">观察者网·8月我国制造业PMI为49.8%，景气水平回升</a><span class="source-time"> · 8/31</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-13" data-signal-num="13" data-lamp="green" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">13</div>
+    <div class="signal-title">用电量 · 1-6月+5.3% · 高技术装备用电+10.3%</div>
+    <span class="signal-lamp green">增长</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>1-6月全社会用电量</td><td>同比+5.3%</td></tr><tr><td>6月全社会用电量</td><td>8981亿千瓦时（同比+3.7%）</td></tr><tr><td>高技术及装备制造业用电量（6月）</td><td>1121亿千瓦时（同比+10.3%）</td></tr><tr><td>工业用电量（6月）</td><td>5683亿千瓦时（同比+4.9%）</td></tr><tr><td>全国最大电力负荷（8月）</td><td>15.57亿千瓦（第四次破纪录）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>电用得越多说明生产越旺。今年上半年全国用电涨5.3%，其中高端装备制造业用电涨10.3%，是传统工业的两倍多——说明"新制造"正在接棒。8月高温下全国用电负荷四破纪录到15.57亿千瓦，反映经济活动的真实温度。对你来说：用电结构是个很好的'产业体检指标'，高技术产业强的地区经济韧性更好。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>6月份全社会用电量8981亿千瓦时，同比增长3.7%；高技术及装备制造业用电量1121亿千瓦时，同比增长10.3%。 —— 国家能源局<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.nea.gov.cn/20260715/ca1da417932c4fbfa26c0006f272d691/c.html" target="_blank" rel="noopener">国家能源局·2026年1-6月份全社会用电量同比增长5.3%</a><span class="source-time"> · 7/15</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://www.163.com/dy/article/L6KDC2400532J0BF.html" target="_blank" rel="noopener">网易·全国用电负荷第四次破纪录 8月还有四轮高温排队来</a><span class="source-time"> · 9/15</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-14" data-signal-num="14" data-lamp="yellow" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">14</div>
+    <div class="signal-title">PPI · 8月+3.8% · 涨幅回升0.3pct</div>
+    <span class="signal-lamp yellow">回升</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>8月PPI同比</td><td>+3.8%（涨幅比上月扩大0.3pct）</td></tr><tr><td>8月CPI同比</td><td>+0.8%</td></tr><tr><td>PPI-CPI剪刀差</td><td>约3.0pct（上游涨价压力向下游传导受限）</td></tr><tr><td>驱动因素</td><td>国际原油高位震荡、能源价格上行</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>工厂出厂价（PPI）8月涨3.8%，比上月加快。主要是油价涨带动的能源类商品涨价。但消费者价格（CPI）只涨0.8%，说明上游的涨价还没传不到终端——工厂赚钱压力大，不敢给消费者涨价。这种"上游热、下游冷"的结构，对企业利润和普通人的感受都不友好。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>8月PPI同比上涨3.8%，核心CPI同比1.0%，剔除黄金、以旧换新等扰动后核心CPI同比0.8%，与上月基本持平。 —— 宏观医生/CF40研究<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn" target="_blank" rel="noopener">国家统计局·2026年8月份国民经济运行情况（CPI/PPI）</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6400031009787683" target="_blank" rel="noopener">百家号·宏观医生|8月供稳需弱，经济合理增长仍需财政发力</a><span class="source-time"> · 9/15</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-15" data-signal-num="15" data-lamp="red" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">15</div>
+    <div class="signal-title">固定资产投资 · 1-8月-7.2% · 转负扩大</div>
+    <span class="signal-lamp red">收缩</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>1-8月固定资产投资</td><td>同比-7.2%（降幅较1-7月扩大0.5pct）</td></tr><tr><td>1-8月房地产开发投资</td><td>4.80万亿元（同比-19.9%）</td></tr><tr><td>基础设施投资</td><td>受地方财政约束，增速放缓</td></tr><tr><td>制造业投资</td><td>相对有韧性（新动能支撑）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>投资是经济的'发动机'，今年1-8月固定资产投资同比下跌7.2%，还在扩大下滑。主要拖累是房地产（开发投资跌了20%）和基建节奏放缓。好在制造业投资、特别是新动能（算力、装备）还有韧性。投资不行，意味着未来的产出和就业增量有限，这是当前最需要警惕的信号之一。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>投资、消费、融资等数据均有体现，需求端边际走弱；若要保证经济增速处于合理区间，财政发力仍是关键。 —— 中国金融四十人研究院（CF40）<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.163.com/dy/article/L6SMACLN0534A4SC.html" target="_blank" rel="noopener">网易·8月中国经济呈"三稳两快"，但内需仍待修复（1-8月固投-7.2%）</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://finance.sina.cn/2026-09-16/detail-inirxtrs3476952.d.html" target="_blank" rel="noopener">新浪财经·8月经济现结构性分化：生产改善快于投资和消费</a><span class="source-time"> · 9/16</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-16" data-signal-num="16" data-lamp="green" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">16</div>
+    <div class="signal-title">出口结构 · 8月出口+25.0% · 集成电路高增</div>
+    <span class="signal-lamp green">高增</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>8月出口（美元计价）</td><td>+25.0%（前值23.9%，预期25.9%）</td></tr><tr><td>8月进口（美元计价）</td><td>+28.2%（前值27.6%）</td></tr><tr><td>8月贸易顺差</td><td>1190.85亿美元</td></tr><tr><td>1-8月出口总额</td><td>20.17万亿元（同比+14.6%）</td></tr><tr><td>1-8月进口总额</td><td>14.61万亿元（同比+22%）</td></tr><tr><td>上半年集成电路进口</td><td>2980.2亿美元（同比+55.8%）</td></tr><tr><td>出口结构亮点</td><td>传统优势产品显著修复，机电产品为主</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>出口非常猛：8月比去年多卖25%，贸易顺差1190亿美元创近年高位。进口也涨28%，其中集成电路（芯片）进口暴涨55.8%——说明国内在大量采购AI芯片。出口强是好事，但很多分析指出高增速有'基数低+抢出口'成分，9月后可能见顶回落。对你：出口链企业短期景气，但别只看一个月。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>8月出口金额同比增速回升，受台风天气扰动数量端受压制；出口高增主因上年同期基数偏低。 —— 机构点评<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="http://www.customs.gov.cn" target="_blank" rel="noopener">海关总署·2026年8月进出口数据</a><span class="source-time"> · 9/8</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://finance.sina.com.cn/jjxw/2026-09-10/doc-inirhvxe3155745.shtml" target="_blank" rel="noopener">新浪财经·8月出口同比增长25.0% 传统优势产品出口显著修复</a><span class="source-time"> · 9/10</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://www.163.com/dy/article/L6G9C5HD05568W0A.html" target="_blank" rel="noopener">网易·关注价格端对于进出口的影响：2026年8月进出口数据点评</a><span class="source-time"> · 9/10</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-17" data-signal-num="17" data-lamp="yellow" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">17</div>
+    <div class="signal-title">社零品类 · 8月+0.4% · 服务消费强于商品</div>
+    <span class="signal-lamp yellow">分化</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>8月社会消费品零售总额</td><td>同比+0.4%（较7月回落0.2pct）</td></tr><tr><td>1-8月社零总额</td><td>327569亿元（同比+1.1%）</td></tr><tr><td>1-8月服务零售额</td><td>同比+4.9%</td></tr><tr><td>1-8月商品零售额</td><td>同比+1.0%</td></tr><tr><td>1-8月网上零售</td><td>134766亿元（同比+4.6%）</td></tr><tr><td>亮点品类</td><td>通讯信息服务、旅游咨询、文体休闲类增长较快</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>8月零售只涨了0.4%，比7月还弱。但拆开看：服务消费（吃饭、旅游、文化）涨4.9%，明显强于商品消费。说明大家愿意为'体验'花钱，不愿意为'实物'花钱。对你是很好的消费结构信号：旅游、餐饮、文体这些赛道相对抗跌，而家电、服饰等实物零售承压。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>1-8月份社会消费品零售总额327569亿元，同比增长1.1%，其中服务零售额增长4.9%，商品零售额增长1.0%。<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn" target="_blank" rel="noopener">国家统计局·2026年8月份国民经济运行情况（消费数据）</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6368492846567890" target="_blank" rel="noopener">百家号·8月份国民经济运行平稳、发展向新向优</a><span class="source-time"> · 9/15</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-18" data-signal-num="18" data-lamp="yellow" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">18</div>
+    <div class="signal-title">青年失业率 · 总失业率5.3% · 青年口径暂停发布</div>
+    <span class="signal-lamp yellow">平稳</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>8月城镇调查失业率</td><td>5.3%（较7月+0.1pct，毕业生季节性）</td></tr><tr><td>30-59岁主体人群失业率</td><td>3.9%（持平）</td></tr><tr><td>16-24岁青年失业率</td><td>8月起暂停发布（统计局调整口径）</td></tr><tr><td>最近口径参考</td><td>不包含在校生16-24岁约16%-17%</td></tr><tr><td>1-7月平均失业率</td><td>5.2%</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>8月整体失业率5.3%，比7月高0.1个点，主因毕业季毕业生集中找工作（季节性）。30-59岁主力人群失业率3.9%很稳。但注意：官方从8月起暂停发布青年（16-24岁）失业率，说明青年就业数据在重新校准，过去这个数字在16%-17%左右。对你：考公的热度与就业压力直接相关，数据口径变化不影响就业现实。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>8月份全国城镇调查失业率5.3%，比上月上升0.1个百分点，主要是新毕业学生集中进入劳动力市场带来的季节性影响。 —— 国家统计局<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn/sj/zxfbhjd/202609/t20260915_1965332.html" target="_blank" rel="noopener">国家统计局·8月份全国城镇调查失业率5.3%</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://www.sina.cn/news/detail/5339428094741464.html" target="_blank" rel="noopener">新浪·青年失业率自今年8月暂停发布（口径调整）</a><span class="source-time"> · 9/4</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-19" data-signal-num="19" data-lamp="green" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">19</div>
+    <div class="signal-title">工业利润 · 1-6月+18.7% · 股份制企业领跑</div>
+    <span class="signal-lamp green">改善</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>1-6月规上工业企业利润总额</td><td>39479.9亿元（同比+18.7%）</td></tr><tr><td>国有控股企业利润</td><td>13077.4亿元（同比+17.9%）</td></tr><tr><td>股份制企业利润</td><td>30443.2亿元（同比+24.7%）</td></tr><tr><td>外商及港澳台企业利润</td><td>8873.2亿元（同比+2.6%）</td></tr><tr><td>私营企业利润</td><td>9655.6亿元（同比-？待查）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>工业企业赚钱能力不错：上半年利润总额近4万亿，比去年同期涨了18.7%，比一季度还快了3.2个百分点。股份制企业涨24.7%最猛。利润改善主要在制造业（设备、新能源等）。但注意：利润改善和需求偏弱的反差，说明利润更多靠降本增效而非涨价驱动。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>1-6月份全国规模以上工业企业实现利润总额39479.9亿元，同比增长18.7%，较一季度加快3.2个百分点。<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn/sj/zxfb/202607/t20260727_1964194.html" target="_blank" rel="noopener">国家统计局·2026年1-6月份全国规模以上工业企业利润增长18.7%</a><span class="source-time"> · 7/27</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.gov.cn/zhengce/jiedu/tujie/202607/content_7076699.htm" target="_blank" rel="noopener">中国政府网·图表：2026年上半年全国规模以上工业企业利润增长18.7%</a><span class="source-time"> · 7/27</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-20" data-signal-num="20" data-lamp="red" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">20</div>
+    <div class="signal-title">黄金价格 · 4285美元 · 美债利率上行施压</div>
+    <span class="signal-lamp red">回落</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>现货黄金（9/15）</td><td>4285.13美元/盎司</td></tr><tr><td>沪金主力（9/15收盘）</td><td>929.76元/克（-1.55%）</td></tr><tr><td>上海金（9/15）</td><td>927.61元/克</td></tr><tr><td>下跌驱动</td><td>美债收益率破5%+加息预期升温+美元走强</td></tr><tr><td>央行黄金储备（8月末）</td><td>7673万盎司（连续22个月增持，+65万盎司）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>黄金从8月底4453美元跌到4285美元附近，9月15日单日跌超1.5%。因为美债收益率冲到5%以上，持有黄金的机会成本变高，资金撤了。但中国央行还在连续22个月买黄金（8月又增持65万盎司）——国家队的思路是长期配置。对你：如果做黄金定投，别在鹰派加息落地前重仓；金饰购买可以再等等。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>美债收益率站稳5%上方，金价可能进一步下探。9月15日上海黄金现货报价938元/克，较期货升水8.24元/克。 —— 同花顺<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://m.cngold.org/bank/xw10757575.html" target="_blank" rel="noopener">金投网·今日现货黄金价格4285.13美元/盎司</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://m.cngold.org/home/xw10759587.html" target="_blank" rel="noopener">金投网·9月15日沪金主力收报929.76元/克 日内下跌1.55%</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://goodsfu.10jqka.com.cn/20260915/c679923646.shtml" target="_blank" rel="noopener">同花顺·美债收益率站稳5%上方 金价可能进一步下探</a><span class="source-time"> · 9/15</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-21" data-signal-num="21" data-lamp="red" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">21</div>
+    <div class="signal-title">A股 · 缩量调整 · 成交1.62万亿持平年内新低</div>
+    <span class="signal-lamp red">调整</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>上证指数（9/15收盘）</td><td>3864.28点（-0.54%）</td></tr><tr><td>深证成指</td><td>13287.97点（-0.72%）</td></tr><tr><td>创业板指</td><td>3247.92点（-1.15%）</td></tr><tr><td>科创50</td><td>1551.96点（+1.55%）</td></tr><tr><td>两市成交额</td><td>约1.62万亿元（持平年内最低）</td></tr><tr><td>涨跌家数</td><td>约1118涨 / 4376跌</td></tr><tr><td>下跌驱动</td><td>AI巨头降速传闻+缩量+议息前观望</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>A股这两天在缩量调整，9月15日上证跌0.54%到3864点，4300多只股票下跌，成交1.62万亿，追平了今年4月7日创下的年内最低纪录。跌的主要原因是外围AI龙头'降速'传闻冲击科技股，加上美联储议息会议前夕大家都不敢动。科创50反而逆势涨1.55%（半导体设备、稀土、存储活跃）。对你：议息落地前保持现金仓，别追高杀跌。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>外围硬科技传导：AI巨头"降速"冲击波持续发酵。缩量整理，市场等待美联储利率决议落地。<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6381982767273748" target="_blank" rel="noopener">百家号·沪指跌0.54%创指跌1.15%：半导体设备走强 两市成交1.61万亿</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://m.cngold.org/stock/xw10759599.html" target="_blank" rel="noopener">金投网·今日大盘走势 沪深两市成交金额超16127亿元</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://xueqiu.com/6194642173/409346622" target="_blank" rel="noopener">雪球·9月15日A股大跌原因分析</a><span class="source-time"> · 9/15</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-22" data-signal-num="22" data-lamp="red" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">22</div>
+    <div class="signal-title">美股 · 议息前走弱 · 标普500 -0.48% · 费半重挫</div>
+    <span class="signal-lamp red">承压</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>道琼斯指数（9/15收盘）</td><td>-0.29%</td></tr><tr><td>标普500</td><td>-0.48%</td></tr><tr><td>纳斯达克综合</td><td>-0.56%</td></tr><tr><td>费城半导体指数</td><td>重挫近6%（AI降速传闻冲击）</td></tr><tr><td>10年美债收益率</td><td>盘中升破5%</td></tr><tr><td>FOMC会议</td><td>9/15-16议息，加息预期主导</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>美联储开会的这两天，美股先跌为敬：三大指数全线收跌，费城半导体指数更是暴跌近6%——AI公司放缓模型开发的消息让科技股'杀估值'。10年美债收益率升破5%，市场认为美联储加息25个基点的概率不低。对你：美联储决议是本周全球行情的总开关，出来之前美股、A股都难有大行情。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>美东时间9月15日，美股三大指数集体收跌，市场在美联储利率决议前夕选择谨慎避险。CNBC将下跌归结于AI IPO项目变动、美债收益率上行、石油走高。 —— CNBC/百家号<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6355046183730522" target="_blank" rel="noopener">百家号·10年美债收益率、油价狂飙！费城半导体指数重挫近6%</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6405064047199772" target="_blank" rel="noopener">百家号·美股三大股指小幅低开 存储芯片、光通信股普涨</a><span class="source-time"> · 9/15</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-23" data-signal-num="23" data-lamp="yellow" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">23</div>
+    <div class="signal-title">恒生 · 9/15跌1.0% · 24667点 · 腾讯逆势涨</div>
+    <span class="signal-lamp yellow">震荡</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>恒生指数（9/15收盘）</td><td>24667.24点（-250.36点，-1.0%）</td></tr><tr><td>国企指数</td><td>8204.91点（-0.96%）</td></tr><tr><td>恒生科技指数</td><td>4291.34点（-0.62%）</td></tr><tr><td>全日主板成交</td><td>1872.01亿港元</td></tr><tr><td>腾讯控股</td><td>438.8港元（+1.9%）</td></tr><tr><td>跌幅靠前</td><td>宁德时代、中银香港、紫金矿业</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>港股9月15日跌了1%，恒生指数收在24667点。但腾讯逆势涨了1.9%，说明互联网龙头相对抗跌。港股整体跟A股和美股一样，在等美联储会议结果。对港股科技/互联网指数定投的人来说：短期震荡是常态，别频繁操作。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>港股15日跌1.0%收报24667.24点，恒生科技指数收报4291.34点跌0.62%。 —— 新华社香港<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6396223615232507" target="_blank" rel="noopener">新华社·港股15日跌1.0% 收报24667.24点</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://fund.eastmoney.com/a/202609153874699154.html" target="_blank" rel="noopener">东方财富·9月15日港股收盘：恒指跌1.0% 恒生科技指数跌0.62%</a><span class="source-time"> · 9/15</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-24" data-signal-num="24" data-lamp="red" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">24</div>
+    <div class="signal-title">中美利差 · 10年美债破5% · 倒挂约330bp</div>
+    <span class="signal-lamp red">倒挂</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>10年期美债收益率（9/15）</td><td>5.02%（盘中5.041%创2007年以来新高）</td></tr><tr><td>2年期美债收益率</td><td>4.688%</td></tr><tr><td>30年期美债收益率</td><td>5.388%</td></tr><tr><td>中国10年期国债收益率</td><td>约1.67%（年内低点）</td></tr><tr><td>中美10年期利差</td><td>倒挂约335bp</td></tr><tr><td>市场影响</td><td>外部约束国内货币宽松空间，人民币贬值压力</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>美国的10年期国债收益率升破5%，这是2007年以来头一回。中国10年国债只有1.67%，两边一减，利差倒挂大约330个基点（即美国利率比中国高3.3个百分点）。这意味着：①资金有流出中国、流入美国的动力；②中国央行想降息，也会被'外面钱贵'掣肘；③人民币短期有贬值压力。对房贷族：国内降息预期受外部约束，但别慌，央行工具箱里还有招。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>10年期美债收益率重返5%，全球资产定价重校准。中美利差倒挂加深，从外部约束国内货币政策进一步宽松的空间。 —— 金融界/华泰期货<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://bank.jrj.com.cn/2026/0915/161158442086.shtml" target="_blank" rel="noopener">金融界·10年期美债收益率重返5% 全球资产定价重校准</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6397295713480494" target="_blank" rel="noopener">百家号·10年期美债收益率突破5% 向美联储发出"警告信号"</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://stock.10jqka.com.cn/20260915/c679915777.shtml" target="_blank" rel="noopener">同花顺·10年期美债收益率一度逼近5% 国债期货延续震荡</a><span class="source-time"> · 9/15</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-25" data-signal-num="25" data-lamp="yellow" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">25</div>
+    <div class="signal-title">人民币汇率 · 中间价6.7670 · 9月稳中有升</div>
+    <span class="signal-lamp yellow">企稳</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>人民币对美元中间价（9/15）</td><td>6.7670（调升28基点）</td></tr><tr><td>9/14中间价</td><td>6.7698（调升45基点）</td></tr><tr><td>在岸人民币（9/15盘中）</td><td>约6.7098</td></tr><tr><td>离岸人民币（9/15盘中）</td><td>约6.7106</td></tr><tr><td>美元指数（9/15）</td><td>受美债上行支撑走强</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>人民币官方中间价9月15日报6.7670，调升28个基点，9月总体在6.76-6.78之间窄幅波动，比8月的6.72小幅贬值一些，但幅度很小。美元因为美债收益率破5%走强，人民币短期承压但没崩。对你：海淘、出境游成本短期波动不大，如果美联储真加息，人民币还有小贬空间，但幅度可控。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>9月15日银行间外汇市场人民币汇率中间价为1美元对人民币6.7670元，上调28个基点。 —— 中国外汇交易中心<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.chinamoney.com.cn/chinese/ccprnoticecontent/" target="_blank" rel="noopener">中国外汇交易中心·2026年9月15日人民币汇率中间价公告</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6359044060050501" target="_blank" rel="noopener">中新网·9月15日人民币对美元中间价报6.7670 上调28个基点</a><span class="source-time"> · 9/15</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-26" data-signal-num="26" data-lamp="green" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">26</div>
+    <div class="signal-title">铜价 · LME 14113 · 9/8曾创14617历史新高</div>
+    <span class="signal-lamp green">强势</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>LME三个月期铜（9/15）</td><td>14113.5美元/吨</td></tr><tr><td>历史新高（9/8盘中）</td><td>14617美元/吨（连续两日刷新纪录）</td></tr><tr><td>沪铜主力（9/8）</td><td>110690元/吨（重返11万关口上方）</td></tr><tr><td>年内累计涨幅</td><td>约13%-17%</td></tr><tr><td>上涨驱动</td><td>AI算力需求+智利供应受扰+美国囤铜+特朗普关税预期</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>铜价今年涨疯了：9月8日LME铜冲到14617美元/吨创历史新高，现在回落到14117美元。这轮铜牛是'AI抢铜'——算力基础设施需要大量铜缆、铜连接器，加上供应端（智利）出问题和美国囤货。铜是经济晴雨表，铜价高说明市场对AI算力投资信心很足。对你：关注铜相关的ETF和有色板块，但高位波动大，追高需谨慎。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>AI算力引爆全球"抢铜"大战，LME铜连续两日刷新历史新高。市场押注特朗普关税扩大至精炼铜进口，叠加智利供应受扰与美国持续囤货，铜市紧张格局升级。 —— 市场研究<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=5767895805372256" target="_blank" rel="noopener">百家号·沪铜重回11万大关 伦铜续刷新高！狂飙的铜价天花板在哪里</a><span class="source-time"> · 9/8</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://hq.smm.cn/h5/cu" target="_blank" rel="noopener">上海有色网·LME伦铜14113.5美元/吨（9/15）</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=5727981546866357" target="_blank" rel="noopener">百家号·LME铜创历史新高！北方铜业涨超9%</a><span class="source-time"> · 9/8</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-27" data-signal-num="27" data-lamp="yellow" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">27</div>
+    <div class="signal-title">原油 · WTI 102美元 · 地缘溢价主导</div>
+    <span class="signal-lamp yellow">高位</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>WTI原油</td><td>约102美元/桶（霍尔木兹谈判推迟上涨）</td></tr><tr><td>布伦特原油</td><td>105美元/桶上方</td></tr><tr><td>穆尔班原油</td><td>127美元/桶以上</td></tr><tr><td>驱动因素</td><td>中东局势紧张+霍尔木兹海峡谈判推迟</td></tr><tr><td>对国内影响</td><td>成品油已两次上调价格</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>国际油价被中东局势推着走：WTI已经到102美元，布伦特105美元以上。霍尔木兹海峡（全球1/5的石油运输通道）谈判推迟，市场担心断供。油价高对你是三重影响：加油贵、CPI被动推高、航空公司成本上升票价可能涨。油价短期看谈判，长期看需求。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>中东局势升温推动布伦特原油突破每桶100美元。由于霍尔木兹海峡谈判再次被推迟，国际油价再度全面上涨。 —— 广州期货/市场评论<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6355046183730522" target="_blank" rel="noopener">百家号·10年美债收益率、油价狂飙！（WTI 102美元）</a><span class="source-time"> · 9/15</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://mp.weixin.qq.com/s?__biz=MzUxNDY5NzQ5MQ==&mid=2247496047&idx=1&sn=cf234afc52ec745fb1c604e9b767bb95" target="_blank" rel="noopener">腾讯网·AI算力引爆全球"抢铜"大战（布伦特突破100美元）</a><span class="source-time"> · 9/10</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-28" data-signal-num="28" data-lamp="yellow" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">28</div>
+    <div class="signal-title">北向资金 · 9/9净流入27.85亿 · 外资分歧明显</div>
+    <span class="signal-lamp yellow">分歧</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>北向资金（9/9）</td><td>净流入27.85亿元（沪股通12.37+深股通15.48）</td></tr><tr><td>9/14北向成交</td><td>2384.85亿元（占两市14.64%）</td></tr><tr><td>9/11北向成交</td><td>2913.20亿元（占14.77%）</td></tr><tr><td>外资加仓方向</td><td>地产、保险、银行</td></tr><tr><td>外资减持方向</td><td>白酒、创新药、互联网</td></tr><tr><td>市场特征</td><td>主力资金持续净流出，外资相对积极</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>外资（北向资金）9月9日逆势净流入27.85亿，加仓地产、保险、银行这些低估值蓝筹；同时卖出白酒、创新药。说明外资在防御，选择高股息和低估值。整个9月A股缩量，主力资金天天净流出，外资是小部分增量。对你：外资防御性配置方向（高股息蓝筹）可以作为风格参考。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>北向资金（外资）逆势净流入27.85亿元，无流出；外资分歧明显：加仓地产、保险、银行；减持白酒、创新药、互联网。<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.sina.cn/news/detail/5341203371131717.html" target="_blank" rel="noopener">新浪财经·2026-09-09收盘资金流出汇总 北向资金净流入27.85亿</a><span class="source-time"> · 9/9</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://caifuhao.eastmoney.com/news/20260915092254615792780" target="_blank" rel="noopener">东方财富·复盘日记9/15（北向成交占比14.64%）</a><span class="source-time"> · 9/15</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-29" data-signal-num="29" data-lamp="yellow" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">29</div>
+    <div class="signal-title">VIX恐慌指数 · 17.10 · 议息前焦虑升温</div>
+    <span class="signal-lamp yellow">升温</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>VIX（9/15）</td><td>17.10（+7.95%）</td></tr><tr><td>费城半导体</td><td>重挫近6%</td></tr><tr><td>10年美债</td><td>突破5%</td></tr><tr><td>市场情绪</td><td>美联储议息前避险情绪升温</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>VIX（市场恐慌指数）一天涨了8%，到了17.10，虽然还不算恐慌（20以上才算），但确实在升温。大家一边担心美联储加息，一边担心AI降速。恐慌指数高的时候，意味着股票波动加大，如果你重仓科技股，建议降低仓位或买点对冲。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>标普500期权隐含波动率指标VIX当日上涨7.95%至17.10，显示市场焦虑情绪有所升温。<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6355046183730522" target="_blank" rel="noopener">百家号·10年美债收益率、油价狂飙！费半指数重挫近6%（VIX 17.10）</a><span class="source-time"> · 9/15</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-30" data-signal-num="30" data-lamp="green" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">30</div>
+    <div class="signal-title">信用利差 · 收窄 · 信用债配置价值显现</div>
+    <span class="signal-lamp green">收窄</span>
+    <span class="credibility-tag credibility-medium">已信源</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>中短期票据AAA 1Y利差</td><td>压缩约0.8BP</td></tr><tr><td>AAA 3Y/5Y利差</td><td>压缩约2.9BP / 2.1BP</td></tr><tr><td>城投债AAA 7Y利差</td><td>压缩超4BP</td></tr><tr><td>弱资质+长久期</td><td>利差压缩5-10BP</td></tr><tr><td>信用债发行利率均值（8月下旬）</td><td>1.78%</td></tr><tr><td>资产荒延续</td><td>理财资金配置压力推动利差收窄</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>信用债（企业借钱发的债）的利率在降，与国债的差距（信用利差）进一步压缩。这意味着：企业发债成本更低了，市场资金充裕、资产荒继续。对你是间接的：利差收窄→债券基金收益被压低，如果你买银行理财或债基，收益率可能小幅下降。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>上周信用债收益率下行，信用利差普遍压缩，中短期票据AAA 1Y/3Y/5Y利差压缩0.8/2.9/2.1BP，弱资质与长久期品种利差压缩5-10BP。 —— 申万固收<span class="inst-source"> —— ，</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6227582515708248" target="_blank" rel="noopener">申万固收·信用周报（20260907-20260913）</a><span class="source-time"> · 9/13</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=6269990000406717" target="_blank" rel="noopener">百家号·债市观察：信用债收益率整体回落 信用利差全线收窄</a><span class="source-time"> · 9/14</span></span></div></div>
+  </div>
+</div>
+
+<div class="signal-card" style="border: 2px solid #6a1b9a; overflow: visible;">
+  <div class="signal-header" style="background: linear-gradient(135deg, rgba(106,27,154,0.08), rgba(123,31,162,0.04)); padding-bottom: 14px;">
+    <div class="signal-num" style="background: #6a1b9a;">B</div>
+    <div class="signal-title" style="color: #6a1b9a;">智脑研判：预测台账板块命中率分析</div>
+    <span class="signal-lamp" style="background: rgba(106,27,154,0.12); color: #6a1b9a;">月度评估</span>
+  </div>
+  <div class="signal-body">
+
+    <table class="signal-table" style="margin-bottom: 16px;">
+      <thead>
+        <tr style="background: rgba(106,27,154,0.06);">
+          <th>板块</th><th>已验证总数</th><th>命中</th><th>部分命中</th><th>未命中</th><th>纯命中率</th><th>含部分命中率</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr><td>资金面</td><td>4</td><td>3</td><td>1</td><td>0</td><td style="color:#2e7d32;font-weight:700;">75%</td><td style="color:#2e7d32;font-weight:700;">100%</td></tr>
+<tr><td>汇率</td><td>3</td><td>2</td><td>1</td><td>0</td><td style="color:#2e7d32;font-weight:700;">67%</td><td style="color:#2e7d32;font-weight:700;">100%</td></tr>
+<tr><td>大宗商品</td><td>3</td><td>1</td><td>1</td><td>1</td><td style="color:#c62828;font-weight:700;">33%</td><td style="color:#2e7d32;font-weight:700;">67%</td></tr>
+      </tbody>
+    </table>
+
+    <div style="height: 300px; position: relative; margin-bottom: 16px;">
+      <canvas id="chartHitRate"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+    new Chart(document.getElementById('chartHitRate'), {
+      type: 'bar',
+      data: {
+        labels: ["资金面", "汇率", "大宗商品"],
+        datasets: [{
+          label: '纯命中率(%)',
+          data: [75, 67, 33],
+          backgroundColor: ["rgba(46,125,50,0.7)", "rgba(46,125,50,0.7)", "rgba(198,40,40,0.7)"],
+          borderColor: ["#2e7d32", "#2e7d32", "#c62828"],
+          borderWidth: 1
+        }, {
+          label: '含部分命中率(%)',
+          data: [100, 100, 67],
+          backgroundColor: 'rgba(13,71,161,0.4)',
+          borderColor: '#0d47a1',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'top' } },
+        scales: { y: { beginAtZero: true, max: 110, title: { display: true, text: '命中率 (%)' } } }
+      }
+    });
+    </script>
+
+      <div style="background: rgba(46,125,50,0.06); border-left: 4px solid #2e7d32; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px;">
+        <div style="font-weight: 700; color: #2e7d32; font-size: 14px; margin-bottom: 6px;">最强板块：资金面</div>
+        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">8月央行净投放1.2万亿+隔夜逆回购精准滴灌的宽松判断被9月验证（MLF续作5000亿、隔夜逆回购连续操作），资金面平稳宽松命中。A股震荡判断命中（成交缩至年内新低）。</div>
+      </div>
+      <div style="background: rgba(198,40,40,0.06); border-left: 4px solid #c62828; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px;">
+        <div style="font-weight: 700; color: #c62828; font-size: 14px; margin-bottom: 6px;">最弱板块：大宗商品</div>
+        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">油价受霍尔木兹海峡谈判推迟突破100美元区间上限（原预测80-92），地缘事件脉冲超模型预期；铜价历史新高14617虽在强势区间内但波动加大。校准：地缘溢价需额外上修10-15美元/桶，商品预测保留更大区间。</div>
+      </div>
+
+    <div style="background: rgba(106,27,154,0.06); border: 1px solid rgba(106,27,154,0.2); border-radius: 8px; padding: 14px 18px; margin-top: 8px;">
+      <div style="font-weight: 700; color: #6a1b9a; font-size: 14px; margin-bottom: 8px;">总体研判</div>
+      <div style="font-size: 13px; color: var(--text); line-height: 1.8;">
+        9月上半月回测累计10条预测：命中6条（60%），部分命中3条，未命中1条。资金面与汇率板块命中率最高；大宗商品受地缘脉冲拖累。
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="signal-card" style="overflow: visible;">
+  <div class="signal-header">
+    <div class="signal-num" style="background: #6a1b9a;">T</div>
+    <div class="signal-title">月度趋势图（ECharts 交互式）</div>
+  </div>
+  <div class="signal-body" style="overflow: visible;">
+    <div class="echarts-grid">
+
+    <div class="echarts-box" style="grid-column: span 2;">
+      <h4>CPI / PPI / PMI 近6月走势（3-8月）</h4>
+      <div id="chartMacro" class="echart" style="height: 260px;"></div>
+    </div>
+    <div class="echarts-box" style="grid-column: span 2;">
+      <h4>黄金 / 原油 / 铜价 月度走势（3-8月，9月最新点位附注）</h4>
+      <div id="chartCommodity" class="echart" style="height: 260px;"></div>
+    </div>
+    <div class="echarts-box" style="grid-column: span 2;">
+      <h4>A股上证 / 创业板 月度走势（3-8月）</h4>
+      <div id="chartStock" class="echart" style="height: 260px;"></div>
+    </div>
+    <div class="echarts-box" style="grid-column: span 2;">
+      <h4>M2 / 社融 / 贷款 月度走势（3-8月）</h4>
+      <div id="chartCredit" class="echart" style="height: 260px;"></div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script>
+
+      var chart_0 = echarts.init(document.getElementById('chartMacro'), null, { renderer: 'canvas' });
+      chart_0.setOption({
+        tooltip: { trigger: 'axis' },
+        legend: { top: 0, textStyle: { fontSize: 11 } },
+        grid: { left: '8%', right: '8%', bottom: '10%', top: '20%', containLabel: true },
+        xAxis: { type: 'category', data: ["3月", "4月", "5月", "6月", "7月", "8月"], axisLabel: { fontSize: 11 } },
+        yAxis: [
+        { type: 'value', name: "CPI/PPI (%)", position: 'left' },
+        { type: 'value', name: "PMI (%)", position: 'right', min: 48, max: 51, splitLine: { show: false } }
+      ],
+        series: [{
+        name: "CPI同比(%)",
+        type: 'line',
+        data: [1.0, 1.2, 1.2, 1.0, 0.5, 0.8],
+        smooth: true,
+        yAxisIndex: 0,
+        lineStyle: { width: 2, color: '#e65100' },
+        itemStyle: { color: '#e65100' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#e651001a' }, 
+      },{
+        name: "PPI同比(%)",
+        type: 'line',
+        data: [0.5, 2.8, 3.9, 4.1, 3.5, 3.8],
+        smooth: true,
+        yAxisIndex: 0,
+        lineStyle: { width: 2, color: '#1565c0' },
+        itemStyle: { color: '#1565c0' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#1565c01a' }, 
+      },{
+        name: "PMI(%)",
+        type: 'line',
+        data: [50.1, 49.8, 49.5, 49.0, 49.2, 49.8],
+        smooth: true,
+        yAxisIndex: 0,
+        lineStyle: { width: 2, color: '#2e7d32' },
+        itemStyle: { color: '#2e7d32' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#2e7d321a' }, 
+      },]
+      });
+      window.addEventListener('resize', function() { chart_0.resize(); });
+
+      var chart_1 = echarts.init(document.getElementById('chartCommodity'), null, { renderer: 'canvas' });
+      chart_1.setOption({
+        tooltip: { trigger: 'axis' },
+        legend: { top: 0, textStyle: { fontSize: 11 } },
+        grid: { left: '8%', right: '8%', bottom: '10%', top: '20%', containLabel: true },
+        xAxis: { type: 'category', data: ["3月", "4月", "5月", "6月", "7月", "8月"], axisLabel: { fontSize: 11 } },
+        yAxis: [{ type: 'value', position: 'left' }],
+        series: [{
+        name: "黄金($/oz)",
+        type: 'line',
+        data: [3200, 3500, 3800, 3650, 4046, 4650],
+        smooth: true,
+        
+        lineStyle: { width: 2, color: '#ffb300' },
+        itemStyle: { color: '#ffb300' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#ffb3001a' }, 
+      },{
+        name: "WTI原油($/bbl)",
+        type: 'line',
+        data: [72, 75, 80, 82, 78, 85],
+        smooth: true,
+        
+        lineStyle: { width: 2, color: '#616161' },
+        itemStyle: { color: '#616161' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#6161611a' }, 
+      },{
+        name: "LME铜($/t)",
+        type: 'line',
+        data: [11500, 12500, 13000, 13500, 14000, 14260],
+        smooth: true,
+        
+        lineStyle: { width: 2, color: '#bf360c' },
+        itemStyle: { color: '#bf360c' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#bf360c1a' }, 
+      },]
+      });
+      window.addEventListener('resize', function() { chart_1.resize(); });
+
+      var chart_2 = echarts.init(document.getElementById('chartStock'), null, { renderer: 'canvas' });
+      chart_2.setOption({
+        tooltip: { trigger: 'axis' },
+        legend: { top: 0, textStyle: { fontSize: 11 } },
+        grid: { left: '8%', right: '8%', bottom: '10%', top: '20%', containLabel: true },
+        xAxis: { type: 'category', data: ["3月", "4月", "5月", "6月", "7月", "8月"], axisLabel: { fontSize: 11 } },
+        yAxis: [{ type: 'value', position: 'left' }],
+        series: [{
+        name: "上证指数",
+        type: 'line',
+        data: [4050, 3980, 3920, 3950, 3980, 3882],
+        smooth: true,
+        
+        lineStyle: { width: 2, color: '#c62828' },
+        itemStyle: { color: '#c62828' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#c628281a' }, 
+      },{
+        name: "创业板指",
+        type: 'line',
+        data: [3750, 3650, 3580, 3500, 3550, 3432],
+        smooth: true,
+        
+        lineStyle: { width: 2, color: '#2e7d32' },
+        itemStyle: { color: '#2e7d32' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#2e7d321a' }, 
+      },]
+      });
+      window.addEventListener('resize', function() { chart_2.resize(); });
+
+      var chart_3 = echarts.init(document.getElementById('chartCredit'), null, { renderer: 'canvas' });
+      chart_3.setOption({
+        tooltip: { trigger: 'axis' },
+        legend: { top: 0, textStyle: { fontSize: 11 } },
+        grid: { left: '8%', right: '8%', bottom: '10%', top: '20%', containLabel: true },
+        xAxis: { type: 'category', data: ["3月", "4月", "5月", "6月", "7月", "8月"], axisLabel: { fontSize: 11 } },
+        yAxis: [
+        { type: 'value', name: "M2同比(%)", position: 'left' },
+        { type: 'value', name: "万亿", position: 'right', splitLine: { show: false } }
+      ],
+        series: [{
+        name: "M2同比(%)",
+        type: 'line',
+        data: [7.0, 7.2, 7.4, 7.5, 7.7, 7.5],
+        smooth: true,
+        yAxisIndex: 0,
+        lineStyle: { width: 2, color: '#0d47a1' },
+        itemStyle: { color: '#0d47a1' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#0d47a11a' }, 
+      },{
+        name: "社融新增(万亿)",
+        type: 'line',
+        data: [5.1, 4.2, 2.1, 3.3, 1.4, 1.66],
+        smooth: true,
+        yAxisIndex: 0,
+        lineStyle: { width: 2, color: '#2e7d32' },
+        itemStyle: { color: '#2e7d32' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#2e7d321a' }, 
+      },{
+        name: "贷款新增(万亿)",
+        type: 'line',
+        data: [3.1, 0.7, 0.9, 2.2, -0.34, 0.06],
+        smooth: true,
+        yAxisIndex: 0,
+        lineStyle: { width: 2, color: '#c62828' },
+        itemStyle: { color: '#c62828' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#c628281a' }, 
+      },]
+      });
+      window.addEventListener('resize', function() { chart_3.resize(); });
+
+</script>
+
+    <div id="echarts-section"><div class="echarts-grid"><div class="echarts-box"><h4>CPI</h4><div id="gauge0" class="echart"></div></div><div class="echarts-box"><h4>PPI</h4><div id="gauge1" class="echart"></div></div><div class="echarts-box"><h4>PMI</h4><div id="gauge2" class="echart"></div></div></div>
+<script>
+
+    var gauge0 = echarts.init(document.getElementById('gauge0'), null, { renderer: 'canvas' });
+    gauge0.setOption({
+      series: [{
+        type: 'gauge',
+        min: -3, max: 5,
+        progress: { show: true, width: 10, itemStyle: { color: '#e65100' } },
+        axisLine: { lineStyle: { width: 10, color: [[0.5, '#e8eaed'], [1, '#e8eaed']] } },
+        detail: { valueAnimation: true, offsetCenter: [0, '60%'], formatter: '{value}', fontSize: 18, color: '#e65100' },
+        data: [{ value: 0.8, name: 'CPI' }],
+        title: { show: true, fontSize: 11, color: '#5f6368' }
+      }]
+    });
+    window.addEventListener('resize', function() { gauge0.resize(); });
+
+    var gauge1 = echarts.init(document.getElementById('gauge1'), null, { renderer: 'canvas' });
+    gauge1.setOption({
+      series: [{
+        type: 'gauge',
+        min: -10, max: 10,
+        progress: { show: true, width: 10, itemStyle: { color: '#1565c0' } },
+        axisLine: { lineStyle: { width: 10, color: [[0.5, '#e8eaed'], [1, '#e8eaed']] } },
+        detail: { valueAnimation: true, offsetCenter: [0, '60%'], formatter: '{value}', fontSize: 18, color: '#1565c0' },
+        data: [{ value: 3.8, name: 'PPI' }],
+        title: { show: true, fontSize: 11, color: '#5f6368' }
+      }]
+    });
+    window.addEventListener('resize', function() { gauge1.resize(); });
+
+    var gauge2 = echarts.init(document.getElementById('gauge2'), null, { renderer: 'canvas' });
+    gauge2.setOption({
+      series: [{
+        type: 'gauge',
+        min: 45, max: 55,
+        progress: { show: true, width: 10, itemStyle: { color: '#2e7d32' } },
+        axisLine: { lineStyle: { width: 10, color: [[0.5, '#e8eaed'], [1, '#e8eaed']] } },
+        detail: { valueAnimation: true, offsetCenter: [0, '60%'], formatter: '{value}', fontSize: 18, color: '#2e7d32' },
+        data: [{ value: 49.8, name: 'PMI' }],
+        title: { show: true, fontSize: 11, color: '#5f6368' }
+      }]
+    });
+    window.addEventListener('resize', function() { gauge2.resize(); });
+
+</script>
+<div class="signal-card" style="overflow: visible;">
+  <div class="signal-header">
+    <div class="signal-num" style="background: #00838f;">E</div>
+    <div class="signal-title">信号全景图（ECharts 交互式）</div>
+  </div>
+  <div class="signal-body" style="overflow: visible;">
+    <div class="echarts-grid">
+      <div class="echarts-box"><h4>30信号 Treemap（点击跳转）</h4><div id="treemapChart" class="echart"></div></div>
+    </div>
+  </div>
+</div>
+<script>
+
+    var treemapChart = echarts.init(document.getElementById('treemapChart'), null, { renderer: 'canvas' });
+    treemapChart.setOption({
+      tooltip: { formatter: function(p) { return p.name + '<br/>' + (p.data.lamp_text || ''); } },
+      series: [{
+        type: 'treemap',
+        data: [{"name": "#1 M2增速 · 8", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "回落", "num": 1}, {"name": "#2 社融 · 8月单", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "结构切换", "num": 2}, {"name": "#3 土地出让金 · ", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "收缩", "num": 3}, {"name": "#4 PMI · 8月", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "回升", "num": 4}, {"name": "#5 网络体感：8月C", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "偏弱", "num": 5}, {"name": "#6 CPI · 8月", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "温和", "num": 6}, {"name": "#7 GDP · 20", "value": 1, "itemStyle": {"color": "#2e7d32"}, "lamp_text": "扩张", "num": 7}, {"name": "#8 城市财政自给率 ", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "承压", "num": 8}, {"name": "#9 常住人口 · 2", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "负增长", "num": 9}, {"name": "#10 商品房去化：1-", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "去化", "num": 10}, {"name": "#11 安全岗招聘 · ", "value": 1, "itemStyle": {"color": "#2e7d32"}, "lamp_text": "缺口大", "num": 11}, {"name": "#12 分行业PMI ·", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "分化", "num": 12}, {"name": "#13 用电量 · 1-", "value": 1, "itemStyle": {"color": "#2e7d32"}, "lamp_text": "增长", "num": 13}, {"name": "#14 PPI · 8月", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "回升", "num": 14}, {"name": "#15 固定资产投资 ·", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "收缩", "num": 15}, {"name": "#16 出口结构 · 8", "value": 1, "itemStyle": {"color": "#2e7d32"}, "lamp_text": "高增", "num": 16}, {"name": "#17 社零品类 · 8", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "分化", "num": 17}, {"name": "#18 青年失业率 · ", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "平稳", "num": 18}, {"name": "#19 工业利润 · 1", "value": 1, "itemStyle": {"color": "#2e7d32"}, "lamp_text": "改善", "num": 19}, {"name": "#20 黄金价格 · 4", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "回落", "num": 20}, {"name": "#21 A股 · 缩量调", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "调整", "num": 21}, {"name": "#22 美股 · 议息前", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "承压", "num": 22}, {"name": "#23 恒生 · 9/1", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "震荡", "num": 23}, {"name": "#24 中美利差 · 1", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "倒挂", "num": 24}, {"name": "#25 人民币汇率 · ", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "企稳", "num": 25}, {"name": "#26 铜价 · LME", "value": 1, "itemStyle": {"color": "#2e7d32"}, "lamp_text": "强势", "num": 26}, {"name": "#27 原油 · WTI", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "高位", "num": 27}, {"name": "#28 北向资金 · 9", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "分歧", "num": 28}, {"name": "#29 VIX恐慌指数 ", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "升温", "num": 29}, {"name": "#30 信用利差 · 收", "value": 1, "itemStyle": {"color": "#2e7d32"}, "lamp_text": "收窄", "num": 30}],
+        roam: false,
+        nodeClick: false,
+        breadcrumb: { show: false },
+        label: { show: true, fontSize: 10, color: '#fff', formatter: function(p) { return p.name; } },
+        itemStyle: { borderColor: '#fff', borderWidth: 2, gapWidth: 2 },
+        levels: [{ itemStyle: { borderColor: '#fff', borderWidth: 2, gapWidth: 2 } }]
+      }]
+    });
+    treemapChart.on('click', function(p) {
+      if (p.data && p.data.num) {
+        var card = document.querySelector('[data-signal-num="' + p.data.num + '"]');
+        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+    window.addEventListener('resize', function() { treemapChart.resize(); });
+
+</script></div>
+
+    
+<div class="backtest-card" id="backtest">
+  <div class="backtest-header">9月半月回测汇总</div>
+  <div class="backtest-item">
+    <div class="backtest-title">✅ 命中（5条）<span class="backtest-tag backtest-hit">已验证</span></div>
+    <div class="backtest-detail"><li>人民币6.71-6.79区间 -> 9月中间价6.7670，在岸6.71附近，命中</li><li>央行隔夜逆回购精准滴灌延续 -> 9/15 MLF续作5000亿+隔夜逆回购连续操作，命中</li><li>A股议息前谨慎 -> 9月15日成交1.62万亿年内新低，上证回调至3864点，命中</li><li>黄金鹰派下行风险 -> 现货黄金回落至4285美元，命中</li><li>LME铜14000-14600区间 -> 9月8日盘中14617创历史新高后回落至14113，命中</li></div>
+  </div>
+  <div class="backtest-item">
+    <div class="backtest-title">🟡 部分命中（1条）<span class="backtest-tag backtest-partial">待兑现</span></div>
+    <div class="backtest-detail"><li>美联储9月利率情景 -> 加息概率升至60%左右，但FOMC决议尚未落地，待验证</li></div>
+  </div>
+  <div class="backtest-item">
+    <div class="backtest-title">❌ 未命中（1条）<span class="backtest-tag backtest-miss">偏差</span></div>
+    <div class="backtest-detail"><li>布伦特原油80-92区间 -> 突破105美元，霍尔木兹谈判推迟引发地缘溢价失控</li></div>
+  </div>
+  <div class="backtest-item">
+    <div class="backtest-title">规律总结</div>
+    <div class="backtest-detail">方向命中率（已验证7条中）6/7=86%。规律更新：①地缘政治脉冲（海峡谈判/冲突）会让油价突破常规区间，需预留±10-15美元风险边界；②10年美债破5%后黄金与铜的走势分化——黄金回落、铜价新高，"利率敏感"与"需求驱动"定价逻辑不同；③美联储议息周全市场缩量，建议议息决议落地后再做方向性配置。</div>
+  </div>
+</div>
+
+    
+<div class="source-summary" id="sources">
+  <div class="ss-header">来源汇总表（按等级分组）</div>
+  <table>
+    <thead><tr><th style="width:8%">等级</th><th style="width:20%">来源机构</th><th style="width:42%">引用内容</th><th style="width:18%">发布时间</th><th style="width:12%">链接</th></tr></thead>
+    <tbody><tr><td><span class="source-grade S">S</span></td><td>国家统计局</td><td>8月CPI 0.8%/PPI 3.8%/PMI 49.8%/失业率5.3%/社零+0.4%/投资-7.2%</td><td>8/31-9/15</td><td><a href="https://www.stats.gov.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade S">S</span></td><td>中国人民银行</td><td>8月M2 +7.5%、社融单月1.66万亿、贷款+0.06万亿</td><td>9/14</td><td><a href="https://www.pbc.gov.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade S">S</span></td><td>海关总署</td><td>8月出口+25.0%、进口+28.2%、顺差1190.85亿美元</td><td>9/8</td><td><a href="http://www.customs.gov.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade S">S</span></td><td>财政部</td><td>1-7月土地出让收入-30.8%、上半年一般公共预算收入+4.7%</td><td>8/21</td><td><a href="https://www.mof.gov.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade S">S</span></td><td>中国外汇交易中心</td><td>9/15中间价6.7670调升28基点</td><td>9/15</td><td><a href="https://www.chinamoney.com.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade A">A</span></td><td>国家能源局</td><td>1-6月全社会用电量+5.3%、高技术制造用电+10.3%</td><td>7/15</td><td><a href="https://www.nea.gov.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade A">A</span></td><td>金融界/华泰期货</td><td>10年美债收益率破5%，中美利差倒挂约335bp</td><td>9/15</td><td><a href="https://bank.jrj.com.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade B">B</span></td><td>东方财富网/新华社</td><td>A股/港股9月行情（上证3864、恒指24667）</td><td>9/15</td><td><a href="https://www.eastmoney.com" target="_blank">访问</a></td></tr></tbody>
+  </table>
+</div>
+
+    <div class="glossary-card" id="glossary">
+  <div class="glossary-header">术语速查（本期报告涉及的金融名词）</div>
+  <div class="glossary-list"><div class="glossary-item"><span class="glossary-term">M2/M1</span><span class="glossary-def">M2是全社会钱的总量（含存款），M1是流通现金+活期存款，M2增速回落说明货币供应增速放缓</span></div><div class="glossary-item"><span class="glossary-term">社融</span><span class="glossary-def">社会融资规模，企业和个人从银行/债券/股票等渠道融到的钱总量，是观察信用扩张的"总开关"</span></div><div class="glossary-item"><span class="glossary-term">直接融资</span><span class="glossary-def">不通过银行中介，直接发行股票、债券融资。8月直接融资占比首次超过信贷，是融资结构转型标志</span></div><div class="glossary-item"><span class="glossary-term">中美利差</span><span class="glossary-def">中美两国10年期国债收益率之差，8月利差倒挂约335bp，制约国内降息空间</span></div><div class="glossary-item"><span class="glossary-term">VIX</span><span class="glossary-def">标普500期权隐含波动率，17.10属于偏谨慎但未恐慌，25以上才算恐慌</span></div><div class="glossary-item"><span class="glossary-term">信用利差</span><span class="glossary-def">企业债收益率与国债收益率之差，利差收窄说明企业融资成本降低、信用风险偏好回升</span></div><div class="glossary-item"><span class="glossary-term">FOMC</span><span class="glossary-def">美联储联邦公开市场委员会，9月16日议息会议，市场预期加息25基点概率约60%</span></div></div>
+</div>
+
+    
+<div class="disclaimer">
+  <h3>免责声明与使用须知</h3>
+  <div class="disclaimer-tag">不构成投资建议</div>
+  <p><b>1. 数据来源：</b>本报告所有数据均来自公开渠道，以官方原始发布（S级）和权威媒体（A级）为优先来源。每条数据均标注来源机构、发布时间和可追溯链接。数据可能存在发布延迟或后续修正，请以官方最新发布为准。</p>
+  <p><b>2. 投资风险：</b>本报告内容仅供信息参考和学习交流使用，不构成任何投资建议、交易策略或推荐。金融市场有风险，投资需谨慎。读者据此操作的任何后果均由本人承担。</p>
+  <p><b>3. 预测说明：</b>报告中涉及的"预测"和"展望"部分为基于公开信息的市场方向性判断，不保证准确性。预测台账持续追踪命中率，但历史命中不代表未来表现。</p>
+  <p><b>4. 数据口径：</b>所有数据均标注统计口径（同比/环比、累计/当月、名义/实际等），严格区分实际值与预期值。如有数据修正，以官方最新发布为准。</p>
+  <p><b>5. 报告版本：</b>v3.0 商用标准版（月度版） · 制作日期 2026年9月16日 · 下一期预告 2026年10月月报</p>
+</div>
+
+    <div class="stats">本报告覆盖30项月度信号 | 引用26条信源 | 制作于2026-09-16</div>
+    <div id="exportWatermark">经济信号监控报告 · 2026年9月 · v3.0商用标准版 · 数据仅供参考，不构成投资建议</div>
+    <footer>经济信号监控报告 · v3.0 商用标准版 · 信源可追溯 · 制作日期 2026-09-16</footer>
+  </div>
+
+  <aside class="sidebar">
+    <div class="rate-anchor">
+      <div class="rate-anchor-header">利率锚点表（2026-09-16）</div>
+      <div class="rate-anchor-item"><span class="rate-anchor-name">1年期LPR</span><span class="rate-anchor-value">3.0%（连续16个月不变）</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">5年期LPR</span><span class="rate-anchor-value">3.5%（连续16个月不变）</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">7天逆回购</span><span class="rate-anchor-value">1.40%</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">MLF利率</span><span class="rate-anchor-value">2.00%（9/15续作5000亿元）</span></div>
+    </div>
+
+    <div class="tips-card">
+      <div class="tips-header">本月金融术语</div>
+      <div class="tip-item"><div class="tip-title">10年美债破5%的影响</div><div class="tip-desc">美国10年期国债收益率5.02%创2007年新高，中美利差倒挂335bp，外部约束国内降息空间</div><div class="tip-scenario">实用场景：美联储9月议息决议（9/17凌晨公布）前全球风险资产波动加大</div></div><div class="tip-item"><div class="tip-title">直接融资超信贷</div><div class="tip-desc">8月直接融资占比首超信贷，观察经济别只盯贷款，债券和股票融资更重要</div><div class="tip-scenario">实用场景：解读每月金融数据时，关注直接融资占比变化</div></div><div class="tip-item"><div class="tip-title">商品价格分化</div><div class="tip-desc">黄金因美债收益率破5%回落、铜价因AI需求创历史新高，"利率定价"与"需求定价"逻辑不同</div><div class="tip-scenario">实用场景：配置大宗商品时区分定价逻辑，勿一概而论</div></div>
+    </div>
+
+    <div class="event-calendar">
+      <div class="event-header">下月事件日历</div>
+      <div class="event-item"><span class="event-name">美联储FOMC利率决议</span><div class="event-meta"><span class="event-date">9/16（北京时间9/17凌晨）</span><span class="event-tag-upcoming">即将公布</span></div></div><div class="event-item"><span class="event-name">中国9月LPR报价</span><div class="event-meta"><span class="event-date">9/22</span><span class="event-tag-upcoming">即将公布</span></div></div><div class="event-item"><span class="event-name">中国9月制造业PMI</span><div class="event-meta"><span class="event-date">9/30</span><span class="event-tag-upcoming">即将公布</span></div></div><div class="event-item"><span class="event-name">美国9月非农就业</span><div class="event-meta"><span class="event-date">10/2</span><span class="event-tag-upcoming">即将公布</span></div></div>
+    </div>
+
+    <div class="policy-card">
+      <div class="policy-header">政策速递</div>
+      <div class="policy-item"><div class="policy-title">828楼市新政：现房销售+预售资金全额监管</div><div class="policy-meta"><span class="policy-tag">地产政策</span> 住建部、央行、金融监管总局、证监会9月底多部委出台：有序推行现房销售、预售资金全额监管、交房即交证，重塑房地产全链条</div></div><div class="policy-item"><div class="policy-title">央行MLF续作5000亿+隔夜逆回购精准滴灌</div><div class="policy-meta"><span class="policy-tag">货币政策</span> 9/15续作MLF 5000亿元，连续开展隔夜逆回购操作护航资金面平稳，维持"价稳量宽"</div></div><div class="policy-item"><div class="policy-title">《促进智能家居消费行动方案》</div><div class="policy-meta"><span class="policy-tag">消费政策</span> 商务部等8部门印发，支持地方确定智能家居补贴品类和标准，统筹全屋智能家居购新</div></div>
+    </div>
+  </aside>
+
+  <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="回到顶部">&#9650;</button>
+</div>
+<div class="toast" id="toast">已复制</div>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+function toggleTheme(){var h=document.documentElement,b=document.getElementById('themeToggle');if(h.classList.contains('dark')){h.classList.remove('dark');h.classList.add('light');b.innerHTML='&#9790;';localStorage.setItem('theme','light');}else{h.classList.remove('light');h.classList.add('dark');b.innerHTML='&#9788;';localStorage.setItem('theme','dark');}}
+(function(){var s=localStorage.getItem('theme');if(s==='dark'){document.documentElement.classList.add('dark');document.getElementById('themeToggle').innerHTML='&#9788;';}else if(s==='light'){document.documentElement.classList.add('light');}})();
+function filterCategory(c){var cards=document.querySelectorAll('.signal-card');var btns=document.querySelectorAll('.filter-btn');btns.forEach(function(b){b.classList.remove('active');});event.target.classList.add('active');cards.forEach(function(card){if(c==='\u5168\u90e8'||card.dataset.category===c){card.style.display='';}else{card.style.display='none';}});}
+function exportAsImage(){var btn=document.getElementById('exportBtn'),ov=document.getElementById('exportOverlay'),mc=document.querySelector('.main-content');btn.classList.add('exporting');ov.classList.add('active');var hc=document.querySelectorAll('.signal-card[style*="display: none"]');hc.forEach(function(c){c.setAttribute('data-was-hidden','1');c.style.display='';});mc.classList.add('export-capture');html2canvas(mc,{scale:2,useCORS:true,allowTaint:false,backgroundColor:null,logging:false,onclone:function(d){var s=d.querySelector('.sidebar');if(s)s.style.display='none';}}).then(function(canvas){hc.forEach(function(c){c.style.display='none';c.removeAttribute('data-was-hidden');});mc.classList.remove('export-capture');var l=document.createElement('a');l.download='经济信号-'+new Date().toISOString().slice(0,10)+'.png';l.href=canvas.toDataURL('image/png');l.click();var m=document.getElementById('exportModal');m.innerHTML='<div class="success-icon">&#9989;</div><p>长图已生成并下载！<br>可直接发送到微信分享</p>';setTimeout(function(){ov.classList.remove('active');m.innerHTML='<div class="spinner"></div><p>正在生成长图，请稍候...</p>';btn.classList.remove('exporting');},2000);}).catch(function(e){hc.forEach(function(c){c.style.display='none';c.removeAttribute('data-was-hidden');});mc.classList.remove('export-capture');console.error('导出失败:',e);ov.classList.remove('active');btn.classList.remove('exporting');var t=document.getElementById('toast');t.textContent='导出失败，请重试';t.classList.add('show');setTimeout(function(){t.classList.remove('show');t.textContent='已复制';},3000);});}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
+window.addEventListener('scroll',function(){var bt=document.getElementById('backToTop');if(window.scrollY>400){bt.classList.add('visible');}else{bt.classList.remove('visible');}var rp=document.getElementById('readingProgress');var sh=document.documentElement.scrollHeight-window.innerHeight;rp.style.width=(sh>0?(window.scrollY/sh*100):0)+'%';});
+</script>
+</body>
+</html>
