@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日金融快讯 - 2026年10月24日 周六</title>
+<style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  :root {
+    --primary: #0d47a1;
+    --primary-light: #e3f2fd;
+    --primary-dark: #0a3d91;
+    --text: #202124;
+    --text-secondary: #5f6368;
+    --text-tertiary: #9aa0a6;
+    --bg: #f5f7fa;
+    --card-bg: #ffffff;
+    --card-bg-hover: #fafbfc;
+    --border: #d5dce6;
+    --border-light: #e8eaed;
+    --tag-bg: #e3f2fd;
+    --tag-text: #0d47a1;
+    --signal-green: #2e7d32;
+    --signal-yellow: #f9a825;
+    --signal-red: #c62828;
+    --summary-bg: linear-gradient(135deg, #0d47a1, #1a237e);
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-hover: 0 8px 24px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.08);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --credibility-high: #2e7d32;
+    --credibility-medium: #f9a825;
+    --credibility-unverified: #c62828;
+    --progress-bar: linear-gradient(90deg, #0d47a1, #1a237e);
+  }
+  html.dark {
+    --primary: #90caf9;
+    --primary-light: #0d2b45;
+    --primary-dark: #64b5f6;
+    --text: #e8eaed;
+    --text-secondary: #9aa0a6;
+    --text-tertiary: #5f6368;
+    --bg: #121212;
+    --card-bg: #1e1e1e;
+    --card-bg-hover: #262626;
+    --border: #3c4043;
+    --border-light: #2d2d2d;
+    --tag-bg: #0d2b45;
+    --tag-text: #90caf9;
+    --signal-green: #66bb6a;
+    --signal-yellow: #ffa726;
+    --signal-red: #ef5350;
+    --summary-bg: linear-gradient(135deg, #0d47a1, #4a148c);
+    --credibility-high: #66bb6a;
+    --credibility-medium: #ffa726;
+    --credibility-unverified: #ef5350;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6;
+    -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s;
+  }
+  .reading-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--progress-bar); z-index: 200; transition: width 0.1s ease-out; }
+  .page-layout { max-width: 1200px; margin: 0 auto; padding: 16px; display: flex; gap: 20px; }
+  .main-content { flex: 1; min-width: 0; max-width: 800px; }
+  .sidebar { width: 320px; flex-shrink: 0; position: sticky; top: 16px; align-self: flex-start; max-height: calc(100vh - 32px); overflow-y: auto; }
+  .sidebar::-webkit-scrollbar { width: 5px; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+  header { text-align: center; padding: 28px 0 20px; }
+  header h1 { font-size: 28px; font-weight: 700; background: linear-gradient(135deg, #0d47a1, #7b1fa2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  header .subtitle { color: var(--text-secondary); font-size: 14px; margin-top: 6px; }
+  .theme-toggle, .export-btn {
+    position: fixed; top: 16px; z-index: 100;
+    border: 1px solid var(--border); background: var(--card-bg); color: var(--text);
+    box-shadow: var(--shadow); transition: all 0.2s;
+  }
+  .theme-toggle { right: 16px; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .theme-toggle:hover { box-shadow: var(--shadow-hover); transform: scale(1.1); }
+  .export-btn { right: 68px; height: 40px; padding: 0 16px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .export-btn:hover { box-shadow: var(--shadow-hover); border-color: var(--primary); color: var(--primary); }
+  .export-btn .export-icon { font-size: 16px; }
+  .export-btn.exporting { pointer-events: none; opacity: 0.6; }
+  .export-overlay { display: none; position: fixed; inset: 0; z-index: 9998; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+  .export-overlay.active { display: flex; }
+  .export-modal { background: var(--card-bg); border-radius: 16px; padding: 32px 40px; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.3); max-width: 320px; }
+  .export-modal .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .export-modal p { color: var(--text-secondary); font-size: 14px; line-height: 1.5; }
+  .export-modal .success-icon { font-size: 40px; margin-bottom: 12px; }
+  .main-quote { background: var(--summary-bg); color: #fff; border-radius: var(--radius); padding: 14px 24px; margin-bottom: 16px; text-align: center; box-shadow: var(--shadow); }
+  .main-quote .quote-icon { font-size: 18px; margin-bottom: 4px; }
+  .main-quote .quote-divider { width: 30px; height: 2px; background: rgba(255,255,255,0.5); margin: 0 auto 6px; border-radius: 1px; }
+  .main-quote .quote-text { font-size: 15px; font-weight: 600; line-height: 1.5; margin-bottom: 4px; }
+  .main-quote .quote-source { font-size: 11px; color: rgba(255,255,255,0.7); }
+  .summary-trends-box { background: var(--summary-bg); color: #fff; border-radius: var(--radius); padding: 20px 24px; margin-bottom: 16px; box-shadow: var(--shadow); }
+  .summary-trends-box h2 { font-size: 16px; margin-bottom: 8px; font-weight: 600; }
+  .summary-trends-box ul { padding-left: 18px; font-size: 14px; }
+  .summary-trends-box li { margin-bottom: 4px; }
+  .summary-trends-box .trends-divider { height: 1px; background: rgba(255,255,255,0.2); margin: 12px 0 10px; }
+  .summary-trends-box .trends-subtitle { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .summary-trends-box .trends-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .summary-trends-box .trend-item { font-size: 13px; color: #fff; background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 16px; }
+  .summary-trends-box .trend-arrow { font-weight: 700; margin-right: 4px; }
+  .summary-trends-box .trend-arrow.up { color: #a5d6a7; }
+  .summary-trends-box .trend-arrow.up-strong { color: #c8e6c9; }
+  .summary-trends-box .trend-arrow.flat { color: rgba(255,255,255,0.6); }
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .filter-btn { padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--filter-bg, var(--card-bg)); color: var(--text-secondary); font-size: 13px; cursor: pointer; transition: all 0.2s; }
+  .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .section-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 2px; margin: 8px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--border); }
+  .signal-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; transition: box-shadow 0.3s, transform 0.3s; }
+  .signal-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+  .signal-card .signal-header { display: flex; align-items: center; gap: 10px; padding: 14px 20px 0; }
+  .signal-card .signal-num { width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .signal-card .signal-title { font-size: 16px; font-weight: 700; }
+  .signal-card .signal-body { padding: 12px 20px 18px; }
+  .signal-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 10px; }
+  .signal-table th { background: var(--primary-light); color: var(--primary-dark); padding: 8px 10px; text-align: left; font-weight: 600; }
+  .signal-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-light); }
+  .signal-table tr:last-child td { border-bottom: none; }
+  .signal-lamp { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 12px; }
+  .signal-lamp.green { background: rgba(46,125,50,0.12); color: var(--signal-green); }
+  .signal-lamp.yellow { background: rgba(249,168,37,0.12); color: var(--signal-yellow); }
+  .signal-lamp.red { background: rgba(198,40,40,0.12); color: var(--signal-red); }
+  .plain-talk { font-size: 13px; color: var(--text-secondary); background: var(--primary-light); border-radius: var(--radius-sm); padding: 10px 14px; line-height: 1.7; }
+  .plain-talk .plain-label { font-weight: 700; color: var(--primary); margin-right: 4px; }
+  .credibility-tag { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+  .credibility-high { background: rgba(46,125,50,0.1); color: var(--credibility-high); }
+  .credibility-medium { background: rgba(249,168,37,0.1); color: var(--credibility-medium); }
+  .credibility-unverified { background: rgba(198,40,40,0.1); color: var(--credibility-unverified); }
+  .html.dark .credibility-high { background: rgba(102,187,106,0.15); }
+  .html.dark .credibility-medium { background: rgba(255,167,38,0.15); }
+  .html.dark .credibility-unverified { background: rgba(239,83,80,0.15); }
+  .event-calendar { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+  .event-calendar .event-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #6d4c41; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 6px; }
+  .event-item { padding: 10px 18px; border-bottom: 1px solid var(--border); }
+  .event-item:last-child { border-bottom: none; }
+  .event-name { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.5; margin-bottom: 4px; }
+  .event-meta { font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .event-date { background: #efebe9; color: #6d4c41; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .html.dark .event-date { background: #3e2723; color: #bcaaa4; }
+  .event-tag-upcoming { background: #e8f5e9; color: #2e7d32; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .event-tag-ongoing { background: #fff3e0; color: #e65100; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .event-tag-ended { background: #f5f5f5; color: #9e9e9e; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .tips-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+  .tips-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: var(--primary); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 6px; }
+  .tip-item { padding: 14px 18px; border-bottom: 1px solid var(--border); }
+  .tip-item:last-child { border-bottom: none; }
+  .tip-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .tip-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 8px; }
+  .tip-scenario { font-size: 12px; color: var(--primary); background: var(--tag-bg); padding: 6px 12px; border-radius: 8px; line-height: 1.6; }
+  .policy-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+  .policy-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #6a1b9a; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 6px; }
+  .policy-item { padding: 10px 18px; border-bottom: 1px solid var(--border); }
+  .policy-item:last-child { border-bottom: none; }
+  .policy-title { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.5; margin-bottom: 4px; }
+  .policy-meta { font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+  .policy-tag { background: #f3e5f5; color: #6a1b9a; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .html.dark .policy-tag { background: #1a002e; color: #ce93d8; }
+  .backtest-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+  /* ── 行业动态卡片 ── */
+  .industry-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; border-left: 4px solid #1565c0; }
+  .industry-header { padding: 14px 20px 10px; border-bottom: 1px solid var(--border); }
+  .industry-rating { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .industry-stars { font-size: 14px; color: #1565c0; font-weight: 700; }
+  .industry-type-tag { font-size: 11px; padding: 2px 10px; border-radius: 10px; font-weight: 600; background: #e3f2fd; color: #0d47a1; }
+  .industry-event-title { font-size: 15px; font-weight: 700; color: var(--text); margin-top: 6px; }
+  .industry-body { padding: 12px 20px 18px; }
+  .industry-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 12px; }
+  .industry-table th { background: rgba(21,101,192,0.08); color: #1565c0; padding: 6px 10px; text-align: left; font-weight: 600; }
+  .industry-table td { padding: 6px 10px; border-bottom: 1px solid var(--border-light); }
+  .industry-table tr:last-child td { border-bottom: none; }
+  .company-matrix { width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 12px; }
+  .company-matrix th { background: rgba(21,101,192,0.06); color: #1565c0; padding: 6px 8px; text-align: left; font-weight: 600; }
+  .company-matrix td { padding: 5px 8px; border-bottom: 1px solid var(--border-light); }
+  .catalyst-chain { font-size: 12px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 10px; padding: 10px 14px; background: rgba(21,101,192,0.04); border-radius: var(--radius-sm); }
+  .catalyst-chain .chain-step { display: block; margin-bottom: 4px; }
+  .catalyst-chain .chain-num { font-weight: 700; color: #1565c0; margin-right: 4px; }
+  .elasticity-rank { font-size: 12px; color: var(--text); margin-bottom: 10px; padding: 6px 12px; background: var(--tag-bg); border-radius: var(--radius-sm); }
+  .industry-plain { font-size: 13px; color: var(--text-secondary); background: var(--primary-light); border-radius: var(--radius-sm); padding: 10px 14px; line-height: 1.7; margin-bottom: 10px; }
+  .industry-plain .plain-label { font-weight: 700; color: var(--primary); margin-right: 4px; }
+  .industry-risk { font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; }
+  .industry-risk .risk-label { font-weight: 700; color: var(--signal-red); }
+  .industry-risk ol { padding-left: 20px; }
+  .industry-risk li { margin-bottom: 3px; }
+  html.dark .industry-card { border-left-color: #64b5f6; }
+  html.dark .industry-type-tag { background: #0d2b45; color: #90caf9; }
+  html.dark .industry-table th { background: rgba(21,101,192,0.15); }
+  html.dark .industry-plain { background: var(--primary-light); }
+  .backtest-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #00838f; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 6px; }
+  .backtest-item { padding: 12px 18px; border-bottom: 1px solid var(--border); }
+  .backtest-item:last-child { border-bottom: none; }
+  .backtest-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .backtest-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+  .backtest-tag { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .backtest-hit { background: rgba(46,125,50,0.12); color: #2e7d32; }
+  .backtest-partial { background: rgba(249,168,37,0.12); color: #f9a825; }
+  .backtest-miss { background: rgba(198,40,40,0.12); color: #c62828; }
+  .rate-anchor { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+  .rate-anchor-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #1565c0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 6px; }
+  .rate-anchor-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-bottom: 1px solid var(--border); }
+  .rate-anchor-item:last-child { border-bottom: none; }
+  .rate-anchor-name { font-size: 13px; font-weight: 600; color: var(--text); }
+  .rate-anchor-value { font-size: 13px; font-weight: 700; color: var(--primary); font-family: "SF Mono", "Consolas", monospace; }
+  .stats { text-align: center; padding: 8px 0; margin-top: 8px; color: var(--text-secondary); font-size: 12px; }
+  footer { text-align: center; padding: 24px 0 32px; color: var(--text-secondary); font-size: 12px; }
+  .back-to-top { position: fixed; bottom: 24px; right: 24px; z-index: 100; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: var(--shadow); transition: all 0.2s; }
+  .back-to-top:hover { box-shadow: var(--shadow-hover); transform: scale(1.1); }
+  .back-to-top.visible { display: flex; }
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px); background: #323232; color: #fff; padding: 10px 24px; border-radius: 8px; font-size: 14px; z-index: 9999; opacity: 0; transition: all 0.3s; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .export-capture #exportWatermark { display: block; }
+  .export-capture .filter-bar { display: none !important; }
+  .export-capture .reading-progress, .export-capture .back-to-top { display: none !important; }
+  #exportWatermark { display: none; text-align: center; padding: 16px 0 8px; font-size: 11px; color: var(--text-secondary); border-top: 1px solid var(--border); margin-top: 8px; }
+  @media print {
+    .export-btn, .theme-toggle, .filter-bar, .sidebar, .reading-progress, .back-to-top { display: none !important; }
+    .page-layout { display: block !important; max-width: 100% !important; }
+    .main-content { max-width: 100% !important; }
+    body { background: #fff !important; color: #000 !important; }
+  }
+  @media (max-width: 960px) {
+    .page-layout { flex-direction: column; padding: 12px; }
+    .main-content { max-width: 100%; }
+    .sidebar { width: 100%; position: static; max-height: none; order: -1; }
+    .export-btn { top: 8px; right: 60px; height: 36px; padding: 0 12px; font-size: 12px; }
+    .export-btn .export-label { display: none; }
+    .theme-toggle { top: 8px; right: 8px; width: 36px; height: 36px; font-size: 16px; }
+  }
+  @media (max-width: 600px) {
+    header h1 { font-size: 22px; }
+    .signal-card .signal-header { padding: 12px 16px 0; }
+    .signal-card .signal-body { padding: 10px 16px 14px; }
+    .filter-btn { font-size: 12px; padding: 4px 10px; }
+  }
+
+/* ── 信号灯看板 ── */
+.signal-dashboard { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+.sig-dashboard-header { padding: 14px 20px 10px; font-size: 15px; font-weight: 700; color: var(--primary); border-bottom: 1px solid var(--border-light); display: flex; align-items: center; gap: 6px; }
+.sig-dashboard-hint { font-size: 11px; color: var(--text-tertiary); font-weight: 400; margin-left: auto; }
+.sig-row { display: flex; align-items: center; padding: 7px 20px; border-bottom: 1px solid var(--border-light); gap: 8px; }
+.sig-row:last-child { border-bottom: none; }
+.sig-lamp { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.sig-lamp.red { background: var(--signal-red); box-shadow: 0 0 6px rgba(198,40,40,0.4); }
+.sig-lamp.yellow { background: var(--signal-yellow); box-shadow: 0 0 6px rgba(249,168,37,0.4); }
+.sig-lamp.gray { background: #bdbdbd; }
+.sig-name { font-size: 13px; font-weight: 600; min-width: 70px; flex-shrink: 0; }
+.sig-value { font-size: 13px; font-weight: 700; font-family: "SF Mono","Consolas",monospace; min-width: 90px; }
+.sig-change { font-size: 12px; font-family: "SF Mono","Consolas",monospace; min-width: 70px; text-align: right; }
+.sig-change.flat { color: var(--text-tertiary); }
+.sig-note { font-size: 11px; margin-left: auto; text-align: right; }
+/* ── 趋势图表 ── */
+.sig-charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.sig-chart-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.sig-chart-header { padding: 10px 16px 6px; font-size: 13px; font-weight: 700; color: var(--text-secondary); display: flex; align-items: center; justify-content: space-between; }
+.sig-chart-value { font-size: 15px; font-weight: 700; color: var(--primary); font-family: "SF Mono","Consolas",monospace; }
+.sig-chart-container { padding: 0 12px 12px; height: 120px; }
+@media (max-width: 600px) { .sig-charts-grid { grid-template-columns: 1fr; } .sig-name { min-width: 60px; } .sig-value { min-width: 75px; } }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+</head>
+<body>
+<div class="reading-progress" id="readingProgress"></div>
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="切换明暗模式">&#9790;</button>
+<button class="export-btn" id="exportBtn" onclick="exportAsImage()" title="导出为长图PNG，方便微信分享"><span class="export-icon">&#128247;</span><span class="export-label">导出长图</span></button>
+<div class="export-overlay" id="exportOverlay"><div class="export-modal" id="exportModal"><div class="spinner"></div><p>正在生成长图，请稍候...</p></div></div>
+<div class="page-layout">
+  <div class="main-content">
+    <header><h1>每日金融快讯</h1><p class="subtitle">2026年10月24日 周六 · 8项快变量信号 · 大白话解读</p></header>
+    <div class="main-quote">
+      <div class="quote-icon">&#10077;</div>
+      <div class="quote-text">周六合刊，盘点这个『三根引线同时被点燃』的周末前夜。美股周五走出『抛售扩散日』：道指-1.23%跌652.82点收52,215.16（30只成分股24跌·前一天创历史新高的可口可乐领衔防御板块回撤），纳指却只跌0.21%（费半+0.44%·SK海力士+4%）——24小时内结构完全反转：周四『杀科技·留消费』，周五『杀防御·科技修复』，盘中23:30护盘失败、收盘全线转跌。油价是这一天真正的风暴眼：布伦特+3.13%收116.72美元创4月以来最高（盘中冲向117·本周累涨6.24%）——胡塞武装加码袭击沙特（红海延布港+油田+机场）、两艘共载超450万桶原油的超级油轮在霍尔木兹海峡触雷、特朗普威胁对伊朗发动『小规模史诗怒火』行动、伊朗向中东国家下最后通牒并威胁打击海底电缆；白宫被迫授权紧急交换40万桶战略储备、德国启动G7放储招标、连俄罗斯柴油都重返美国（4万吨驶向纽约）——供给端的全球总动员全部发生在同一周。黄金在这一片『胀』声中央守了4,000：现货收3,996.10美元（-0.71%·周跌4.07%·7月以来最低），国内金饰一个月跌掉94元/克（老凤祥周六报1,206元）。美债在周四史诗级暴跌后回吐4.15bp至4.9945%——仍守5%下方，但『油价通胀vs股市避险』的双向拉锯已经开始。FOMC进入最后72小时（10/27-28）：CME定价10月不动90.6%、而路透调查的100位经济学家罕见全票预期12月加息（上月不足半数）；密歇根消费者信心跌至48、一年通胀预期4.7%创五个月新高——市场与学界的『12月共识』第一次如此整齐。中国这边是安静而殷实的周末：花旗证券（中国）获批（外商独资券商增至七家）、Kimi K3.1 Pro发布（3万亿参数·编程智能体测评超GPT-6·11/4前开放权重）、寒武纪Q3净利+147.74%、《信息化『十五五』规划》印发（AI芯片/6G商用/一体化算力网）——叠加周五宽基ETF历史天量（创业板ETF易方达单日成交197亿创上市第三高），下周一的A股弹药库比周五收盘时更满。俄乌方向出了本周末唯一的缓和变量：白宫宣布奥列什基暂时停火（10/29生效）、乌美俄三方会谈定于11月上半月——但本周的油价证明，全球定价的主导权已经从俄乌让位给中东。下周三FOMC、下周四国内调价（10/29 24时）、11/3美国中选：三个时间戳排成一列，市场正在从『数据定价』切换到『事件定价』。</div>
+      <div class="quote-divider"></div>
+      <div class="quote-source">每日金融快讯编辑部</div>
+    </div>
+    <div class="summary-trends-box">
+      <h2>今日要点</h2>
+      <ul><li>美股周五『抛售扩散日』（24小时结构镜像）：道指-1.23%（-652.82点）收52,215.16（30只成分股6涨24跌·本周累涨0.41%）·标普500 -0.52%收7,623.68（本周-0.47%）·纳指-0.21%收25,955.34（本周-0.7%）——与周四『科技领跌·道指飘红』完全反转：卖盘从成长科技扩散至整个大盘，防御板块反遭抛售（前一天创历史新高的可口可乐回落·黄金股普跌纽蒙特-4%）；但科技内部在修复——费半+0.44%（SK海力士+4%·美光+2.46%·格芯+2%+·闪迪-2%分化）·苹果盘中创历史新高后收-0.14%·微软+0.66%·SpaceX+1.89%·万得七巨头指数仅-0.44%；纳斯达克中国金龙指数-0.82%·欧股STOXX 600 -0.31%（本周-1.39%）</li><li>布油116.72美元创4月以来收盘新高（盘中冲117）：中东供给链一周内多点引爆——胡塞武装宣称对沙特红海延布港及油田、机场发动袭击（『沙特遭到的袭击愈演愈烈』）·两艘试图穿越霍尔木兹海峡南部的超级油轮周五触雷（共载超450万桶原油）·特朗普威胁『若拒绝谈判协议将对伊朗再发动一次小小的史诗之怒』·伊朗向中东国家发最后通牒（美伊重燃战火须停止对美支持否则列为『敌对国家』）并部署水雷、威胁反制扩大至海湾海底通信电缆——供给端全球总动员：美能源部周五授权紧急交换最多40万桶战略储备·德国EBV启动放储招标（G7协议·承诺释放最多1500万桶）·俄罗斯柴油重返美国（首批4万吨预计11/7抵纽约）；WTI 103.27（+3.92%·本周+4.29%）；周末前空头回补+期权对冲买盘放大涨势</li><li>黄金正式失守4,000整数关：现货黄金周五-0.71%收3,996.10美元/盎司（盘中一度失守4,000）·本周累跌4.07%·收在7月以来最低位——现货白银53.89美元（-1.25%·本周-5.44%）；机制（汇丰）：股市下跌引发追加保证金压力→投资者被迫抛售黄金筹资现金→『金价跟着美股一起跌』+美元走强与美债收益率上行双重压制——『黄金不是万能灵药』；国内周六休市：金饰品牌周六再下调（老凤祥1,206元/克·较前日-6元·本周累跌44元/-3.52%·近一个月跌94元/-7.2%）·Au99.99从9月末907.32元/克跌至864元（一个月-43元）·沪金主力10/23盘中最低858.08元/克创年内新低——8月末首饰金还在1,410元附近，六周后退回1,200元平台</li><li>美债『危机暴跌后』的第一天回吐：10年期收益率周五+4.15bp收4.9945%（本周仍累跌7.83bp）·2年期+4.21bp收4.6818%（本周-2.65bp）——原油大涨推升通胀担忧令收益率反弹，但周四16.6bp的史诗级暴跌只被收复四分之一、仍守5%整数关口下方：『油价通胀vs股市避险』的双向拉锯成为FOMC前最后72小时的主旋律（财联社：国际油价回升拖累美股和美债价格）</li><li>FOMC最后倒计时（10/27-28）·『12月共识』罕见整齐：CME美联储观察（10/24）——10月维持利率不变90.6%（累计加息25bp仅9.4%）·到12月累计加息概率74.2%（维持25.8%/+25bp 67.5%/+50bp 6.7%）；LSEG口径10月加息可能性不到10%；路透调查（10/16-20·100位经济学家）：94位预计10月不动、而100位全部预期12月加息（上月调查不足半数）——市场定价与经济学家共识罕见同步指向『10月跳过·12月落地』；背景数据：密歇根10月消费者信心终值48（一年通胀预期4.7%/长期3.5%·均创5月以来最高）·美国10月综合PMI初值57.6（制造业56.0创53个月新高·企业售价涨幅创2022年8月以来最高）——通胀压力在油价+售价+预期三线共振</li><li>周末中国消息面（A股周一弹药库）：①证监会10/23批复核准设立花旗证券（中国）有限公司（注册资本12亿元·花旗环球金融控股100%持股·注册地上海·业务=经纪/投资咨询/承销与保荐/自营）——外商独资券商增至七家（此前已有摩根大通/高盛等）；②月之暗面发布Kimi K3.1 Pro（3万亿参数·百万Token上下文·编程智能体Terminal-Bench 4.0得分超GPT-6 Astra·11月4日前开放权重）；③寒武纪Q3营收35.31亿元+104.47%·归母净利14.04亿元+147.74%（存货增至116.65亿）；④《信息化『十五五』规划》印发——研制高性能AI芯片·适时启动6G商用·构建全国一体化算力网（2030年新一代通信网全面建成）；⑤国常会部署建设生育友好型社会·国办发文减缓AI就业替代影响——政策组合拳覆盖『金融开放+AI供给+人口+就业』四条线</li><li>A股周五深V的资金实锤（周末补强证据链）：宽基ETF历史天量——创业板ETF易方达单日成交197亿元创上市以来第三高·沪深300ETF华泰柏瑞与科创50ETF华夏均超150亿元·沪深300ETF华夏/易方达同步大幅放量；宇树科技上市以来首个20%涨停的龙虎榜：机构净买入2.41亿元（本周累涨46.14%）；光模块『易中天』午间密集回应坐实需求——中际旭创海外订单已排至2027年·部分客户给出2028年需求指引·源杰科技/联讯仪器同步加速扩产——『业绩与订单』的产业证词比情绪反弹更硬</li><li>俄乌变盘与全球避险结构：白宫10/23宣布美促成俄乌在奥列什基暂时停火（10/29开始生效·人道物资准入+平民撤离）·泽连斯基确认乌美俄三方会谈11月上半月举行（俄方称在阿布扎比）；但全球风险指标的恶化没有停：全球投资级企业债利差周四周五飙升至129bp（2025年5月以来最宽）——AI基建举债潮+油价+法国动荡三重冲击信用市场；日本核心CPI年内首破2%（深层指标2.4%·10月超3000种商品涨价）·超80%经济学家预计日央行12月加息（终端利率或上触2%+）；韩国KOSPI预期市盈率降至4.2倍——彭博2006年有数据以来首个跌破5倍的万亿美元级市场</li><li>本周全球资产周账本（对照盘）：布油+6.24%（116.72）·WTI+4.29%（103.27）——周冠；现货黄金-4.07%（3,996.10）·白银-5.44%（53.89）——周尾；美股道指+0.41%·标普-0.47%·纳指-0.7%；欧股STOXX 600 -1.39%；美债10Y -7.83bp（4.9945%）；美元指数+0.2%（101.811·周五）；A股上证全周-0.7%（3,716.28→3,690.48·周五天量深V收阳）·创业板-3.2%（2,772.38→2,684.10）——『商品通胀升、贵金属崩、权益分化、债市避险』的滞胀周K线完整成型</li></ul>
+      <div class="trends-divider"></div>
+      <div class="trends-subtitle">本周趋势</div>
+      <span class="trend-item"><span class="trend-arrow up">↑</span>『胀』的定价在上游全面强化：布油一周+6.24%至116.72（4月以来最高·盘中117）、WTI+4.29%重上103，地缘供给风险从『中东』单极扩散为『中东+霍尔木兹+红海』三线；美国10月制造业PMI 56.0创53个月新高的同时企业售价涨幅创四年新高、密歇根一年通胀预期4.7%创五个月新高、国内10/29调价窗口按金联创第6工作日测算锁定+305元/吨（92号将进8.8元时代）——从批发油价到零售汽油、从PPI到CPI预期、从企业定价到消费者心理，通胀的『第二条腿』正在落地。这个链条上唯一未涨的是黄金：周跌4.07%失守4,000证明『抗通胀』与『名义利率上行』在当前是相克而非相生——胀市买油不买金。</span>
+<span class="trend-item"><span class="trend-arrow ">↓</span>全球风险资产的收缩进入第二周：美股周五道指-652点把抛售从科技扩散到防御（可口可乐/黄金股领跌）；欧股STOXX 600周跌1.39%；韩股预期PE跌到4.2倍（史上首个破5倍的万亿美元市场）；全球投资级企业债利差冲上129bp创一年半最宽——AI基建的『融资依赖』开始被信用市场重新定价（TS Lombard推演：AI泡沫或2028年初破裂·科技股或现40%级回撤·20万亿美元市值风险）；日央行12月加息共识（核心CPI破2%）给全球流动性再加一层紧缩预期。黄金周跌4%与美股同向，是本轮收缩最反直觉的注脚：追保抛售让『避险资产』也交出了流动性——risk-off的尽头是美元（周+0.2%·101.811）与美债（10Y仍在5%下方）双守。</span>
+<span class="trend-item"><span class="trend-arrow flat">→</span>三大时间戳前的『事件定价』模式：FOMC（10/27-28）+国内成品油调价（10/29 24时）+美国中选（11/3）排成一列，市场波动率中枢被三重不确定钉住。当前基准剧本（上期FOMC推演）截至周五夜全部在轨：美债4.9945%（4.90-5.00区间内下沿）、美元101.811（101.5-102区间内）、黄金3,996（4,000-4,100拉锯区下沿略破）——『不动+暧昧声明』的组合尚未被证伪。人民币与A股是这份全球risk-off周报里最独特的两行：在岸6.6711连续第三日创46个月新高（距6.67关口11bp）、A股周五天量深V走出独立行情——『避风港结构』的验证进入第二周。悬念留给下周三：沃什对『通胀粘性vs油价冲击vs市场动荡』的定性，一句话决定全球资产11月的颜色。</span>
+
+    </div>
+    <div class="signal-dashboard"><div class="sig-dashboard-header"><span>信号灯看板</span><span class="sig-dashboard-hint">红=重大变化 黄=小幅波动 灰=基本持平</span></div><div class="sig-row"><span class="sig-lamp green"></span><span class="sig-name">A股上证</span><span class="sig-value">3,690.48 点</span><span class="sig-change " style="color:var(--signal-red)">+0.89%</span><span class="sig-note" style="color:var(--signal-green)">3690.48·周五深V·周末休市蓄势</span></div><div class="sig-row"><span class="sig-lamp green"></span><span class="sig-name">创业板</span><span class="sig-value">2,684.10 点</span><span class="sig-change " style="color:var(--signal-red)">+4.16%</span><span class="sig-note" style="color:var(--signal-green)">2684.10·ETF天量197亿·周-3.2%</span></div><div class="sig-row"><span class="sig-lamp green"></span><span class="sig-name">人民币</span><span class="sig-value">6.7180</span><span class="sig-change " style="color:">升值</span><span class="sig-note" style="color:var(--signal-green)">6.6711·距6.67关口11bp·46个月新高</span></div><div class="sig-row"><span class="sig-lamp gray"></span><span class="sig-name">LPR利率</span><span class="sig-value">3.0/3.5%</span><span class="sig-change flat" style="color:">持平</span><span class="sig-note" style="color:var(--text-tertiary)">3.0/3.5%·隔夜逆回购2580亿·休市</span></div><div class="sig-row"><span class="sig-lamp green"></span><span class="sig-name">10年国债</span><span class="sig-value">1.626%</span><span class="sig-change " style="color:var(--signal-green)">-0.1bp</span><span class="sig-note" style="color:var(--signal-green)">1.626%·1.60第三冲酝酿·休市</span></div><div class="sig-row"><span class="sig-lamp gray"></span><span class="sig-name">Shibor</span><span class="sig-value">1.271%</span><span class="sig-change " style="color:var(--signal-red)">+0.98bp</span><span class="sig-note" style="color:var(--text-tertiary)">1.271%·月内低位·1月期6年新低</span></div><div class="sig-row"><span class="sig-lamp red"></span><span class="sig-name">现货黄金</span><span class="sig-value">3,996.10 $/oz</span><span class="sig-change " style="color:var(--signal-green)">-0.71%</span><span class="sig-note" style="color:var(--signal-red)">3996.10·收盘破4000·金饰1206</span></div><div class="sig-row"><span class="sig-lamp red"></span><span class="sig-name">布伦特油</span><span class="sig-value">116.72 $/bbl</span><span class="sig-change " style="color:var(--signal-red)">+3.13%</span><span class="sig-note" style="color:var(--signal-red)">116.72·4月来新高·周+6.2%</span></div><div class="sig-row"><span class="sig-lamp gray"></span><span class="sig-name">LME铜</span><span class="sig-value">14,329 $/t</span><span class="sig-change " style="color:">沿用</span><span class="sig-note" style="color:var(--text-tertiary)">14329·周五前值·周末未更新</span></div><div class="sig-row"><span class="sig-lamp yellow"></span><span class="sig-name">美元指数</span><span class="sig-value">101.81</span><span class="sig-change " style="color:var(--signal-red)">+0.2%</span><span class="sig-note" style="color:var(--signal-yellow)">101.811·欧弱托举·FOMC前观望</span></div><div class="sig-row"><span class="sig-lamp red"></span><span class="sig-name">美股道指</span><span class="sig-value">52,215.16 点</span><span class="sig-change " style="color:var(--signal-green)">-1.23%</span><span class="sig-note" style="color:var(--signal-red)">52215.16·抛售扩散·防御也跌</span></div></div>
+    <div class="sig-charts-grid">
+<div class="sig-chart-card"><div class="sig-chart-header"><span>A股上证</span><span><span class="sig-chart-value">3,690.48 点</span></span></div><div class="sig-chart-container"><canvas id="sseMiniChart"></canvas></div></div>
+<div class="sig-chart-card"><div class="sig-chart-header"><span>现货黄金</span><span><span class="sig-chart-value">3,996.10 $/oz</span></span></div><div class="sig-chart-container"><canvas id="goldMiniChart"></canvas></div></div>
+<div class="sig-chart-card"><div class="sig-chart-header"><span>人民币中间价</span><span><span class="sig-chart-value">6.7180</span></span></div><div class="sig-chart-container"><canvas id="fxMiniChart"></canvas></div></div>
+<div class="sig-chart-card"><div class="sig-chart-header"><span>布伦特原油</span><span><span class="sig-chart-value">116.72 $/bbl</span></span></div><div class="sig-chart-container"><canvas id="oilMiniChart"></canvas></div></div>
+</div>
+    <div class="filter-bar"><button class="filter-btn active" onclick="filterCategory('全部')">全部</button><button class="filter-btn" onclick="filterCategory('股市')">股市</button><button class="filter-btn" onclick="filterCategory('汇率')">汇率</button><button class="filter-btn" onclick="filterCategory('利率')">利率</button><button class="filter-btn" onclick="filterCategory('大宗')">大宗</button><button class="filter-btn" onclick="filterCategory('海外')">海外</button><button class="filter-btn" onclick="filterCategory('宏观')">宏观</button><button class="filter-btn" onclick="filterCategory('资金面')">资金面</button></div>
+    <div class="section-title">核心信号（8项快变量）</div>
+        <div class="signal-card" data-category="股市">
+      <div class="signal-header">
+        <span class="signal-num">1</span>
+        <span class="signal-title">A股上证</span>
+        <span class="credibility-tag credibility-high">✅ 已验证</span>
+      </div>
+      <div class="signal-body">
+        <table class="signal-table"><thead><tr><th>指标</th><th>数值</th><th>涨跌</th><th>口径</th></tr></thead><tbody><tr><td>上证指数（周五收盘·本刊沿用口径）</td><td>3,690.48</td><td>+0.89%——9:50击穿3,600·盘中最低3,574.27（近一年新低）→午后V型反转116点收复·距3,700整数关9.5点；全周累计-0.7%（上周五3,716.28→本周五3,690.48·-25.8点）——周K线为长下影十字星形态</td><td>10/23收盘（周五）</td></tr><tr><td>深证成指 / 创业板指</td><td>11,673.83 / 2,684.10</td><td>+2.79% / +4.16%——创业板全周累计-3.2%（2,772.38→2,684.10）：周三周四连续重挫（周四4,811家下跌）后周五天量修复，周线留下巨大下影；科创50周五+3.04%收1,345.51·沪深300 +1.71%收4,105.33</td><td>10/23收盘</td></tr><tr><td>成交与涨跌结构</td><td>两市约1.96-1.97万亿元（放量逾4,300亿）·超4,500家上涨（约909家下跌）·31个申万一级行业27涨</td><td>与周四『4,811家下跌·49行业全绿』构成48小时完全镜像——天量换手的『低位换血』结构（恐慌盘与承接盘双向放量）</td><td>10/23收盘</td></tr><tr><td>宽基ETF历史天量（周五深V的资金实锤·周末补强）</td><td>创业板ETF易方达单日成交197亿元（上市以来历史第三高）·沪深300ETF华泰柏瑞、科创50ETF华夏成交额均超150亿元·沪深300ETF华夏/易方达同步大幅放量</td><td>华尔街见闻定性『重磅信号』——机构与配置盘（而非游资）是天量深V的主角：与10/16尾盘『沪深300ETF百亿放量』同源的承接证据，但量级放大一个数量级</td><td>10/23</td></tr><tr><td>产业订单证词（光模块+AI芯片）</td><td>中际旭创午间回应：海外订单已排至2027年·部分客户给出2028年需求指引；源杰科技/联讯仪器同步加速扩产；龙虎榜：宇树科技首板（20%·收624元·本周累涨46.14%）机构净买入2.41亿元</td><td>『易中天』从情绪反弹升级为订单与产能扩张的产业证词——上期观察点『主线能否扩散至二级产业链』获得资金+订单双重初步确认</td><td>10/23午后</td></tr><tr><td>周末消息面（周一弹药库）</td><td>①证监会批复花旗证券（中国）获准设立（注册资本12亿·外资独资券商增至七家）②Kimi K3.1 Pro发布（3万亿参数·编程智能体测评超GPT-6·11/4前开放权重）③寒武纪Q3净利14.04亿元+147.74%④《信息化『十五五』规划》：高性能AI芯片/6G商用/一体化算力网 ⑤国常会生育友好+国办AI就业 ⑥商务部敦促美方停止『1286清单』歧视性措施</td><td>『金融开放+AI供给+产业规划+社会政策』四线齐发——对周一盘面：券商/大金融（花旗）、AI应用与算力（Kimi/寒武纪/规划）、机器人（宇树龙虎榜）三条线的催化剂全部在场</td><td>10/23-10/24</td></tr><tr><td>隔夜外盘传导（周六凌晨收盘）</td><td>美股周五：道指-1.23%（-652.82点）·标普-0.52%·纳指-0.21%（费半+0.44%·SK海力士+4%·美光+2.46%）；金龙指数-0.82%；富时A50期指周五夜盘收12,989.64（日内-0.38%·较周四夜盘12,935微涨）</td><td>上期情景③的前置条件『美股续跌&gt;2%=AI解仓第二波』周五未触发——纳指仅-0.21%且半导体率先反弹；金龙-0.82%+A50夜盘微幅整理=周一开盘环境『中性略暖』：不构成周五A股独立行情的反向冲击</td><td>10/24凌晨收盘</td></tr></tbody></table>
+        <div class="plain-talk"><span class="plain-label">大白话：</span>今天A股休市，但这一天的信息量不比交易日少。先把周五那根深V长阳的『资金验血报告』补完：宽基ETF天量——创业板ETF易方达单日成交197亿元（上市以来第三高）、两只300ETF和科创50ETF都超过150亿，这类巨量不是游资的手笔，是配置盘与机构真金白银的进场；宇树科技首个20%涨停的龙虎榜显示机构净买入2.41亿；光模块龙头午间『订单排到2027、部分客户给出2028指引』的表态，把『情绪反弹』升级成了『订单证词』。再看周末的消息面：花旗证券（中国）获批、Kimi 3万亿参数模型发布、寒武纪Q3翻倍、算力网与AI芯片写进『十五五』规划——对外开放+AI供给+产业规划三箭齐发，周一盘面的催化剂清单已经排满。隔夜美股也没添乱：道指虽然跌了652点，但跌幅集中在防御板块，纳指只跌了0.21%、半导体还在反弹，金龙指数-0.82%、A50夜盘基本走平——上期预测里『美股续跌&gt;2%触发AI解仓第二波』的最坏剧本周五没有兑现。对周一的判断维持上期框架并微调两点：①量能如果能守住1.6万亿+，3,690-3,700套牢区的攻防就仍是主战场，收复并站稳3,700则V型底确认；②结构上留意『防御让位』是否延续——周五银行/煤炭逆势收跌是资金风险偏好修复的标志，若周一高股息回稳而进攻线缩量，说明哑铃结构重新平衡、反弹进入第二阶段。风险提示只有一条：FOMC（10/27-28）周三落地，周一二是『事件前的仓位置换窗口』——天量后的缩量整固（1.3-1.5万亿）是健康剧本，放量滞涨才是警示。</div>
+        <div class="inst-view"><span class="inst-label">机构观点：</span>华尔街见闻早餐FM-Radio（10/24）：周五A股探底回升上演奇迹大逆转，多只宽基ETF成交爆量，创业板ETF易方达成交197亿元创上市以来历史第三高，沪深300ETF华泰柏瑞、科创50ETF华夏成交额均超150亿元；龙虎榜显示宇树科技首个涨停机构净买入2.41亿元、本周累涨46.14%；中际旭创称海外订单已排至2027年、部分客户给出2028年需求指引。证监会《关于核准设立花旗证券（中国）有限公司的批复》（10/23）：注册地上海、注册资本12亿元、花旗环球金融控股100%出资，业务范围为证券经纪、证券投资咨询、证券承销与保荐、证券自营；外商独资券商增至七家。财联社（10/24）：周五美股受地缘政治紧张局势升温影响，国际油价回升拖累美股和美债价格，三大指数集体收低。<br><span class="inst-source">— 华尔街见闻/证监会官网/中际旭创/龙虎榜（编辑部综合） 编辑部综合</span></div>
+        <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.163.com/dy/article/LA05038705198NMR.html" target="_blank">华尔街见闻早餐FM-Radio（宽基ETF历史天量：创业板ETF易方达197亿创上市第三高·沪深300ETF华泰柏瑞/科创50ETF华夏均超150亿·宇树龙虎榜机构净买2.41亿·中际旭创订单排至2027·A股周五市场收报）</a> <span class="source-time">10/24 07:12</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.csrc.gov.cn/csrc/c101841/c7666345/content.shtml" target="_blank">中国证监会官网·批复原文（核准设立花旗证券（中国）有限公司·注册资本12亿元·100%外资持股）</a> <span class="source-time">10/23 16:09</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.jjckb.cn/20261023/c831a5797b5d4254bf4e7691e386a956/c.html" target="_blank">经济参考网（花旗证券获批：注册地上海·业务四类·外商独资券商增至七家）</a> <span class="source-time">10/23 报道</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1879880086323193972&amp;wfr=spider&amp;for=pc" target="_blank">中新经纬·美股收盘（道指-652.82点收52,215.16 -1.23%·纳指-0.21%收25,955.34·标普-0.52%收7,623.68·七巨头-0.44%·黄金股普跌纽蒙特-4%·SK海力士+4%与闪迪-2%分化）</a> <span class="source-time">10/24 05:30</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1879889775810405986&amp;wfr=spider&amp;for=pc" target="_blank">百家号·美股综述（北京时间10/24凌晨收盘：谷歌/Meta/亚马逊跌约1%·特斯拉/英伟达/苹果小幅飘绿·微软+0.66%·SpaceX+1.89%·费半+0.44%·SK海力士大涨4%·美光/格芯+2%+）</a> <span class="source-time">10/24 07:25</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://gu.sina.cn/ft/hq/hf.php?autocallup=no&amp;isfromsina=no&amp;symbol=CHA50CFD" target="_blank">新浪财经·富时中国A50期货行情（周五夜盘收12,989.64·日内-0.38%·盘中最高13,040/最低12,974——周四夜盘12,935基础上微涨后冲高回落）</a> <span class="source-time">10/24 05:14</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.163.com/dy/article/L9TCACIT0512B07B.html" target="_blank">每经AI快讯（周四夜盘A50期指连续收涨0.04%报12,935点——周五夜盘12,989.64的对照基数）</a> <span class="source-time">10/23 05:23</span></span></div></div>
+      </div>
+    </div>
+    <div class="signal-card" data-category="汇率">
+      <div class="signal-header">
+        <span class="signal-num">2</span>
+        <span class="signal-title">人民币</span>
+        <span class="credibility-tag credibility-high">✅ 已验证</span>
+      </div>
+      <div class="signal-body">
+        <table class="signal-table"><thead><tr><th>指标</th><th>数值</th><th>涨跌</th><th>口径</th></tr></thead><tbody><tr><td>周五收盘（本刊沿用基准）</td><td>中间价6.7180（较前日上调15个基点）·在岸16:30收6.6711（较昨+16点）连续第三日创46个月新高</td><td>距离6.67整数关口仅11个基点——『6.66时代』的门推开一条缝；全球risk-off深水区里唯一持续升值的非美货币（周四至周五黄金-4%、美股连跌两日的对照背景）</td><td>10/23（周六休市无中间价）</td></tr><tr><td>美元指数（周五纽约收盘）</td><td>101.811（+0.2%）</td><td>周五续涨：欧元1.1193（前1.1220）·英镑1.3371（前1.3400）·美元兑日元156.87（前156.78）——欧元与英镑双双走弱托举美元；法国PMI全线跌破荣枯线（综合48.4）+欧元区综合PMI 51.9逊预期是欧系货币的直接压力源——美元『被动走强』结构延续第三周</td><td>10/23纽约尾市（每经10/24 06:09）</td></tr><tr><td>贬值压力测试（美元vs人民币的分道）</td><td>美元周五+0.2%升至101.811的同时·人民币在岸周五仍收涨16点至6.6711</td><td>美元走强日人民币不贬——内生升值动能（结汇盘+资产吸引力）强于美元指数的边际压力：『逆美元升值』是本轮人民币行情最难被空头击穿的结构性特征</td><td>10/23</td></tr><tr><td>FOMC美元变盘窗口（下周三）</td><td>若FOMC意外偏鹰（重申通胀粘性·暗示12月加息路径）→美元或挑战101.9-102.2 → 在岸回踩6.68-6.70（上期剧本②）</td><td>当前定价下这属于尾部风险（12月加息已被定价74.2%）——美元短线反弹的主驱动已从『加息预期』切换为『欧系货币弱势』，对人民币冲击有限；反之若声明偏鸽，6.67突破后下看6.65-6.66</td><td>10/27-28</td></tr><tr><td>外部货币环境（同日）</td><td>日本核心CPI年内首破2%（深层指标2.4%·10月超3000种商品涨价）·超80%经济学家预计日央行12月加息·美元兑日元156.87（周五盘中曾触及一个月低点156.53）</td><td>日央行加息预期升温+日元低位企稳——亚洲货币环境整体偏稳：人民币升值不是孤例，但幅度与连续性冠绝非美</td><td>10/23-10/24</td></tr></tbody></table>
+        <div class="plain-talk"><span class="plain-label">大白话：</span>周六的汇率市场是安静的——没有中间价、没有在岸交易，但有两件事值得在休市日说清楚。第一，把周五的美元收盘放进人民币的坐标系：美元指数周五涨0.2%收101.811（欧元英镑双弱托举+法国PMI跌破荣枯线的避险），而人民币在岸周五仍收涨16点——『美元升、人民币更强』这个违背教科书的组合已经持续一周，说明当前人民币的主定价因子不是美元指数，而是结汇盘与资产吸引力（SWIFT占比3.33%的新高是同一件事的另一个读数）。第二，给下周三的FOMC标记两个剧本：基准剧本（10月不动+暧昧声明）下美元在101.5-102区间整理，人民币大概率完成对6.67整数关的正式突破（只差11个基点）；尾部剧本（意外鹰派）下美元冲101.9-102.2，人民币回踩6.68-6.70——但注意，这个回踩的健康性质判断不变：12月加息本身已被定价74.2%，鹰派声明对美元的边际推力有限，反而是欧系货币的弱势在托着美元。对持有美元的出口企业，结汇建议进入最后一期的执行窗口：6.66-6.68区间按计划离场，把『等待FOMC后更高结汇价』的期望值设为零——过去两周等待的平均成本每天35个基点，而6.66下方的空间，理论上只剩『中国资产避风港』叙事被证伪一种打开方式。</div>
+        <div class="inst-view"><span class="inst-label">机构观点：</span>每经AI快讯（10/24 06:09）：美元指数23日上涨0.2%，在汇市尾市收于101.811；截至纽约汇市尾市，1欧元兑换1.1193美元（低于前一交易日的1.1220）、1英镑兑换1.3371美元（低于1.3400）、1美元兑换156.87日元（高于156.78）、1美元兑换0.8252瑞士法郎（高于0.8205）。中国银行汇市观察（10/23）：上一交易日美元指数收于101.61（下跌0.17%）、美元兑日元收156.77（下跌0.87%）。华尔街见闻早餐（10/24）：法国PMI全线跌破荣枯线（综合48.4）、欧元区10月综合PMI初值降至51.9逊于预期；日本核心CPI年内首破2%、深层指标2.4%、超80%经济学家预计日本央行12月加息。每经（10/23 07:53）：美元兑日元周五盘中触及一个月低点156.53。<br><span class="inst-source">— 每经/中国银行汇市观察/华尔街见闻（编辑部综合） 编辑部综合</span></div>
+        <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.nbd.com.cn/articles/2026-10-24/4615939.html" target="_blank">每经AI快讯（美元指数23日上涨0.2%收101.811·欧元1.1193/英镑1.3371/日元156.87/瑞郎0.8252全表）</a> <span class="source-time">10/24 06:09</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.boc.cn/big5/fimarkets/foreignx/202610/t20261023_25699556.html" target="_blank">中国银行·汇市观察（上一交易日美元指数101.61 -0.17%·美元兑日元156.77 -0.87%——美元周五+0.2%的对照基数）</a> <span class="source-time">10/23 报道</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.nbd.com.cn/rss/tonghuashun/articles/4613814.html" target="_blank">每经AI快讯（美元兑日元触及一个月低点156.53——日元周五先强后回的日内轨迹）</a> <span class="source-time">10/23 07:53</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.163.com/dy/article/LA05038705198NMR.html" target="_blank">华尔街见闻早餐（法国PMI全线跌破荣枯线·欧元区综合PMI 51.9逊预期——欧元弱势驱动美元的结构注脚；日本核心CPI破2%·80%经济学家预计12月加息）</a> <span class="source-time">10/24 07:12</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.nbd.com.cn/articles/2026-10-23/4614772.html" target="_blank">每经AI快讯（在岸人民币周五16:30收6.6711·较上一交易日上涨16点——本周沿用基准·连续第三日46个月新高）</a> <span class="source-time">10/23 16:35</span></span></div></div>
+      </div>
+    </div>
+    <div class="signal-card" data-category="利率">
+      <div class="signal-header">
+        <span class="signal-num">3</span>
+        <span class="signal-title">LPR与利率换锚</span>
+        <span class="credibility-tag credibility-high">✅ 已验证</span>
+      </div>
+      <div class="signal-body">
+        <table class="signal-table"><thead><tr><th>指标</th><th>数值</th><th>涨跌</th><th>口径</th></tr></thead><tbody><tr><td>LPR（10月报价·沿用）</td><td>1年期3.0% / 5年期以上3.5%——连续第17个月不变（10/20公布）</td><td>下次报价11/20——换锚（隔夜逆回购）运行三个交易日后·LPR与市场利率的新联动机制进入观察期；东方金诚2027年全面降息10-20bp的预期延续</td><td>10月（周六无新报价）</td></tr><tr><td>央行公开市场（周五最后操作·周六周日休市）</td><td>10/23开展2,580亿元隔夜逆回购（800→1,730→2,580连续第三日递增·当日到期2,330亿→净投放250亿）·7天期连续第三日零操作</td><td>换锚第三日的『量足价稳』：新锚（每日最高1万亿额度·随行就市）已承接全部日常流动性管理职能——机构定性『更窄更精准的利率走廊』正在从制度变成行情</td><td>10/21-10/23</td></tr><tr><td>下周一第四日观察（上期预测④的验证点）</td><td>周一（10/26）隔夜逆回购操作量：若续作至2,500亿+（税期后半+月末组合）→『雨天撑伞』向『常态化操作』过渡确认；若缩量或恢复7天操作→回归日常节奏</td><td>周一到期规模=周五2,580亿隔夜全额到期——对称续作与加码投放的第一道检验；月末+股市天量后的资金护航需求下·加码概率更高</td><td>10/26（待验证）</td></tr><tr><td>Shibor（周五·沿用）</td><td>隔夜1.271%（+0.98bp）·7天1.326%（+0.50bp）·14天1.3571%（+0.61bp）·1个月1.382%（-0.28bp）</td><td>月末短端转升但1个月期创2020年5月以来新低——『月末紧一天、跨月很宽松』的期限结构：市场对11月资金面的信心是债市与股市共同的底层支撑</td><td>10/23</td></tr><tr><td>海外利率对照（周五收盘）</td><td>美国10年期4.9945%（+4.15bp）·2年期4.6818%（+4.21bp）；日央行12月加息预期升温（核心CPI破2%·80%+经济学家预测）；欧元区市场预期欧央行近期暂停加息（法国拖累）</td><td>全球央行『分化中收紧』：美（12月共识）·日（12月共识）vs 欧（暂停）vs 中（换锚稳定+2027降息预期）——中国是全球主要经济体中唯一保留宽松想象空间的市场：中美利差倒挂的边际变化是人民币与外资流向的深层变量</td><td>10/23-10/24</td></tr></tbody></table>
+        <div class="plain-talk"><span class="plain-label">大白话：</span>利率端这个休市日没有新数据，但下周一有一场值得提前排好日历的『小考』：央行隔夜逆回购的第四日操作。上周五到期2,330亿、央行续作2,580亿（净投放250亿）之后，周一将迎来2,580亿隔夜资金的全额到期——续作多少，是『换锚』从危机应对工具变成日常操作系统的第一道公开检验。上期的判断（若维持2,500亿+则『雨天撑伞』常态化）保留并升级一条：月末+股市1.96万亿天量后的两融与基金融资需求，让加码续作的概率高于缩量。LPR方面没有新报价（下月11/20），维持『3.0/3.5连续17个月』的判断，但把东方金诚『2027年降息10-20bp』的预期放进新坐标系看：换锚后的中国利率体系第一次拥有了『隔夜利率稳定+中期利率可调』的双层结构，未来降息的传导效率会明显高于过去（不再需要靠MLF降息宣言来撬动预期）。对普通人的三层含义：①货基与现金理财的收益率会长期趴在低位（1个月Shibor 1.382%是天花板读数）；②房贷重定价日选在1月1日之后的朋友，2027年LPR若真的下调，5年期3.5%的存量房贷还有一段红利窗口；③海日欧三家央行都在往紧的方向走，中国资产『低利率+弱美元敏感度』的组合是人民币与A股外资面的隐形顺风。</div>
+        <div class="inst-view"><span class="inst-label">机构观点：</span>央行公开市场业务交易公告[2026]第205号（10/23）：7天期逆回购操作量为零，开展2,580亿元隔夜逆回购操作；当日到期2,330亿，净投放250亿元。新华财经债市日报：Shibor隔夜上行0.98BP报1.271%、7天上行0.50BP报1.326%、14天上行0.61BP报1.3571%、1个月下行0.28BP报1.382%创2020年5月以来新低。华尔街见闻早餐（10/24）：日本核心CPI年内首破2%（深层指标2.4%）、超80%经济学家预计日本央行12月加息；法国PMI全线跌破荣枯线，市场普遍预期欧洲央行或于近期暂停加息。<br><span class="inst-source">— 央行公告/新华财经/华尔街见闻（编辑部综合） 编辑部综合</span></div>
+        <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1879801727027504706&amp;wfr=spider&amp;for=pc" target="_blank">央行·公开市场业务交易公告[2026]第205号（2,580亿隔夜逆回购·7天零操作——周末前的最后一次操作）</a> <span class="source-time">10/23 09:20</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="http://finance.sina.com.cn/jjxw/2026-10-23/doc-iniweyws1926827.shtml" target="_blank">新华财经·债市日报（Shibor全期限：隔夜1.271% +0.98bp/7天1.326%/14天1.3571%/1月1.382%创2020年5月新低；净投放250亿）</a> <span class="source-time">10/23 15:29</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.163.com/dy/article/LA05038705198NMR.html" target="_blank">华尔街见闻早餐（日本核心CPI年内首破2%·10月超3000种商品涨价·80%经济学家预计日央行12月加息；欧元区市场预期欧央行近期暂停加息——全球利率分化图谱）</a> <span class="source-time">10/24 07:12</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1879918213231633222&amp;wfr=spider&amp;for=pc" target="_blank">证券时报（美联储9月已加息至3.75%-4.00%·CME 12月累计加息74.2%·路透调查100位经济学家全票预期12月加息——海外利率端对照）</a> <span class="source-time">10/24 16:13</span></span></div></div>
+      </div>
+    </div>
+    <div class="signal-card" data-category="债市">
+      <div class="signal-header">
+        <span class="signal-num">4</span>
+        <span class="signal-title">中国国债</span>
+        <span class="credibility-tag credibility-high">✅ 已验证</span>
+      </div>
+      <div class="signal-body">
+        <table class="signal-table"><thead><tr><th>指标</th><th>数值</th><th>涨跌</th><th>口径</th></tr></thead><tbody><tr><td>10年期国债（周五收盘·沿用）</td><td>『26附息国债16』1.626%（-0.1bp）——30年『26超长特别国债04』2.0675%（+0.25bp）</td><td>债市周五十字星（早盘避险冲高→午后股市深V获利了结）——1.60%历史关口的第三次冲击仍在酝酿：周六周日银行间市场休市·下一个观察窗=周一（10/26）</td><td>10/23收盘（周六休市）</td></tr><tr><td>下周关键变量（股债跷跷板）</td><td>周一若A股延续反弹且量能1.6万亿+ → 10年国债或回撤1.63-1.65（获利盘+风险偏好修复=上期预测①的低吸窗口）；若A股整固 → 1.60-1.62横盘</td><td>上期预测①②的验证窗正式开启（10/26-10/30）——月末月初资金宽松窗口（1个月Shibor 1.382%新低定价）叠加30年国债2,500亿+新供给的攻防，是下周债市主战场</td><td>10/26（待验证）</td></tr><tr><td>海外债市（周五收盘）</td><td>美债10年+4.15bp至4.9945%（本周-7.83bp）·2年+4.21bp至4.6818%；欧股STOXX 600 -0.31%；全球投资级企业债利差升至129bp（2025年5月以来最宽）</td><td>美债在周四周五的『暴跌-回吐』中本周仍净下行7.83bp——全球资金对『安全资产』的再配置没有逆转；但企业债利差走阔提示：本轮避险已经从『利率债牛』蔓延为『信用债熊』，广义避险的成色在变（AI融资链条的信用重定价）</td><td>10/22-10/23美东收盘</td></tr><tr><td>机构观点（沿用周五）</td><td>中信证券：边际增量资金是CTA趋势型资金·双向放大波动；华源证券：理财存续规模35.37万亿·年内30年国债收益率或走向2.0%以下·2027年或1.8%</td><td>『低利率时代追高长久期』的纪律与『超长端供给压力』的独立变量并存——11月的30年新债供给节奏是华源目标价的第一个检验</td><td>10/23</td></tr></tbody></table>
+        <div class="plain-talk"><span class="plain-label">大白话：</span>债券市场周末休市，今天能做的最有价值的事，是把下周的观察清单写清楚。第一，1.60%关口的第三次冲击越来越像『月末剧本』：1个月期Shibor 1.382%创2020年5月以来新低，说明市场对11月资金面的宽松投票早已完成——历史上跨月资金最松的时点（月末月初）恰是收益率考验关口的高发窗口，本周一（10/26）到下周二（10/27）是时间上的 sweetspot。第二，股债跷跷板的方向检验：周五转债+1.88%跟随股市而国债期货走十字星，说明权益情绪修复对债市的抽水效应已经显现但尚未主导——若周一A股放量续涨，10年国债回撤到1.63-1.65反而是上期预判的低吸窗口（获利盘出逃+风险偏好修复的双重压力给出好价格）。第三，海外变量值得记账：美债周五回吐4.15bp但本周仍下行7.83bp，全球『利率债牛』未破；但129bp的投资级企业债利差（一年半最宽）在提示本轮避险的第二阶段特征——资金开始区分『无风险』与『有风险』的避险，信用利差的走阔如果传导到中国美元债与离岸信用市场，会对中资美元债发行主体形成边际压力（地产与地方城投的再融资成本是暗线）。操作纪律三条：1.60%下方不追多（历史关口的三次冲击里前两次都失败）；30年2.0%的目标价与250亿新供给的攻防用仓位表达而非信仰；跨月窗口的IRS与国债期货多头是对『月末宽松』最直接的押注方式。</div>
+        <div class="inst-view"><span class="inst-label">机构观点：</span>新华财经债市日报（10/23）：债市周五延续横盘整理，26附息国债16下行0.1BP报1.626%、26超长特别国债04上行0.25BP报2.0675%；中证转债指数涨1.88%报456.87。华尔街见闻早餐FM-Radio（10/24）：美国10年期基准国债收益率涨4.15个基点报4.9945%（本周累计下跌7.83个基点）、两年期涨4.21个基点报4.6818%（本周累计跌2.65个基点）；全球投资级企业债利差飙升至129个基点，创2025年5月以来最宽水平。中信证券：本轮债市边际增量资金为CTA趋势型资金。华源证券：理财产品存续规模升至35.37万亿元，年内30年期国债收益率或走向2.0%以下。<br><span class="inst-source">— 新华财经/中信证券/华源证券/华尔街见闻（编辑部综合） 编辑部综合</span></div>
+        <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://finance.sina.com.cn/jjxw/2026-10-23/doc-iniweyws1926827.shtml" target="_blank">新华财经·债市日报（10年1.626% -0.1bp·30年2.0675% +0.25bp·转债+1.88%·Shibor全表——周五收盘沿用基准）</a> <span class="source-time">10/23 15:29</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.163.com/dy/article/LA05038705198NMR.html" target="_blank">华尔街见闻早餐（美债10年+4.15bp收4.9945%·本周-7.83bp；2年+4.21bp收4.6818%；全球投资级企业债利差129bp创一年半最宽——海外债市与信用利差全景）</a> <span class="source-time">10/24 07:12</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1879880904014323976&amp;wfr=spider&amp;for=pc" target="_blank">财联社（赵昊·周五美股复盘：国际油价回升拖累美股和美债价格——油价通胀→美债收益率反弹的传导链）</a> <span class="source-time">10/24 06:22</span></span></div></div>
+      </div>
+    </div>
+    <div class="signal-card" data-category="商品">
+      <div class="signal-header">
+        <span class="signal-num">5</span>
+        <span class="signal-title">现货黄金</span>
+        <span class="credibility-tag credibility-high">✅ 已验证</span>
+      </div>
+      <div class="signal-body">
+        <table class="signal-table"><thead><tr><th>指标</th><th>数值</th><th>涨跌</th><th>口径</th></tr></thead><tbody><tr><td>周五收盘（纽约·本刊基准）</td><td>现货黄金-0.71%收3,996.10美元/盎司（概述栏口径3,996.96 -0.67%互证）·盘中一度失守4,000</td><td>本周累计-4.07%——收在7月以来最低位：4,000整数关从『周四失守即收回』变成『周五收盘正式跌破』，整数关攻防进入第二阶段；中国基金报：金价跌至7月以来最低·美联储会议前通胀担忧升温</td><td>10/23纽约收盘</td></tr><tr><td>白银与金银比</td><td>现货白银53.8897美元/盎司（-1.25%·本周-5.44%）</td><td>上期观察点『白银53-54区间若破53则情绪继续出清』：周五收53.89紧贴53关口上方——未破但零反弹，贵金属情绪的先行开关仍处于『待机』状态</td><td>10/23纽约收盘</td></tr><tr><td>下跌机制（汇丰本周研报）</td><td>①股市下跌引发追加保证金压力→投资者被迫抛售黄金筹资现金（金价与美股同跌的机制）②美元走强+美债收益率上行的双重压制（周五美元+0.2%·美债10Y+4.15bp）</td><td>汇丰结论：黄金仍受益于债务与通胀担忧、具备长期配置价值，但『无法抵御所有市场冲击·不应视为万能灵药』——与上期方法论教训（判断黄金避险必须先评估美债的竞争性吸引力）互为印证</td><td>10/24研报</td></tr><tr><td>国内市场（周六休市）</td><td>周六金饰再下调：老凤祥足金1,206元/克（-6元·当日-0.50%）·老庙1,196（-12）·周大福1,202/周生生1,200（-6）；本周老凤祥累跌44元/克（-3.52%）·近一个月跌94元/克（-7.2%）</td><td>Au99.99从9月末907.32元/克跌至10/23收864元（一个月-43元·连阴5个交易日）·沪金主力10/23盘中最低858.08元/克创年内新低——8月末1,410元的金饰六周后退回1,200平台：零售端的『金价回落窗口』首次比『金饰促销』更便宜</td><td>10/24（休市报价）</td></tr><tr><td>金价与纳指同步回调（东财21评论视角）</td><td>10月以来伦敦金从8月24日高点4,663.7美元回落至4,000下方·与全球科技股同步回调·美元指数走高</td><td>『黄金+科技股同跌』+『美德债收益率下行而法债收益率上行』——东方财富引机构：全球风险偏好大幅回落+滞胀担忧并存：黄金这一轮跌的不是避险属性，是流动性（追保抛售）与机会成本（美元美债双强）</td><td>10/24 07:09</td></tr><tr><td>中期支撑（沿用）</td><td>高盛：全球央行8月购金79吨（2022年前月均的4倍多）·近三月月均85吨</td><td>央行购金是4,000下方最厚的垫子——官方部门的配置行为不因零售情绪的崩塌停手；荷兰/法国调整储备存放、更多央行不披露存放地点的『黄金信任重构』仍在进行</td><td>10/23报道</td></tr></tbody></table>
+        <div class="plain-talk"><span class="plain-label">大白话：</span>黄金用一个『收盘价跌破4,000』给这周画上了句号：现货金周五-0.71%收3,996.10，一周跌掉4.07%，收在7月以来的最低位。周四的剧本是『盘中破4,000、深V收回』，周五变成了『收盘正式站到4,000下面』——整数关的攻防进入第二阶段，这是趋势性下移而非单日清洗的确认信号。机制上周五没有任何新花样，反而是汇丰把这轮下跌的逻辑讲得最透：第一层是『追加保证金』——股市跌了，杠杆投资者必须卖掉流动性最好的资产（黄金）去补保证金，所以金价跟着美股一起跌；第二层是『机会成本』——美元+0.2%、美债收益率+4.15bp，两头都变得更有吸引力，零息黄金两头挨打。请把这两层逻辑和『央行购金79吨/月』放在一起读：短期盘面由杠杆资金和利率定价，中期底盘由官方配置定价——这两股力量的时间尺度完全不同。国内零售端的数字最直观：老凤祥周六报1,206元/克，一周跌44元、一个月跌掉94元（-7.2%），8月末1,410元的首饰金六周后退回1,200平台——对真想买金饰的消费者，这是年内第一次『不需要等打折』的价格窗口；对投资者，纪律维持上期版本：收复4,100之前只观察（3,950-4,000是上期预测②的『第二只脚』区间，周五已经踩进去）、白银53关口是情绪出清的最后一道开关（收53.89·未破未反弹）、FOMC若偏鸽（声明暗示12月不加）会同时压低美元与美债收益率——那时黄金才有真正的反弹窗口，注意是『窗口』不是『趋势』。</div>
+        <div class="inst-view"><span class="inst-label">机构观点：</span>华尔街见闻早餐FM-Radio（10/24）：金价在流动性需求下失守4000美元，现货黄金收于3996.96美元跌0.67%（收报栏口径：跌0.71%报3996.10、本周累计下跌4.07%）；现货白银跌1.25%报53.8897美元、本周累计跌5.44%；特朗普称美国可能对伊朗再来一次小规模军事行动，国际油价大涨升至近半年高位。研报精选·汇丰：股市下跌引发的追加保证金压力可能迫使投资者抛售黄金筹集现金，导致金价与股票同步下跌；美债收益率上行、美元走强也对金价构成压制；黄金仍受益于债务与通胀担忧，但不应将其视为『万能灵药』。同花顺iFind（10/24 10:37）：10月24日足金（老凤祥）现货报价1206元/克，较上一日下跌6元/克，当日跌幅0.50%；最近一周累计下跌44元/克（-3.52%）、最近一个月累计下跌94元/克（-7.2%）。<br><span class="inst-source">— 华尔街见闻/中国基金报/汇丰/同花顺iFind（编辑部综合） 编辑部综合</span></div>
+        <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.163.com/dy/article/LA05038705198NMR.html" target="_blank">华尔街见闻早餐FM-Radio（现货黄金收3,996.10 -0.71%·本周-4.07%·白银53.8897 -1.25%本周-5.44%；汇丰『黄金不是万能灵药』研报全文）</a> <span class="source-time">10/24 07:12</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://k.sina.com.cn/article_7857201856_1d45362c001908s7z4.html" target="_blank">新浪原油热点/中国基金报（赵刚：金价跌至7月以来最低·美联储会议前通胀担忧升温·布油本周收于4月以来最高——『一觉醒来道指黄金大跌原油又爆了』全景）</a> <span class="source-time">10/24 09:00</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://goodsfu.10jqka.com.cn/20261024/c681050096.shtml" target="_blank">同花顺iFind（10/24老凤祥足金现货1,206元/克 -6元 -0.50%·周-44元/-3.52%·月-94元/-7.2%）</a> <span class="source-time">10/24 10:37</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1879918213230841885&amp;wfr=spider&amp;for=pc" target="_blank">百家号·金饰报价（周六各大品牌：老庙1,196 -12·周生生1,200 -6·周大福1,202 -6·老凤祥1,206 -6——金饰全线下调）</a> <span class="source-time">10/24 16:13</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1879893363415411072&amp;wfr=spider&amp;for=pc" target="_blank">百家号·今日金价（Au99.99从9月末907.32元/克跌至10/23收864元·一个月-43元连阴5日；沪金主力盘中最低858.08元/克创年内新低；10/23金饰：老凤祥1,212 -24·周生生1,206 -32——周六报价的昨日基数）</a> <span class="source-time">10/24 09:40</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://guba.eastmoney.com/news,usmcq.cl,1786790850.html" target="_blank">东方财富·21评论（黄金和纳指缘何同步回调：10月以来伦敦金自8月24日4,663.7美元高点回落·黄金与全球科技股同步回调·美元走高显示滞胀担忧）</a> <span class="source-time">10/24 07:09</span></span></div></div>
+      </div>
+    </div>
+    <div class="signal-card" data-category="商品">
+      <div class="signal-header">
+        <span class="signal-num">6</span>
+        <span class="signal-title">布伦特油</span>
+        <span class="credibility-tag credibility-high">✅ 已验证</span>
+      </div>
+      <div class="signal-body">
+        <table class="signal-table"><thead><tr><th>指标</th><th>数值</th><th>涨跌</th><th>口径</th></tr></thead><tbody><tr><td>周五收盘（纽约·本刊基准）</td><td>布伦特12月合约+3.13%收116.72美元/桶（本周+6.24%·盘中冲向117）·WTI 12月+3.92%收103.27美元/桶（本周+4.29%）</td><td>布油创4月以来最高收盘价（中国基金报）·华尔街见闻口径『五个月新高/近半年高位』——上期预测①的『114-116高位拉锯』上沿被刺穿、向③的118-120情景过渡；沙特遭袭愈演愈烈+周末前空头回补+期权对冲买盘放大涨势</td><td>10/23美东收盘</td></tr><tr><td>地缘时钟（供给端三线引爆）</td><td>①胡塞武装宣称实施对沙特红海港口延布的袭击+对沙特油田和机场的致命袭击（『沙特遇袭愈演愈烈』）②伊朗称两艘试图穿越霍尔木兹海峡南部的超级油轮周五触雷（共载超450万桶原油）·伊朗已制定计划：若遭美以攻击将把反制扩大至海湾海底通信电缆 ③特朗普威胁『若拒绝谈判协议·将对伊朗再发动一次小小的史诗之怒』并称美国可以很快结束对伊战事；美常驻联合国代表：美国已准备好与伊朗长期对峙（一年后或仍陷僵局·海峡航运或无法恢复冲突前水平）</td><td>中东供给风险完成从『风险溢价』向『物理现实』的转换：沙特本土设施+霍尔木兹通航+海底电缆三线同时进入定价——『美以中选后打击伊朗』的引信日历（11/3）之前·每一次『口头降温』的可信度都在下降</td><td>10/23-10/24</td></tr><tr><td>供给端全球总动员（应对清单）</td><td>美能源部周五授权紧急交换最多40万桶战略储备（应对部分炼厂供油中断）·德国EBV启动放储招标（柴油/取暖油/原油·G7协调·承诺最多1500万桶）·俄罗斯柴油重返美国（首批4万吨预计11/7抵纽约·俄方计划年底恢复常规出口规模）·特朗普政府拟豁免部分加拿大农林产品50%关税（助中选）</td><td>柴油供应紧张是共同导火索——『放储+俄油回流+关税豁免』的组合拳目标只有一个：11/3中选前把油价按住；供给端的动员速度反过来确认了短缺的真实性（如果供给无忧·不需要40万桶紧急交换）</td><td>10/23-10/24</td></tr><tr><td>国内调价窗口（10/29 24时·第21轮）</td><td>金联创10/23第6个工作日测算：参考原油均价104.80美元/桶·变化率+5.41%→汽柴油预计上调305元/吨（92号约+0.20元/升·8.59→约8.8元/升）</td><td>布油周五收116.72意味着测算大概率继续上修——上期预测『最终锁定295-330元/吨』的中枢正在向区间上沿漂移（第7-10个工作日（10/26-10/28）油价若维持114+·锁定320元/吨附近）；加满50升油箱10/29前依然便宜约15-16元</td><td>10/29 24时（窗口内）</td></tr><tr><td>俄乌缓和（反向变量升级）</td><td>白宫10/23宣布：美促成俄乌在奥列什基暂时停火（10/29开始·人道物资+平民撤离）·泽连斯基确认乌美俄三方会谈11月上半月举行（俄方：阿布扎比）·美提议恢复俄对欧天然气供应（含重启北溪管道系统的讨论）</td><td>上期预测②的『普京和谈→和平折扣』开始走向兑现（停火10/29生效恰与国内调价窗口同日）——但本周油价证明定价主导权在中东：俄乌折价（若落地约3-5美元）会被中东溢价吸收而非反向主导；『两场地缘对冲』结构成型：任何一方的缓和都难改油价高位</td><td>10/23-11月</td></tr></tbody></table>
+        <div class="plain-talk"><span class="plain-label">大白话：</span>布油这周的最后一块拼图在周五晚上落下：+3.13%收116.72美元，创4月以来最高收盘——从10月中旬的104-108箱体算起，两周内油价上了一个台阶半。把供给端这一周发生的事连成线看，会发现这是一场『点、线、面』的全面升级：点上，胡塞武装把袭击从海上扩展到沙特本土（红海延布港+油田+机场）；线上，霍尔木兹海峡两艘超级油轮触雷（450万桶运力瞬间变成风险敞口）、伊朗威胁打击海底电缆；面上，美国紧急交换40万桶战略储备、德国启动G7放储招标、俄罗斯柴油重回美国市场——供给端的全球总动员，每一条都在确认短缺的真实性。这个结构里最关键的悖论是：各国政府『按住油价』的动作越多，市场越相信地缘溢价不会很快消失——放储和豁免能缓解零售价，但撼动不了风险溢价的定价机制。对国内车主，10/29（下周四）24时的调价窗口大概率锁定在300元/吨上方（金联创第6工作日305元/吨，布油周五再涨后测算中枢继续上移）——下周四之前加满，还是本轮周期最便宜的一箱油。往前看两个引信：①11/3美国中选——『中选前不动手』的约束一旦解除，美以对伊朗的行动窗口和油价120+的情景同时打开；②10/29俄乌奥列什基停火生效——两场地缘的『对冲日历』第一次重叠在同一天：停火若扩大，油价的俄乌折价（3-5美元）会开始定价，但只要中东没缓和，它更可能只是让涨势歇口气。维持上期纪律：事件驱动的行情，仓位比预测可靠——116上方的每一美元都在计价战争风险，追多本质是做多 『中东冲突升级』这个不确定性本身。</div>
+        <div class="inst-view"><span class="inst-label">机构观点：</span>华尔街见闻早餐FM-Radio（10/24）：美油盘中涨超4%，布油冲向117美元、又创五个月新高——中东能源供应风险持续升温，胡塞武装近期加码袭击沙特，美以伊冲突危险增添供应担忧；周末前空头回补、期权对冲买盘放大原油涨势；美常驻联合国代表称美国已做好与伊朗长期对峙的准备；美能源部周五授权紧急交换最多40万桶战略油储应对部分炼厂供油中断。WTI 12月原油期货收涨3.92%报103.27美元/桶（本周+4.29%）；布伦特12月收涨3.13%报116.72美元/桶（本周+6.24%）。中国基金报（赵刚）：布伦特原油本周收于4月以来最高水平，因为沙特阿拉伯遭到的袭击愈演愈烈，胡塞武装宣称实施了针对沙特红海港口延布的袭击以及对一个油田和机场的致命袭击；伊朗称两艘试图非法穿越霍尔木兹海峡南部的超级油轮周五触雷。金联创（10/23第6工作日）：参考原油均价104.80美元/桶、变化率5.41%，对应10/29 24时汽柴油预计上调305元/吨。<br><span class="inst-source">— 华尔街见闻/中国基金报/金联创/财联社（编辑部综合） 编辑部综合</span></div>
+        <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.163.com/dy/article/LA05038705198NMR.html" target="_blank">华尔街见闻早餐（WTI 12月+3.92%收103.27·布伦特12月+3.13%收116.72·双双创阶段新高；40万桶战略储备紧急交换·德国放储招标·俄柴油4万吨驶向纽约·俄乌奥列什基停火10/29生效——地缘与供给全景）</a> <span class="source-time">10/24 07:12</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://k.sina.com.cn/article_7857201856_1d45362c001908s7z4.html" target="_blank">中国基金报/新浪（布油本周收于4月以来最高：胡塞宣称袭延布港+油田+机场·WTI收103美元上方·一周累涨超6%）</a> <span class="source-time">10/24 09:00</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://k.sina.com.cn/article_7857201856_1d45362c001908s8n6.html" target="_blank">中国基金报/新浪（美东10/23周五美股全线收跌·因沙特遭袭加剧供应担忧布油收4月以来最高·金价7月以来最低——『胀vs滞』同日记录）</a> <span class="source-time">10/24 12:00</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1879880904014323976&amp;wfr=spider&amp;for=pc" target="_blank">财联社（油价暴涨压制市场情绪·三大指数集体收低——油价与美股的负向传导）</a> <span class="source-time">10/24 06:22</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://www.163.com/dy/article/L9U2O2JN0556LY0G.html" target="_blank">金联创/网易（第6个工作日测算：参考原油均价104.80美元/桶·变化率+5.41%→10/29调价预计+305元/吨——周五布油116.72后测算中枢待上修）</a> <span class="source-time">10/23 11:55</span></span></div></div>
+      </div>
+    </div>
+    <div class="signal-card" data-category="海外">
+      <div class="signal-header">
+        <span class="signal-num">7</span>
+        <span class="signal-title">美联储动态</span>
+        <span class="credibility-tag credibility-high">✅ 已验证</span>
+      </div>
+      <div class="signal-body">
+        <table class="signal-table"><thead><tr><th>指标</th><th>数值</th><th>涨跌</th><th>口径</th></tr></thead><tbody><tr><td>CME美联储观察（10/24·证券时报口径）</td><td>10月维持利率不变90.6%（累计加息25bp仅9.4%）·到12月：维持不变25.8%/累计加息25bp 67.5%/累计加息50bp 6.7%（累计加息74.2%）</td><td>较上期每经口径（10月不动92.8%·12月累计80.5%）小幅回落：周五油价大涨+PMI售价涨幅四年新高令部分『12月预期』向『年内更早』回流——『油价通胀vs股市动荡』的拔河在概率数据里留下痕迹；LSEG口径：10月加息可能性不到10%</td><td>10/24 16:13</td></tr><tr><td>路透调查（经济学家vs市场）</td><td>10/16-20调查的100位经济学家：94位预计10月维持3.75%-4.00%不变·但100位（全票）预期12月加息——而一个月前的调查中持此观点者不足半数</td><td>『经济学家全票+市场74%』的罕见汇聚：9月加息（2023年以来首次）被学界定性为『新紧缩周期的起点』而非『一次性校准』——FOMC的三问（沃什如何解读暂停·委员会如何定性9月行动·几张反对票）每一个答案都价值连城</td><td>10/20发布·10/24引述</td></tr><tr><td>通胀与景气数据（周五新增）</td><td>密歇根10月消费者信心终值48（环比-0.2%·同比-10.4%）：一年通胀预期4.6%→4.7%·长期3.4%→3.5%（均创5月以来最高）·高物价拖累财务的受访者56%（连续第四个月上升）；美国10月综合PMI初值57.6（近五年高位）·制造业PMI 56.0创53个月新高·企业售价涨幅创2022年8月以来最高</td><td>『信心崩、售价涨』的组合是滞胀的标准前奏——油价114→116的传导已经在定价端（PMI售价）与预期端（密歇根）双双显形：消费者信心跌至五个月低点的同一天·企业定价能力创四年新高</td><td>10/23-10/24</td></tr><tr><td>FOMC前瞻三问（10/27-28·静默期至10/28）</td><td>①沃什将如何解读本次暂停加息（声明大概率简短·沃什不热衷前瞻指引·发布会延续精炼务实）②FOMC多数委员是否仍将9月加息定性为『风险管理式调整』③多少官员投反对票支持加息（Greenwood Capital的Walter Todd：关注沃什发布会关于利率路径的任何暗示）</td><td>货币政策仍有进一步收紧空间是官员普遍共识——『10月跳过·12月落地』的路径若在声明被显性暗示：美债美元双升、黄金二次探底；若暧昧留白：全球成长股（含A股AI链）获得FOMC后的反弹窗口</td><td>10/27-28</td></tr><tr><td>全球央行图谱（同日）</td><td>日央行：核心CPI年内首破2%（深层2.4%·10月超3000种商品涨价）·80%+经济学家预计12月加息·终端利率或上触2%+；欧央行：法国拖累欧元区PMI（法国综合48.4全线下破荣枯线）·市场预期近期暂停加息：全球三大央行的『美日紧·欧观望』分化成型；穆迪维持法国Aa3（负面展望）</td><td>『紧缩』不再是美联储的独角戏——日央行若12月加息将抽走全球最后的廉价日元融资；中选（11/3）后美国政治周期的解锁（加息节奏·对伊行动·AI监管）与日央行行动或形成流动性收缩的共振</td><td>10/23-10/24</td></tr><tr><td>美股周五全景（道指-1.23%的解剖）</td><td>道指52,215.16（-652.82点·-1.23%·本周+0.41%·30只成分股6涨24跌）·标普7,623.68（-0.52%·本周-0.47%）·纳指25,955.34（-0.21%·本周-0.7%）·七巨头-0.44%（苹果盘中新高后-0.14%·微软+0.66%·SpaceX+1.89%）·费半+0.44%（SK海力士+4%·美光+2.46%·格芯+2%+）·金龙-0.82%·欧股STOXX 600 -0.31%（本周-1.39%）</td><td>24小时完全镜像：周四『科技屠杀·道指独红』→周五『科技修复·道指杀跌』——抛售从成长扩散至防御（前一天创历史新高的可口可乐领跌·黄金股纽蒙特-4%）；新浪复盘『23:30护盘失败·卖盘扩散』——这不是趋势反转日，是risk-off的第二阶段蔓延</td><td>10/23美东收盘</td></tr></tbody></table>
+        <div class="plain-talk"><span class="plain-label">大白话：</span>FOMC进入最后72小时，今天把决定下周全球资产颜色的三个问题提前拆开。第一问：10月会加息吗？——几乎不会。CME定价10月不动90.6%，LSEG口径加息可能性不到10%，路透调查94/100位经济学家也站在不动这边。这个共识的坚固程度，从『油价单周+6%、售价涨幅创四年新高』都没能撼动它就可见一斑——市场已经把『10月跳过』当成既定事实。第二问：12月会加息吗？——这是本周真正的新变化。路透调查里100位经济学家全票预期12月加息（一个月前不足半数），CME定价74.2%：『市场+学界』的罕见汇聚意味着，除非FOMC声明和沃什发布会明确踩刹车，否则12月加息已经是‘基准情形’而非风险事件。第三问：声明会说什么？——三个细节值得竖起耳朵：沃什如何定义『暂停』（一次校准还是紧缩中场的休息）、委员会是否把9月的加息定性为『风险管理式调整』（这个词如果保留，意味着通胀优先级仍高于市场稳定）、几张反对票（反对票越多，12月落地的确定性越高）。配菜是周五的数据拼盘：密歇根消费者信心48（五个月低点）撞上PMI售价涨幅四年新高——『消费者信心崩、企业定价强』是滞胀最标准的配方，这也解释了为什么周五美股道指-1.23%领跌的是防御板块：滞胀环境里没有真正的避险股，只有尚未下跌的股票。对A股的传导评估维持上期判断：中国市场对美股AI叙事的敏感度在下降（周五已验证独立行情），真正的传导通道是『FOMC声明→美债美元→人民币与北向资金』——基准剧本（不动+暧昧声明）下这条通道对中国资产是顺风。</div>
+        <div class="inst-view"><span class="inst-label">机构观点：</span>证券时报（10/24 16:13）：美联储将于10月27日至28日召开议息会议；美联储曾在9月进行自2023年以来的首次加息，以应对高于目标的通胀；LSEG数据显示联邦基金期货定价10月28日再次加息的可能性不到10%；CME『美联储观察』：10月维持利率不变的概率为90.6%、累计加息25个基点的概率为9.4%；到12月维持不变25.8%、累计加息25个基点67.5%、累计加息50个基点6.7%。路透社10月20日发布的调查：10月16日至20日接受调查的100位经济学家中，94位预计美联储将在10月27-28日的会议上将联邦基金利率维持在3.75%-4.00%区间，全部100位受访者均预期美联储将在12月加息，与上月调查中不足半数形成鲜明对比。密歇根大学10月23日发布：美国10月消费者信心指数终值为48（比9月下降0.2%、比去年同期下降10.4%）；未来一年通胀预期从9月的4.6%升至4.7%、长期通胀预期从3.4%升至3.5%，均达5月以来最高。华尔街见闻：美国10月综合PMI初值小幅回落至57.6（仍处近五年高位）；制造业PMI升至56.0创53个月新高；企业销售价格涨幅升至2022年8月以来最高。中新经纬：美股周五道指跌1.23%报52215.16点（-652.82点）、纳指跌0.21%报25955.34点、标普500指数跌0.52%报7623.68点；万得科技七巨头指数跌0.44%。<br><span class="inst-source">— 证券时报/CME/LSEG/路透调查/华尔街见闻（编辑部综合） 编辑部综合</span></div>
+        <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1879918213231633222&amp;wfr=spider&amp;for=pc" target="_blank">证券时报（CME：10月不动90.6%·+25bp 9.4%；12月维持25.8%/+25bp 67.5%/+50bp 6.7%——12月累计74.2%；LSEG加息不到10%；路透100经济学家94位预计10月不动·100位全票预期12月加息；密歇根信心48·通胀预期4.7%/3.5%；FOMC三问前瞻全文）</a> <span class="source-time">10/24 16:13</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1879880086323193972&amp;wfr=spider&amp;for=pc" target="_blank">中新经纬·美股周五收盘（道指-1.23%收52,215.16·纳指-0.21%收25,955.34·标普-0.52%收7,623.68·SK海力士+4%·纽蒙特-4%·存储芯片分化全景）</a> <span class="source-time">10/24 05:30</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.163.com/dy/article/LA05038705198NMR.html" target="_blank">华尔街见闻早餐（市场概述+收报全表；苹果盘中历史新高后收-0.14%·微软+0.66%·美光+2.46%·迈威尔+2.26%；费半+0.44%反弹细节由百家号07:25互证；美国PMI初值57.6·售价涨幅四年新高；日央行CPI与加息预期）</a> <span class="source-time">10/24 07:12</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1879874010271305543&amp;wfr=spider&amp;for=pc" target="_blank">百家号·收盘综述（道指跌超650点·本周道指+0.41%/标普-0.47%/纳指-0.7%；抛售压力从AI交易扩散至更广泛领域·市场日益担心美伊冲突将再次爆发·10年期美债收益率上升但仍低于5%门槛）</a> <span class="source-time">10/24 04:32</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://finance.sina.cn/2026-10-24/detail-iniwicvq4799628.d.html" target="_blank">新浪财经（『23:30护盘失败美股反弹梦碎』：盘中资金守住关键点位·收盘依旧全线收跌·两天内下跌结构彻底反转——周四科技领跌道指飘红→周五道指大跌1.23%跌幅是纳指近六倍·卖盘从成长扩散到整个大盘）</a> <span class="source-time">10/24 13:29</span></span></div></div>
+      </div>
+    </div>
+    <div class="signal-card" data-category="利率">
+      <div class="signal-header">
+        <span class="signal-num">8</span>
+        <span class="signal-title">美债收益率</span>
+        <span class="credibility-tag credibility-high">✅ 已验证</span>
+      </div>
+      <div class="signal-body">
+        <table class="signal-table"><thead><tr><th>指标</th><th>数值</th><th>涨跌</th><th>口径</th></tr></thead><tbody><tr><td>美债10年期（周五纽约收盘）</td><td>4.9945%（+4.15bp）——本周累计仍-7.83bp</td><td>周四史诗级-16.6bp后的第一日回吐（收复约四分之一）——周五油价大涨（布油116.72）推升通胀担忧令收益率反弹，但5.00整数关口得而复失后的『重新逼近』止步于4.9945：4.99-5.00一线的多空攻防是FOMC前最精细的温度计</td><td>10/23美东收盘</td></tr><tr><td>全曲线（短端同步回吐）</td><td>2年期4.6818%（+4.21bp·本周-2.65bp）——10Y-2Y利差约31bp（曲线形态一周基本稳定）</td><td>短端与长端同步反弹：油价通胀→12月加息预期强化（74.2%）推升短端；长端 additionally 承接『避险回吐』——周四的『加息周期终结』定价在做局部修正而未翻转</td><td>10/23美东收盘</td></tr><tr><td>回吐的驱动（通胀vs避险的双向拉锯）</td><td>财联社：国际油价回升拖累美股和美债价格（收益率上行）——油价→通胀担忧→收益率反弹 vs 全球risk-off第二周（美股连跌两日+欧股周跌1.39%）→避险买盘</td><td>『胀的压力往上顶、滞的恐慌往下拽』——两种力量在4.99-5.00窄区间内对冲的结果：单边行情结束、波动率放大；这种拉锯恰好发生在FOMC和20年期国债拍卖（下周）双事件前——供给与政策的双重检验将给出方向</td><td>10/23-10/24</td></tr><tr><td>信用利差（广义避险的成色变化）</td><td>全球投资级企业债利差飙升至129bp（2025年5月以来最宽）——AI基建举债潮+油价+法国动荡三重冲击</td><td>『利率债牛、信用债熊』的分裂：资金涌向美债的同时在抛售企业债——本轮避险已经开始区分『无风险』与『有风险』；若利差继续走阔，科技巨头『举债买AI』的融资成本抬升会传导回股票估值（feed back loop）</td><td>10/23-10/24</td></tr><tr><td>下周检验（FOMC+拍卖）</td><td>周三FOMC声明（10/28北京时间凌晨）+20年期国债拍卖（约130亿美元·上期提示的检验点）——上期预测『4.90-4.95%是反弹试金石』已在4.99一线获得部分验证</td><td>两条路径：声明暧昧+拍卖需求稳健 → 4.95-5.00整理·成长股反抽窗口开启；声明暗示12月加息+拍卖遇冷 → 收复5.00-5.05·risk-off第二波深化——对A股的传导仍是『美债↑→美元强→北向承压』的间接通道（弱敏感·上期验证中国独立行情）</td><td>10/27-10/28</td></tr></tbody></table>
+        <div class="plain-talk"><span class="plain-label">大白话：</span>美债周五走出了危机暴跌后的标准剧本：回吐。10年期收益率+4.15bp收4.9945%——把周四16.6bp的史诗级暴跌收复了大约四分之一，然后卡在4.99-5.00的位置不动了。这个位置的含义值得细品：5%整数关口在周三（4.99%上方）和周四（4.95%）之间反复易手之后，周五的收盘价4.9945%几乎是贴着关口收盘——多空双方都把最后的决定权交给了下周三的FOMC。周五反弹的驱动有两个：一是油价（布油116.72创4月新高）推升通胀担忧——『胀』的力量在把收益率往上顶；二是周四避险买盘的了结——资金从『恐慌模式』切回『重新定价模式』。这个双向拉锯恰好被两条即将到来的检验线钉住：FOMC声明（暗示12月加息则收益率收复5%）和20年期国债拍卖（供给检验：上期提到的130亿美元）。真正值得记账的是信用端的分裂：全球投资级企业债利差飙到129bp（一年半最宽）——资金一边买无风险的国债、一边抛有风险的企业债，本轮risk-off已经从『利率债牛市』演化出『信用债熊市』的分支。这条暗线对AI叙事的含义最直接：科技巨头『举债建AI』的融资成本正在抬升，TS Lombard本周的『2028泡沫破裂推演』（科技股-40%、20万亿市值）之所以引发共鸣，正是因为信用市场已经开始给这条链定价。对中国读者的三句话总结：①美债5%下方+美元101.8的组合对人民币仍是顺风；②A股与全球美债敏感资产的脱敏（独立行情）上周五已验证，下周焦点回到自身量能；③如果你的组合里持有中资美元债，信评分层的逻辑同样适用——利率债好≠信用债好。</div>
+        <div class="inst-view"><span class="inst-label">机构观点：</span>华尔街见闻早餐FM-Radio（10/24）：债市——美国10年期基准国债收益率涨4.15个基点报4.9945%（本周累计下跌7.83个基点）；两年期美债收益率涨4.21个基点报4.6818%（本周累计跌2.65个基点）。财联社（赵昊·10/24）：周五受地缘政治紧张局势升温影响，国际油价回升拖累美股和美债价格，三大指数集体收低（『油价涨→收益率反弹』的传导记录）。华尔街见闻：全球投资级企业债利差周四周五飙升至129个基点（创2025年5月以来最宽）——美国科技巨头为支撑AI基建大幅举债，叠加油价上涨和法国动荡；分析指出『如果科技股财报传来好消息，唯一的意涵可能是它们会进一步扩大支出计划』。<br><span class="inst-source">— 华尔街见闻/财联社/东方财富（编辑部综合） 编辑部综合</span></div>
+        <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://www.163.com/dy/article/LA05038705198NMR.html" target="_blank">华尔街见闻早餐（10Y +4.15bp收4.9945%·本周-7.83bp；2Y +4.21bp收4.6818%·本周-2.65bp；全球投资级企业债利差129bp创2025年5月以来最宽）</a> <span class="source-time">10/24 07:12</span></span></div><div class="source-item"><span class="source-grade s">S</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1879880904014323976&amp;wfr=spider&amp;for=pc" target="_blank">财联社（油价回升拖累美股和美债价格——周五收益率反弹的驱动归因）</a> <span class="source-time">10/24 06:22</span></span></div><div class="source-item"><span class="source-grade a">A</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1879874010271305543&amp;wfr=spider&amp;for=pc" target="_blank">百家号（10年期美债收益率上升·但仍低于5%的门槛——关口下的攻防记录）</a> <span class="source-time">10/24 04:32</span></span></div></div>
+      </div>
+    </div>
+    <div class="backtest-card"><div class="backtest-header">🎯 预测回测</div><div class="backtest-item"><div class="backtest-title">（10/23预测）A股下周一（10/26）三情景：①天量延续+进攻确认：量能1.6万亿+且收复3,700→中继上涨3,720-3,750；②缩量整固：1.3-1.5万亿→3,650-3,690震荡；③隔夜美股若续跌&gt;2%（AI解仓第二波）→低开3,600-3,640。观察点：宇树/机器人主线扩散·宁德持续性·高股息止跌回稳</div><div class="backtest-detail">实际：待验证（10/26开盘·隔夜前置观察全部落地）：美股周五纳指仅-0.21%（③的『续跌&gt;2%』未触发·费半+0.44%率先反弹）·金龙-0.82%·A50期指夜盘12,989.64（日内-0.38%·较周四微涨）——周一开盘环境『中性略暖』非③情景；周末消息面催化充裕（花旗证券获批/Kimi K3.1 Pro/寒武纪Q3+147.74%/十五五规划）——上期情景①②的内部条件向①倾斜·但量能门槛（1.6万亿+）仍需周一实盘检验 → <span class="backtest-tag backtest-partial">🟡部分命中</span></div></div><div class="backtest-item"><div class="backtest-title">（10/23预测）债市与流动性：①股市若续涨→10年国债回撤1.63-1.65（低吸窗口）；②股市整固→1.60-1.62横盘·第三次冲击1.60时点大概率在月末月初；③Shibor隔夜月末若推升至1.35%+→短端承压但跨月无忧；④新锚四日观察：2,580亿是否续作或放量（若至3,000亿+=『常态化放水』过渡）</div><div class="backtest-detail">实际：待验证（10/26-10/30窗口·周六休市无新数据）：周五10年国债1.626%十字星收平（1.60-1.62区间延续）·1个月Shibor 1.382%新低定价跨月无忧（③的后半兑现中）——④的关键读数在周一：2,580亿隔夜全额到期·月末+股市天量后融资需求下续作加码概率更高；月末月初窗口（10/26-10/28）与『第三次冲击1.60』的时点预判维持 → <span class="backtest-tag backtest-partial">🟡部分命中</span></div></div><div class="backtest-item"><div class="backtest-title">（10/23预测）黄金4,000关口攻防：①美债4.95%企稳+CME向75%以下走→金价反弹4,050-4,100；②美元若反弹101.9-102.2→金价再探3,950-4,000（『真破位』第二只脚）；③白银开关：53-54止跌转强=情绪见底·破53=继续出清</div><div class="backtest-detail">实际：②的价位精确兑现+①的条件半兑现（机制按②路径运行）：现货金周五收3,996.10（-0.71%）——精确落入②的3,950-4,000区间上沿·且从『盘中破收回』升级为『收盘正式跌破』（趋势确认）；CME 12月累计加息已降至74.2%（①的条件『75%以下』达成）但金价未反弹——美元周五+0.2%至101.811逼近②的101.9-102.2（主驱动）；白银53.89贴住53关口未破未反弹（③的开关仍在待机）——FOMC（10/28）是①vs②的裁决时间戳 → <span class="backtest-tag backtest-partial">🟡部分命中</span></div></div><div class="backtest-item"><div class="backtest-title">（10/23预测）原油115关口与调价终局：①FOMC前观望+地缘持续→布油114-116高位拉锯→10/29调价锁定295-330元/吨；②普京和谈落地+美伊接触→布油回踩110-112·『和平折扣』3-5美元→调价下修至280以下；③美以『中选后打击』坐实→布油118-120</div><div class="backtest-detail">实际：①→③过渡中（上沿被刺穿·调价区间内）：布油周五+3.13%收116.72——①的114-116上沿被地缘升级（胡塞袭沙特本土+油轮触雷+伊朗最后通牒+特朗普『史诗怒火』威胁）刺穿·向③的118-120情景过渡（但③的正式触发条件『中选后行动』未到·11/3是引信日）；金联创第6工作日305元/吨精确落在295-330区间（①的调价测算兑现·周五油价后待上修）；②部分出现——奥列什基停火（10/29生效）+美提议恢复俄气=俄乌缓和的『和平折价』开始可定价·但本周油价证明中东主导（俄乌折价被中东溢价吸收）——验证期10/26-10/29未关闭 → <span class="backtest-tag backtest-partial">🟡部分命中</span></div></div><div class="backtest-item"><div class="backtest-title">（10/23预测）人民币6.67关口的临门一脚：①中间价续上调+市场承接→在岸正式跌破6.67→下看6.65-6.66·结汇窗口关闭；②FOMC若意外偏鹰→美元101.9-102.2→在岸回踩6.68-6.70（健康回撤）；③『中国资产避风港结构』验证：汇率/债/股同步走强→外资回流信号</div><div class="backtest-detail">实际：待验证（10/26-10/30窗口·周六休市）：周五在岸收6.6711（连续第三日46个月新高·距6.67关口11bp）——①的『临门一脚』只差一次早盘定价；美元周五+0.2%收101.811已逼近②的101.9-102.2区间下沿（欧系弱托举的『被动走强』）——FOMC（10/27-28）是①②的分岔点；③的部分证据当日已现（汇率+债+股周五同日走强）·北向资金数据待周一确认 → <span class="backtest-tag backtest-partial">🟡部分命中</span></div></div><div class="backtest-item"><div class="backtest-title">（10/23预测）FOMC三剧本：①基准（60%）：10月不动+暧昧声明→美债4.90-5.00整理·美元101.5-102·黄金4,000-4,100拉锯·全球股市窄幅；②偏鸽（25%）：暗示12月不加→美债4.80-4.85·黄金4,100+·成长股修复；③偏鹰（15%）：暗示12月加息→美债5.05-5.10·黄金3,950·risk-off第二波</div><div class="backtest-detail">实际：基准剧本截至周五夜全部在轨（三资产读数精确落位）：美债10Y 4.9945%（①的4.90-5.00区间内·本周-7.83bp）·美元101.811（①的101.5-102区间内）·黄金3,996.10（①的4,000-4,10拉锯区下沿略破·贴近②③的分界）——市场用三天时间完成了对基准剧本的自我实现；剧本概率更新：12月加息共识强化（路透100经济学家全票+CME 74.2%）令③偏鹰的概率略升（油价116+PMI售价四年新高是加分项）·②偏鸽的概率相应下降——裁决在10/28声明+沃什发布会 → <span class="backtest-tag backtest-partial">🟡部分命中</span></div></div></div>
+    <div class="source-summary"><div class="ss-header">来源汇总</div><table><thead><tr><th>等级</th><th>来源</th><th>引用内容</th><th>时间</th></tr></thead><tbody><tr><td>S</td><td>华尔街见闻早餐FM-Radio/中国基金报·美股与全球商品收盘</td><td>美股周五：道指-1.23%（-652.82点）收52,215.16（本周+0.41%·30成分股6涨24跌）·标普-0.52%收7,623.68（本周-0.47%）·纳指-0.21%收25,955.34（本周-0.7%）·七巨头-0.44%·费半+0.44%·金龙-0.82%·欧股STOXX 600 -0.31%（本周-1.39%）；商品：WTI 12月+3.92%收103.27（本周+4.29%）·布伦特12月+3.13%收116.72（本周+6.24%·4月以来最高·盘中冲117）·现货黄金-0.71%收3,996.10（本周-4.07%·7月以来最低·盘中失守4,000）·白银53.8897（本周-5.44%）——24小时结构镜像：周四杀科技留消费→周五杀防御科技修复</td><td>10/24 04:32-12:00</td></tr><tr><td>S</td><td>证券时报/CME/LSEG/路透调查·美联储与FOMC前瞻</td><td>CME：10月维持不变90.6%（+25bp仅9.4%）·12月累计加息74.2%（维持25.8%/+25bp 67.5%/+50bp 6.7%）；LSEG：10月加息可能性不到10%；路透（10/16-20·100位经济学家）：94位预计10月维持3.75%-4.00%·100位全票预期12月加息（上月不足半数）；密歇根消费者信心终值48·一年通胀预期4.7%（5个月最高）；FOMC 10/27-28前瞻三问：沃什如何解读暂停·委员会如何定性9月加息·反对票数量</td><td>10/24 16:13</td></tr><tr><td>S</td><td>证监会官网/经济参考网/21世纪经济报道·花旗证券获批</td><td>证监会10/23批复核准设立花旗证券（中国）有限公司：注册地上海·注册资本12亿元·花旗环球金融控股100%出资·业务范围=证券经纪/投资咨询/承销与保荐/自营——外商独资券商增至七家；花旗集团董事长范洁恩表态；同期Visa在华子公司获准筹备银行卡清算机构——外资金融机构加速布局中国市场</td><td>10/23 16:09-21:29</td></tr><tr><td>S</td><td>华尔街见闻·周末中国消息面与A股资金实锤</td><td>宽基ETF历史天量：创业板ETF易方达单日197亿（上市第三高）·沪深300ETF华泰柏瑞/科创50ETF华夏均超150亿；龙虎榜：宇树科技首板机构净买2.41亿（本周+46.14%）；中际旭创海外订单排至2027·部分客户给出2028指引；Kimi K3.1 Pro发布（3万亿参数·编程智能体超GPT-6·11/4前开放权重）；寒武纪Q3营收+104.47%/净利+147.74%；紫金矿业Q3净利+25.97%；国常会生育友好·国办AI就业·信息化『十五五』规划（AI芯片/6G/算力网）</td><td>10/23-10/24</td></tr><tr><td>S</td><td>每经AI快讯/中国银行·美元指数与主要货币</td><td>美元指数周五+0.2%收101.811（纽约尾市）：欧元1.1193（-0.24%）·英镑1.3371·日元156.87·瑞郎0.8252——欧系货币双弱（法国PMI综合48.4全线跌破荣枯线·欧元区综合PMI 51.9逊预期）托举美元；美元兑日元盘中曾触及一个月低点156.53；穆迪维持法国Aa3（负面展望）——美元『被动走强』结构延续</td><td>10/23 07:53-10/24 06:09</td></tr><tr><td>S</td><td>央行公告/新华财经·利率与资金面（周五沿用）</td><td>央行10/23开展2,580亿元隔夜逆回购（800→1,730→2,580第三日递增·净投放250亿）·7天期零操作；Shibor：隔夜1.271%（+0.98bp月末转升）·7天1.326%·1个月1.382%创2020年5月以来新低；10月LPR 3.0%/3.5%连续第17个月不变（下次11/20）——周末休市·周一（10/26）为隔夜逆回购第四日检验点（2,580亿全额到期）</td><td>10/23 09:20-15:29</td></tr><tr><td>S</td><td>新华财经/中信/华源·中国债市（周五沿用）</td><td>10年国债『26附息国债16』1.626%（-0.1bp·1.60%关口第三次冲击酝酿）·30年2.0675%·10年国开1.663%·中证转债+1.88%报456.87——下周观察：周一股债跷跷板方向·月末月初宽松窗口的第三冲时机·30年新债供给节奏；美债对照：10Y +4.15bp收4.9945%（本周-7.83bp）·全球投资级企业债利差129bp创一年半最宽</td><td>10/23 15:15-10/24 07:12</td></tr><tr><td>S</td><td>同花顺iFind/金价查询网/百家号·国内贵金属（周六换牌）</td><td>周六金饰全面下调：老凤祥1,206元/克（-6·周-44/-3.52%·月-94/-7.2%）·老庙1,196（-12）·周大福1,202·周生生1,200；Au99.99从9月末907.32元跌至10/23收864元/克（一个月-43元）·沪金主力10/23盘中最低858.08元创年内新低·黄金T+D周六报859.50元/克（本周-4.6%）——8月末1,410元的首饰金六周退回1,200平台；汇丰研报：追保抛售+美元美债压制·黄金非『万能灵药』</td><td>10/24 09:33-16:13</td></tr><tr><td>S</td><td>华尔街见闻/中国基金报·原油地缘时钟与供给总动员</td><td>胡塞宣称袭沙特红海延布港+油田+机场（『愈演愈烈』）；伊朗：两艘超级油轮霍尔木兹触雷（共载450万桶）·最后通牒中东国家·威胁打击海底电缆·海峡以东部署水雷；特朗普威胁『小小的史诗之怒』；应对：美紧急交换40万桶战略储备·德国G7放储招标（最多1500万桶）·俄柴油4万吨重返美国（11/7抵纽约）·拟豁免部分加拿大关税；金联创10/29调价测算305元/吨（第6工作日·布油价后或上修）</td><td>10/23-10/24</td></tr><tr><td>S</td><td>白宫/泽连斯基/克里姆林宫·俄乌变盘（经华尔街见闻转述）</td><td>白宫10/23宣布美促成俄乌在奥列什基暂时停火（10/29开始生效·人道物资+平民撤离）；泽连斯基确认乌美俄三方会谈11月上半月举行（俄方称阿布扎比）；美提议恢复俄对欧天然气供应（含北溪讨论）——地缘『俄乌折价』开始可定价·但本周油价证明主导权在中东：两场地缘从共振升级转为对冲结构</td><td>10/23 21:37-10/24</td></tr></tbody></table></div>
+    <div class="stats">8类信号 · 13轮检索（周五美股收盘×3源/现货黄金原油周五收盘×3源/美元指数与主要货币×3源/FOMC与CME概率×2源/花旗证券批复×3源/周六金饰与国内贵金属×4源/A50期指夜盘与隔夜传导×3源/油价地缘与供给应对×2源/日本CPI与欧PMI华尔街见闻全文精读/俄乌停火与三方会谈/宽基ETF与周末中国消息面/证监会批复原文/周一复盘前置观察） + 2次原文精读（华尔街见闻早餐FM-Radio 10/24全文·证券时报FOMC前瞻全文） · S级来源约20个 · A级来源约11个 · 关键交叉验证：美股三源一致（中新经纬+财联社+华尔街见闻：道指52,215.16 -1.23%·标普7,623.68 -0.52%·纳指25,955.34 -0.21%·本周道+0.41%/标普-0.47%/纳-0.7%）/商品双口径互证（华尔街见闻收报栏：布油116.72 +3.13%·WTI 103.27 +3.92%·金价3,996.10 -0.71% 与概述栏3,996.96 -0.67%数值微差已标注·中国基金报『布油4月以来最高/金价7月以来最低』定性互证）/美元指数每经独家口径+中银汇市观察对照基数（周五+0.2%收101.811·前日101.61）/CME概率证券时报精确口径（10月不动90.6%·12月累计74.2%：与上期每经口径92.8%/80.5%的差异已标注为油价大涨后的回落）/金饰价格同花顺iFind精确值（老凤祥1,206 -6·周-44/-3.52%·月-94/-7.2%）与百家号全品牌表（老庙1,196/周大福1,202/周生生1,200）互证/A50期指新浪行情页周五夜盘12,989.64与每经周四夜盘12,935基数对照/A股周五收盘数据沿用昨日五源一致口径（上证3,690.48 +0.89%·创业板2,684.10 +4.16%·1.96-1.97万亿）+华尔街见闻宽基ETF天量补强证据（创业板ETF易方达197亿创上市第三高）·本日为周六合刊：国内股汇债商品均休市·沿用周五收盘基准并做周六增量补强（金饰换牌/隔夜美股原油/A50夜盘/周末消息面）·回测上期6条预测：6条全部处于『进行中』状态（验证窗10/26-11/03）·其中黄金②价位区间与原油①调价测算已获初步精确兑现·FOMC基准剧本三资产读数全部在轨</div>
+    <div id="exportWatermark">每日金融快讯 · 2026年10月24日 周六 · 数据仅供参考，不构成投资建议</div>
+    <footer>每日金融快讯 · v2.0 · 数据来源标注于各信号卡片 · 仅供参考
+    <div class="disclaimer">
+      <h3>免责声明</h3>
+      <p>1. 本报告为信息整理产品，不构成任何投资建议。</p>
+      <p>2. 数据来源于公开渠道，已标注来源等级，但不保证绝对准确。</p>
+      <p>3. 预测部分为情景分析，不代表确定性判断。</p>
+      <p>4. 市场有风险，投资需谨慎。</p>
+      <p>5. 来源等级：S=官方原始发布，A=权威媒体，B=财经平台，C=自媒体(仅作线索)。</p>
+    </div>
+  </footer>
+  </div>
+  <aside class="sidebar">
+    <div class="rate-anchor"><div class="rate-anchor-header">📊 利率锚点</div><div class="rate-anchor-item"><span class="rate-anchor-name">1年期LPR</span><span class="rate-anchor-value">3.0%（10月报价·连续第17个月不变·下次11/20）</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">5年期以上LPR</span><span class="rate-anchor-value">3.5%（10月报价·连续第17个月不变）</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">7天逆回购利率</span><span class="rate-anchor-value">1.40%（周五操作量为零·连续第三日让位隔夜新锚·周末休市）</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">隔夜逆回购（新主锚·第三日·周末待续）</span><span class="rate-anchor-value">2,580亿元（800→1,730→2,580三日递增）·周一（10/26）2,580亿全额到期待续作——第四日操作量是新锚常态化的关键读数</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">Shibor隔夜</span><span class="rate-anchor-value">1.271%（10/23·+0.98bp月末转升）；Shibor 1个月1.382%创2020年5月以来新低（跨月无忧）</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">中国10年期国债收益率</span><span class="rate-anchor-value">1.626%（26附息国债16·-0.1bp·1.60%历史关口第三次冲击酝酿·周末休市）</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">美联储联邦基金利率</span><span class="rate-anchor-value">3.75%-4.00%（9月已加息25bp·2023年来首次）——FOMC 10/27-28：10月不动90.6%·12月累计加息74.2%（路透100位经济学家全票预期12月）</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">美国10年期国债收益率</span><span class="rate-anchor-value">4.9945%（10/23收·+4.15bp·本周-7.83bp——周四史诗级-16.6bp后首日回吐·仍守5%整数关口下方）</span></div></div>
+    <div class="tips-card"><div class="tips-header">📚 每日术语</div><div class="tip-item"><div class="tip-title">FOMC（10/27-28）前瞻：一场『无悬念会议』的正确打开方式</div><div class="tip-desc">下周三的美联储议息会议几乎是『无悬念』的：CME定价10月按兵不动90.6%、LSEG口径加息不到10%、路透调查94/100位经济学家同向——但恰恰是无悬念的会议，信息的重量会全部压在三个细节上。细节一：声明的长度——市场普遍预计『声明大概率较为简短』，但在通胀预期反弹（密歇根4.7%创5个月新高）+油价116美元的背景下，简短本身就是一种表态：不解释=不给市场重新定价的理由；细节二：『风险管理式调整』这个词的去留——9月加息时美联储把那次行动定性为风险管理式调整（对通胀风险的防御），如果这次声明保留这个词，意味着通胀仍然是第一优先级、12月加息（市场定价74.2%）的门槛很低；细节三：反对票的数量——沃什的团队里主张加息的声音越响（丹麦银行预计2-3票支持加息），12月的确定性越高。对普通人的三条传导：①如果声明暧昧留白+发布会偏客观陈述（沃什的风格），全球成长股（含A股AI链）在FOMC后有一个反弹窗口——因为『靴子落地』本身就是利好；②如果显性暗示12月加息，美债收益率收复5.00-5.05%、美元冲102，黄金大概率二次探底（3,950下方），人民币回踩6.68-6.70；③别把会议当终点——11/3美国中选才是这条事件链的最后一环：『中选前不动、中选后行动』的政治经济学剧本里，加息、对伊军事行动、AI监管三件事都排在选后。</div></div><div class="tip-item"><div class="tip-title">布油116.72与你的一箱油：10/29调价窗口的最后周</div><div class="tip-desc">10月29日24时，国内成品油迎来年内第21轮调价窗口，当前测算（金联创第6工作日）为上调305元/吨：92号汽油约+0.20元/升（8.59→8.8元时代）、加满50升多花约15元。三个维度看懂这轮调价的确定性：①『10个工作日均价』的算法窗口还剩4个工作日（10/26-10/28）——布油周五收116.72已高于当前测算所用均价（104.80），只要油价守住114+，最终数值大概率从305继续上修到320元/吨附近（92号约+0.21元/升）：『上调』方向已基本无悬念，悬念只在幅度；②这轮上涨的结构是『地缘溢价』不是『供需缺口』——胡塞袭沙特、油轮触雷、伊朗最后通牒贡献了大部分涨幅，这意味着它对『斡旋/停火』类消息高度敏感：俄乌奥列什基停火（10/29生效）与调价窗口同日，但俄乌折价（3-5美元）大概率只被中东溢价吸收——10/29当天『停火落地+油价不跌+调价上调』的组合是最可能的剧本；③政府端的应对（美紧急换储40万桶·德国放储·俄柴油赴美·加拿大关税豁免）说明各国都在为11/3美国中选前的油价做政治定价——中选是油价这轮行情最硬的时间锚：选前有形之手会持续压制，选后（若美以打击伊朗落地）供给冲击的定价会一步到位（布油118-120的情景）。给车主的决策树很简单：10/29 24时之前加满=锁定本轮最便宜的一箱油；10/29之后按新价运行，下一轮窗口的起点比这轮高。</div></div><div class="tip-item"><div class="tip-title">黄金收盘跌破4,000元：『三重挤压』与金饰窗口的正确读法</div><div class="tip-desc">现货黄金周五收3,996.10美元，正式把4,000整数关踩在脚下——从周四『盘中失守即收回』到周五『收盘站到下方』，这是趋势确认而非单日清洗。把这三周的下跌拆成『三重挤压』更容易理解：第一重是流动性挤压（汇丰研报）——股市下跌时杠杆投资者必须抛售黄金补保证金，所以金价跟着美股一起跌（10月以来黄金与纳指同步回调的机制）；第二重是机会成本挤压——美元指数101.811（+0.2%）+美债10Y收益率4.99%反弹：同样是无风险资产，美债每周给你约0.1%的票息，黄金一年零票息，risk-off的时候『有票息的避险』永远先被买满；第三重是情绪挤压——白银53.89贴着53关口（本周-5.44%），贵金属情绪的先行指标尚未出清。中期的反方向力量只有一个但很硬：全球央行8月购金79吨（2022年前月均的4倍，高盛口径）——官方配置的时间尺度是十年，零售情绪的时间尺度是十天，当前的价位在这两股力量之间被反复拉扯。国内零售端的读法：老凤祥周六报1,206元/克（一周-44元·一个月-94元），8月末还在1,410元附近的首饰金六周跌回1,200平台——对『买金饰」的消费者这是年内第一次不用等促销的价格窗口（金饰的工费溢价在小克重下占大头，跌94元相当于让利15%+）；对『买投资金」的人，纪律是另一套：4,000下方的『第二只脚』（3,950-4,000）正在踩（上期预测②兑现中），但白银不收复55、黄金不收复4,100之前，『黄金弱势』的技术定性没有改变——FOMC（10/28）是下一个可能的转折时间戳：若声明偏鸽压制美元与美债收益率，双重挤压同时松一口气，反弹的第一目标只有4,050-4,100。</div></div></div>
+    <div class="event-calendar"><div class="event-header">📅 事件日历</div><div class="event-item"><div class="event-name">美联储10月FOMC议息会议</div><div class="event-meta"><span class="event-date">10/27-28（下周三四）</span><span class="event-tag-upcoming">静默期至10/28·10月不动90.6%基本定局——三大焦点：沃什如何解读『暂停』·委员会是否保留『风险管理式调整』定性·反对票数量（丹麦银行预计2-3票主张加息）；12月加息已被市场定价74.2%+100位经济学家全票预期——声明对12月的措辞是全球资产下周的最大单一变量</span></div></div><div class="event-item"><div class="event-name">国内成品油调价窗口（第21轮）</div><div class="event-meta"><span class="event-date">10/29 24时</span><span class="event-tag-upcoming">金联创第6工作日测算+305元/吨（92号8.59→约8.8元/升·加满50升多花约15元）——布油周五收116.72续创高·最后4个工作日油价守住114+则上修至320元/吨附近：上调方向基本锁定·车主10/29前加满=本轮最便宜一箱</span></div></div><div class="event-item"><div class="event-name">俄乌奥列什基停火生效</div><div class="event-meta"><span class="event-date">10/29开始（白宫10/23宣布）</span><span class="event-tag-ongoing">俄乌同意在奥列什基暂停一切军事行动（人道物资准入+平民安全通道撤离）·停火范围仅限该市；乌美俄三方会谈11月上半月阿布扎比举行——地缘定价从『俄乌+中东共振』转向『中东主导+俄乌对冲』：和平折价（油价3-5美元）开始可定价但难改油价高位</span></div></div><div class="event-item"><div class="event-name">A股周一复牌与复盘（天量深V后的方向确认）</div><div class="event-meta"><span class="event-date">10/26（周一）</span><span class="event-tag-upcoming">验证清单：①量能≥1.6万亿（天量后缩至1.2万亿以下=反弹是脉冲）②3,690-3,700套牢区攻防（收复站稳=V型底确认）③周末利好催化结构（花旗券商/Kimi/寒武纪/十五五规划）与隔夜外盘（金龙-0.82%·A50微跌）的组合成色——周一开盘环境中性略暖</span></div></div><div class="event-item"><div class="event-name">美国中期选举</div><div class="event-meta"><span class="event-date">11/3</span><span class="event-tag-upcoming">FOMC后6天的终极时间锚：『中选前不动、中选后行动』三线并压（加息节奏·美以对伊打击计划·民主党AI监管立法）——选后若美以对伊行动落地：布油118-120情景+黄金二次探底+全球risk-off第二波同时打开；特朗普已开始选前冲刺（加拿大关税豁免·斥『邪恶的伊朗编造谎言推高油价』）</span></div></div><div class="event-item"><div class="event-name">日本央行政策会议</div><div class="event-meta"><span class="event-date">下周（具体日程以官方为准）</span><span class="event-tag-upcoming">核心CPI年内首破2%（深层指标2.4%·10月超3000种商品涨价）——80%+经济学家预计12月加息·终端利率或上触2%+；下周会议对通胀目标的评估是日元与全球流动性的边际变量——日元周五盘中触及一个月低点156.53后回稳：若会议偏鹰·日央行加息预期前移·日元融资盘的回流会放大全球risk-off</span></div></div><div class="event-item"><div class="event-name">LPR下一次报价</div><div class="event-meta"><span class="event-date">11/20</span><span class="event-tag-upcoming">10月报价3.0%/3.5%连续第17个月不变——隔夜逆回购新锚运行进入第二周后·LPR与市场利率的新联动机制（不靠MLF宣言撬动预期）是11/20报价的最大看点·东方金诚2027年降息10-20bp预期延续</span></div></div></div>
+    <div class="policy-card"><div class="policy-header">📢 政策速递</div><div class="policy-item"><div class="policy-title">证监会（10/23批复）：核准设立花旗证券（中国）有限公司——注册地上海·注册资本12亿元·花旗环球金融控股100%出资·业务范围证券经纪/投资咨询/承销保荐/自营：外商独资券商增至七家（花旗集团董事长范洁恩：花旗以独资模式重返中国证券市场）；同期Visa在华全资子公司获准筹备银行卡清算机构——外资金融机构加速布局中国市场（证券+支付双线）</div><div class="policy-meta"><span class="policy-tag">证监会/金融开放</span></div></div><div class="policy-item"><div class="policy-title">《信息化『十五五』规划》印发：研制高性能AI芯片·适时启动6G商用·加快构建全国一体化算力网（算力、电力、网络协同）·到2030年新一代通信网全面建成·国家区块链网络基本建成——AI基础设施的制度化确认（与寒武纪Q3翻倍、Kimi开放权重同频：政策+产业+产品三层共振）</div><div class="policy-meta"><span class="policy-tag">工信部/数字经济</span></div></div><div class="policy-item"><div class="policy-title">国常会：加快建设生育友好型社会·持续积累和释放人口综合红利；同时部署服务业扩能提质——『人口+服务业』双管齐下的增长组合拳</div><div class="policy-meta"><span class="policy-tag">国务院/人口与服务业</span></div></div><div class="policy-item"><div class="policy-title">国务院办公厅：加快开发新职业·减缓AI岗位替代影响——『积极增强AI创造就业、赋能传统岗位、提升就业质量的正面效应·有效减缓替代影响·努力实现技术进步与就业促进相协调』：AI政策从『发展』向『发展+对冲』双线并进</div><div class="policy-meta"><span class="policy-tag">国办/AI与就业</span></div></div><div class="policy-item"><div class="policy-title">证监会：起草《私募投资母基金管理规定》——明确私募投资母基金概念/分类/认定标准·提出分散投资要求·对长期资金设置差异化投资比例·母基金豁免计入一层投资层级·细化投资负面清单——长期资本入市的制度拼图</div><div class="policy-meta"><span class="policy-tag">证监会/私募监管</span></div></div><div class="policy-item"><div class="policy-title">商务部：敦促美方尊重事实·立即停止对中国科研机构采取歧视性、限制性措施——美国防部要求相关高校终止与『1286清单』内中国科研机构的合作（商务部：实质上胁迫美国科研机构『选边站队』·蓄意破坏中美正常科研合作）</div><div class="policy-meta"><span class="policy-tag">商务部/中美科技</span></div></div><div class="policy-item"><div class="policy-title">全球能源应急组合拳（海外政策）：美能源部授权紧急交换最多40万桶战略油储（应对炼厂供油中断）·德国EBV启动放储招标（柴油/取暖油/原油·G7协调·德国承诺最多1500万桶·天然气储气率仅61.1%）·俄罗斯柴油4万吨重返美国（预计11/7抵纽约·俄计划年底恢复常规出口）·特朗普政府拟豁免部分加拿大农林产品50%关税——一切为了11/3中选前按住油价</div><div class="policy-meta"><span class="policy-tag">海外/能源应急</span></div></div></div>
+  </aside>
+  <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="回到顶部">&#9650;</button>
+</div>
+<div class="toast" id="toast">已复制</div>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+function toggleTheme(){var h=document.documentElement,b=document.getElementById('themeToggle');if(h.classList.contains('dark')){h.classList.remove('dark');h.classList.add('light');b.innerHTML='&#9790;';localStorage.setItem('theme','light');}else{h.classList.remove('light');h.classList.add('dark');b.innerHTML='&#9788;';localStorage.setItem('theme','dark');}}
+(function(){var s=localStorage.getItem('theme');if(s==='dark'){document.documentElement.classList.add('dark');document.getElementById('themeToggle').innerHTML='&#9788;';}else if(s==='light'){document.documentElement.classList.add('light');}})();
+function filterCategory(c){var cards=document.querySelectorAll('.signal-card');var btns=document.querySelectorAll('.filter-btn');btns.forEach(function(b){b.classList.remove('active');});event.target.classList.add('active');cards.forEach(function(card){if(c==='全部'||card.dataset.category===c){card.style.display='';}else{card.style.display='none';}});}
+function exportAsImage(){var btn=document.getElementById('exportBtn'),ov=document.getElementById('exportOverlay'),mc=document.querySelector('.main-content');btn.classList.add('exporting');ov.classList.add('active');var hc=document.querySelectorAll('.signal-card[style*="display: none"]');hc.forEach(function(c){c.setAttribute('data-was-hidden','1');c.style.display='';});mc.classList.add('export-capture');html2canvas(mc,{scale:2,useCORS:true,allowTaint:false,backgroundColor:null,logging:false,onclone:function(d){var s=d.querySelector('.sidebar');if(s)s.style.display='none';}}).then(function(canvas){hc.forEach(function(c){c.style.display='none';c.removeAttribute('data-was-hidden');});mc.classList.remove('export-capture');var l=document.createElement('a');l.download='金融快讯-'+new Date().toISOString().slice(0,10)+'.png';l.href=canvas.toDataURL('image/png');l.click();var m=document.getElementById('exportModal');m.innerHTML='<div class="success-icon">&#9989;</div><p>长图已生成并下载！<br>可直接发送到微信分享</p>';setTimeout(function(){ov.classList.remove('active');m.innerHTML='<div class="spinner"></div><p>正在生成长图，请稍候...</p>';btn.classList.remove('exporting');},2000);}).catch(function(e){hc.forEach(function(c){c.style.display='none';c.removeAttribute('data-was-hidden');});mc.classList.remove('export-capture');console.error('导出失败:',e);ov.classList.remove('active');btn.classList.remove('exporting');});}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
+window.addEventListener('scroll',function(){var bt=document.getElementById('backToTop');if(window.scrollY>400){bt.classList.add('visible');}else{bt.classList.remove('visible');}var rp=document.getElementById('readingProgress');var sh=document.documentElement.scrollHeight-window.innerHeight;rp.style.width=(sh>0?(window.scrollY/sh*100):0)+'%';});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+(function(){
+  if(typeof Chart==='undefined'){console.warn('Chart.js not loaded');return;}
+  var labels=["08-17", "08-18", "08-19", "08-20", "08-21", "08-23", "08-25", "08-26", "08-27", "08-28", "08-30", "09-01", "09-02", "09-03", "09-04", "09-05", "09-06", "09-07", "09-08", "09-09", "09-10", "09-11", "09-12", "09-14", "09-15", "09-16", "09-17", "09-18", "09-19", "09-20", "09-21", "09-22", "09-23", "09-24", "09-25", "09-27", "09-26", "09-28", "09-29", "09-30", "10-01", "10-02", "10-03", "10-04", "10-05", "10-06", "10-07", "10-08", "10-09", "10-10", "10-12", "10-13", "10-14", "10-15", "10-17", "10-19", "10-20", "10-21", "10-22", "10-23", "10-24"];
+  function mk(id,color,data){
+    var el=document.getElementById(id);if(!el)return;
+    var isDark=document.documentElement.classList.contains('dark');
+    var grid=isDark?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)';
+    var txt=isDark?'#9aa0a6':'#5f6368';
+    new Chart(el.getContext('2d'),{
+      type:'line',
+      data:{labels:labels,datasets:[{data:data,borderColor:color,backgroundColor:color+'15',borderWidth:2,fill:true,tension:0.3,pointRadius:2,pointHoverRadius:5,pointBackgroundColor:color,spanGaps:true}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{display:false,grid:{display:false}},y:{display:true,grid:{color:grid},ticks:{color:txt,font:{size:9},maxTicksLimit:3},beginAtZero:false}},interaction:{intersect:false,mode:'index'}}
+    });
+  }
+  mk('sseMiniChart','#0d47a1',[3927.18, 3982.65, 3990.3, 3894.42, 3903.72, 3905.2, 3882.01, null, 3912.52, 3956.57, 3952.18, 3986.3, 3979.89, 3941.39, 3942.09, 3942.09, 3930.12, 3932.7, 3932.7, 3951.51, 3934.4, 3888.11, 3888.11, 3885.33, 3864.28, 3891.6, 3875.6, 3911.87, 3911.87, 3911.87, 3949.91, 3952.13, 3936.52, 3888.37, 3888.37, 3888.37, 3888.37, 3823.62, 3830.45, 3842.19, 3842.19, 3842.19, 3842.19, 3842.19, 3842.19, 3842.19, 3842.19, 3811.9, 3813.79, 3813.79, 3797.24, 3800.86, 3767.23, 3707.48, 3716.28, 3730.92, 3735.37, 3713.03, 3658.03, 3690.48, 3690.48]);
+  mk('goldMiniChart','#f9a825',[4370.0, 4369.0, 4375.0, 4379.96, 4519.36, 4547.84, 4654.23, 4662.05, 4610.48, 4588.98, 4453.67, 4447.12, 4328.36, 4384.1, 4474.47, 4474.47, 4430.33, 4430.0, 4420.0, 4355.51, 4317.48, 4348.93, 4348.93, 4332.91, 4310.43, 4330.0, 4326.0, 4381.64, 4377.73, 4377.73, 4353.8, 4319.81, 4355.0, 4290.0, 4271.36, 4285.81, 4285.12, 4149.46, 4122.5, 4174.94, 4140, 4139.28, 4139.28, 4139.28, 4152.02, 4138.62, 4110.1, 4131.89, 4195.4, 4193.84, 4161.34, 4161.0, 4097.24, 4143.62, 4187.7, 4180.79, 4130.81, 4112.93, 4091.73, 4014.26, 3996.1]);
+  mk('fxMiniChart','#2e7d32',[6.7878, 6.7873, 6.7873, 6.7905, 6.7854, 6.7817, 6.7841, 6.7829, 6.7829, 6.7811, 6.7811, 6.7828, 6.7809, 6.7829, 6.7787, 6.7787, 6.7787, 6.7795, 6.7795, 6.7769, 6.7766, 6.7743, 6.7743, 6.7698, 6.767, 6.7628, 6.758, 6.7521, 6.7521, 6.7521, 6.7487, 6.7459, 6.7468, 6.7489, 6.7489, 6.7489, 6.7489, 6.7399, 6.7411, 6.7351, 6.7351, 6.7351, 6.7351, 6.7351, 6.7351, 6.7351, 6.7351, 6.7367, 6.733, 6.733, 6.7313, 6.7298, 6.7249, 6.7253, 6.722, 6.7208, 6.72, 6.7192, 6.7195, 6.718, 6.718]);
+  mk('oilMiniChart','#e65100',[88.72, 89.0, 89.42, 91.89, 94.0, 93.78, 90.97, 88.58, 87.84, 89.7, 87.718, 90.49, 95.19, 95.63, 95.52, 95.52, 96.28, 97.0, 98.0, 101.21, 107.63, 104.6, 104.6, 107.3, 106.98, 108.8, 105.83, 98.78, 98.85, 98.85, 96.769, 95.51, 97.5, 103.08, 104.3, 104.32, 97.0, 100.38, 97.79, 97.44, 99.31, 99.87, 99.87, 99.87, 100.32, 99.8, 100.2, 104.28, 103.36, 104.72, 106.91, 105.4, 106.96, 104.15, 109.86, 108.41, 110.91, 110.0, 112.49, 114.45, 116.72]);
+})();
+</script>
+</body>
+</html>
