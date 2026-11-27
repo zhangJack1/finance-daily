@@ -261,6 +261,7 @@
 </style>
 </head>
 <body>
+<div style="max-width:1200px;margin:0 auto;padding:10px 16px 0;"><div style="font-size:13px;line-height:1.7;color:#7a4f00;background:#fff8e1;border:1px solid #ffe0a3;border-radius:8px;padding:8px 12px;">⚠️ <strong>回溯采集</strong>：本期为 2026-11-12（周四）18:00 定时任务漏发后补做，补做于 2026-11-27；数据按当日实际收盘/盘中值采集，非补做日现价。</div></div>
 <div class="reading-progress" id="readingProgress"></div>
 <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="切换明暗模式">&#9790;</button>
 <button class="export-btn" id="exportBtn" onclick="exportAsImage()" title="导出为长图PNG，方便微信分享"><span class="export-icon">&#128247;</span><span class="export-label">导出长图</span></button>
@@ -291,31 +292,32 @@
     </div>
     
     <!-- 信号灯看板 -->
+    <!-- 信号灯看板 -->
     <div class="signal-dashboard">
       <div class="sig-dashboard-header">
         <span>信号灯看板</span>
         <span class="sig-dashboard-hint">红=重大变化 黄=小幅波动 灰=基本持平</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp gray"></span>
+        <span class="sig-lamp yellow"></span>
         <span class="sig-name">A股上证</span>
         <span class="sig-value">3,655.83 点</span>
-        <span class="sig-change flat">持平</span>
-        <span class="sig-note" style="color:var(--text-tertiary)">基本持平</span>
+        <span class="sig-change" style="color:var(--signal-green)">-0.67%</span>
+        <span class="sig-note" style="color:var(--signal-yellow)">小幅波动</span>
       </div>
       <div class="sig-row">
         <span class="sig-lamp red"></span>
         <span class="sig-name">创业板</span>
         <span class="sig-value">2,509.43 点</span>
-        <span class="sig-change" style="color:var(--signal-red)">+1.79%</span>
+        <span class="sig-change" style="color:var(--signal-green)">-2.44%</span>
         <span class="sig-note" style="color:var(--signal-red)">重大变化</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp yellow"></span>
+        <span class="sig-lamp red"></span>
         <span class="sig-name">人民币</span>
         <span class="sig-value">6.7174</span>
-        <span class="sig-change" style="color:var(--signal-red)">↓贬值</span>
-        <span class="sig-note" style="color:var(--signal-yellow)">↓贬值</span>
+        <span class="sig-change" style="color:var(--signal-green)">↑升值</span>
+        <span class="sig-note" style="color:var(--signal-red)">↑升值</span>
       </div>
       <div class="sig-row">
         <span class="sig-lamp gray"></span>
@@ -325,11 +327,11 @@
         <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp red"></span>
+        <span class="sig-lamp gray"></span>
         <span class="sig-name">10年国债</span>
         <span class="sig-value">1.593%</span>
-        <span class="sig-change" style="color:var(--signal-red)">+1.42%</span>
-        <span class="sig-note" style="color:var(--signal-red)">重大变化</span>
+        <span class="sig-change" style="color:var(--text-tertiary)">+0.98bp</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">长端小幅上行</span>
       </div>
       <div class="sig-row">
         <span class="sig-lamp gray"></span>
@@ -339,18 +341,18 @@
         <span class="sig-note" style="color:var(--text-tertiary)">数据缺失</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp red"></span>
+        <span class="sig-lamp yellow"></span>
         <span class="sig-name">现货黄金</span>
         <span class="sig-value">3,967.04 $/oz</span>
-        <span class="sig-change" style="color:var(--signal-green)">-2.77%</span>
-        <span class="sig-note" style="color:var(--signal-red)">重大变化</span>
+        <span class="sig-change" style="color:var(--signal-green)">-0.52%</span>
+        <span class="sig-note" style="color:var(--signal-yellow)">小幅波动</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp red"></span>
+        <span class="sig-lamp yellow"></span>
         <span class="sig-name">布伦特油</span>
         <span class="sig-value">92.03 $/bbl</span>
-        <span class="sig-change" style="color:var(--signal-green)">-6.04%</span>
-        <span class="sig-note" style="color:var(--signal-red)">重大变化</span>
+        <span class="sig-change" style="color:var(--signal-green)">-0.79%</span>
+        <span class="sig-note" style="color:var(--signal-yellow)">小幅波动</span>
       </div>
       <div class="sig-row">
         <span class="sig-lamp gray"></span>
@@ -360,18 +362,18 @@
         <span class="sig-note" style="color:var(--text-tertiary)">数据缺失</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp red"></span>
+        <span class="sig-lamp gray"></span>
         <span class="sig-name">美元指数</span>
         <span class="sig-value">103.0800</span>
-        <span class="sig-change" style="color:var(--signal-red)">+1.79%</span>
-        <span class="sig-note" style="color:var(--signal-red)">重大变化</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">基本持平</span>
       </div>
       <div class="sig-row">
-        <span class="sig-lamp red"></span>
+        <span class="sig-lamp gray"></span>
         <span class="sig-name">美股道指</span>
         <span class="sig-value">52,486.49 点</span>
-        <span class="sig-change" style="color:var(--signal-red)">+2.34%</span>
-        <span class="sig-note" style="color:var(--signal-red)">重大变化</span>
+        <span class="sig-change flat">持平</span>
+        <span class="sig-note" style="color:var(--text-tertiary)">持平</span>
       </div>
     </div>
 
