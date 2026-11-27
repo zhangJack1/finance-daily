@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经济信号监控报告 - 2026年11月28日</title>
+<style>
+:root {
+  --primary: #0d47a1; --primary-light: #e3f2fd; --primary-dark: #0a3d91;
+  --text: #202124; --text-secondary: #5f6368; --text-tertiary: #9aa0a6;
+  --bg: #f5f7fa; --card-bg: #ffffff; --card-bg-hover: #fafbfc;
+  --border: #d5dce6; --border-light: #e8eaed;
+  --tag-bg: #e3f2fd; --tag-text: #0d47a1;
+  --signal-green: #2e7d32; --signal-yellow: #f9a825; --signal-red: #c62828;
+  --summary-bg: linear-gradient(135deg, #0d47a1, #1a237e);
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.08);
+  --radius: 12px; --radius-sm: 8px;
+  --credibility-high: #2e7d32; --credibility-medium: #f9a825; --credibility-unverified: #c62828;
+  --progress-bar: linear-gradient(90deg, #0d47a1, #1a237e);
+  --grade-s: #1b5e20; --grade-a: #0d47a1; --grade-b: #e65100; --grade-c: #616161;
+}
+html.dark {
+  --primary: #90caf9; --primary-light: #0d2b45; --primary-dark: #64b5f6;
+  --text: #e8eaed; --text-secondary: #9aa0a6; --text-tertiary: #5f6368;
+  --bg: #121212; --card-bg: #1e1e1e; --card-bg-hover: #262626;
+  --border: #3c4043; --border-light: #2d2d2d;
+  --tag-bg: #0d2b45; --tag-text: #90caf9;
+  --signal-green: #66bb6a; --signal-yellow: #ffa726; --signal-red: #ef5350;
+  --summary-bg: linear-gradient(135deg, #0d47a1, #4a148c);
+  --credibility-high: #66bb6a; --credibility-medium: #ffa726; --credibility-unverified: #ef5350;
+  --grade-s: #66bb6a; --grade-a: #90caf9; --grade-b: #ffcc80; --grade-c: #bdbdbd;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background 0.3s, color 0.3s; }
+.reading-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--progress-bar); z-index: 200; transition: width 0.1s ease-out; }
+.page-layout { max-width: 1200px; margin: 0 auto; padding: 16px; display: flex; gap: 20px; }
+.main-content { flex: 1; min-width: 0; max-width: 800px; }
+.sidebar { width: 320px; flex-shrink: 0; position: sticky; top: 16px; align-self: flex-start; max-height: calc(100vh - 32px); overflow-y: auto; }
+.sidebar::-webkit-scrollbar { width: 5px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+header { text-align: center; padding: 28px 0 20px; }
+header h1 { font-size: 28px; font-weight: 700; background: linear-gradient(135deg, #0d47a1, #7b1fa2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+header .subtitle { color: var(--text-secondary); font-size: 14px; margin-top: 6px; }
+.report-meta { display: flex; justify-content: center; gap: 16px; margin-top: 10px; font-size: 12px; color: var(--text-tertiary); }
+.report-meta span { display: flex; align-items: center; gap: 4px; }
+.theme-toggle, .export-btn { position: fixed; top: 16px; z-index: 100; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); box-shadow: var(--shadow); transition: all 0.2s; }
+.theme-toggle { right: 16px; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.theme-toggle:hover { box-shadow: var(--shadow-hover); transform: scale(1.1); }
+.export-btn { right: 68px; height: 40px; padding: 0 16px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.export-btn:hover { box-shadow: var(--shadow-hover); border-color: var(--primary); color: var(--primary); }
+.export-btn .export-icon { font-size: 16px; }
+.export-btn.exporting { pointer-events: none; opacity: 0.6; }
+.export-overlay { display: none; position: fixed; inset: 0; z-index: 9998; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+.export-overlay.active { display: flex; }
+.export-modal { background: var(--card-bg); border-radius: 16px; padding: 32px 40px; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.3); max-width: 320px; }
+.export-modal .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.export-modal p { color: var(--text-secondary); font-size: 14px; line-height: 1.5; }
+.export-modal .success-icon { font-size: 40px; margin-bottom: 12px; }
+.main-quote { background: var(--summary-bg); color: #fff; border-radius: var(--radius); padding: 14px 24px; margin-bottom: 16px; text-align: center; box-shadow: var(--shadow); }
+.main-quote .quote-icon { font-size: 18px; margin-bottom: 4px; }
+.main-quote .quote-divider { width: 30px; height: 2px; background: rgba(255,255,255,0.5); margin: 0 auto 6px; border-radius: 1px; }
+.main-quote .quote-text { font-size: 15px; font-weight: 600; line-height: 1.5; margin-bottom: 4px; }
+.main-quote .quote-source { font-size: 11px; color: rgba(255,255,255,0.7); }
+.summary-trends-box { background: var(--summary-bg); color: #fff; border-radius: var(--radius); padding: 20px 24px; margin-bottom: 16px; box-shadow: var(--shadow); }
+.summary-trends-box h2 { font-size: 16px; margin-bottom: 8px; font-weight: 600; }
+.summary-trends-box ul { padding-left: 18px; font-size: 14px; }
+.summary-trends-box li { margin-bottom: 4px; }
+.summary-trends-box .trends-divider { height: 1px; background: rgba(255,255,255,0.2); margin: 12px 0 10px; }
+.summary-trends-box .trends-subtitle { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.summary-trends-box .trends-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.summary-trends-box .trend-item { font-size: 13px; color: #fff; background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 16px; }
+.summary-trends-box .trend-arrow { font-weight: 700; margin-right: 4px; }
+.summary-trends-box .trend-arrow.up { color: #a5d6a7; }
+.summary-trends-box .trend-arrow.flat { color: rgba(255,255,255,0.6); }
+.summary-trends-box .trend-arrow.down { color: #ef9a9a; }
+.filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.filter-btn { padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-secondary); font-size: 13px; cursor: pointer; transition: all 0.2s; }
+.filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+.filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.section-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 2px; margin: 8px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--border); }
+.signal-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; transition: box-shadow 0.3s, transform 0.3s; }
+.signal-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.signal-card .signal-header { display: flex; align-items: center; gap: 10px; padding: 14px 20px 0; flex-wrap: wrap; }
+.signal-card .signal-num { width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.signal-card .signal-title { font-size: 16px; font-weight: 700; }
+.signal-card .signal-body { padding: 12px 20px 18px; }
+.signal-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 10px; }
+.signal-table th { background: var(--primary-light); color: var(--primary-dark); padding: 8px 10px; text-align: left; font-weight: 600; }
+.signal-table td { padding: 8px 10px; border-bottom: 1px solid var(--border-light); }
+.signal-table tr:last-child td { border-bottom: none; }
+.signal-lamp { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 12px; }
+.signal-lamp.green { background: rgba(46,125,50,0.12); color: var(--signal-green); }
+.signal-lamp.yellow { background: rgba(249,168,37,0.12); color: var(--signal-yellow); }
+.signal-lamp.red { background: rgba(198,40,40,0.12); color: var(--signal-red); }
+.plain-talk { font-size: 13px; color: var(--text-secondary); background: var(--primary-light); border-radius: var(--radius-sm); padding: 10px 14px; line-height: 1.7; margin-bottom: 10px; }
+.plain-talk .plain-label { font-weight: 700; color: var(--primary); margin-right: 4px; }
+.pro-analysis { margin-bottom: 10px; }
+.pro-analysis details { background: rgba(104,58,183,0.04); border: 1px solid rgba(104,58,183,0.15); border-radius: var(--radius-sm); padding: 0; overflow: hidden; }
+.pro-analysis summary { cursor: pointer; font-size: 12px; font-weight: 600; color: #6a1b9a; padding: 8px 14px; user-select: none; list-style: none; display: flex; align-items: center; gap: 4px; }
+.pro-analysis summary::-webkit-details-marker { display: none; }
+.pro-analysis summary::before { content: "▶"; font-size: 9px; transition: transform 0.2s; }
+.pro-analysis details[open] summary::before { transform: rotate(90deg); }
+.pro-analysis .pro-content { padding: 10px 14px; font-size: 12px; color: var(--text); line-height: 1.7; border-top: 1px solid rgba(104,58,183,0.1); }
+html.dark .pro-analysis details { background: rgba(104,58,183,0.1); border-color: rgba(206,147,216,0.2); }
+html.dark .pro-analysis summary { color: #ce93d8; }
+html.dark .pro-analysis .pro-content { border-top-color: rgba(206,147,216,0.15); }
+.glossary-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+.glossary-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #00695c; border-bottom: 1px solid var(--border); }
+.glossary-list { padding: 8px 18px; }
+.glossary-item { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border-light); align-items: flex-start; }
+.glossary-item:last-child { border-bottom: none; }
+.glossary-term { font-size: 13px; font-weight: 700; color: var(--primary); flex-shrink: 0; min-width: 100px; }
+.glossary-def { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+html.dark .glossary-header { color: #80cbc4; }
+.inst-view { font-size: 12px; color: var(--text); border-left: 3px solid var(--primary); padding: 8px 12px; margin-bottom: 10px; background: rgba(13,71,161,0.04); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; line-height: 1.7; }
+.inst-view .inst-label { font-weight: 700; color: var(--primary); margin-right: 4px; }
+.inst-view .inst-source { color: var(--text-tertiary); font-size: 11px; }
+.credibility-tag { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+.credibility-high { background: rgba(46,125,50,0.1); color: var(--credibility-high); }
+.credibility-medium { background: rgba(249,168,37,0.1); color: var(--credibility-medium); }
+.credibility-unverified { background: rgba(198,40,40,0.1); color: var(--credibility-unverified); }
+.source-bar { border-top: 1px solid var(--border-light); padding: 10px 0 0; margin-top: 10px; }
+.source-bar .source-label { font-size: 11px; font-weight: 600; color: var(--text-tertiary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+.source-item { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 4px; font-size: 11px; line-height: 1.5; }
+.source-item:last-child { margin-bottom: 0; }
+.source-grade { display: inline-block; width: 18px; height: 18px; line-height: 18px; text-align: center; border-radius: 3px; font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.source-grade.s { background: var(--grade-s); }
+.source-grade.a { background: var(--grade-a); }
+.source-grade.b { background: var(--grade-b); }
+.source-grade.c { background: var(--grade-c); }
+.source-text { color: var(--text-secondary); }
+.source-text a { color: var(--primary); text-decoration: none; }
+.source-text a:hover { text-decoration: underline; }
+.source-time { color: var(--text-tertiary); font-size: 10px; }
+.disclaimer { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px 24px; margin: 16px 0; }
+.disclaimer h3 { font-size: 14px; font-weight: 700; color: var(--text-secondary); margin-bottom: 10px; }
+.disclaimer p { font-size: 12px; color: var(--text-tertiary); line-height: 1.8; margin-bottom: 6px; }
+.disclaimer .disclaimer-tag { display: inline-block; background: rgba(198,40,40,0.08); color: var(--signal-red); font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 10px; margin-bottom: 8px; }
+.source-summary { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+.source-summary .ss-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #00695c; border-bottom: 1px solid var(--border); }
+.source-summary table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.source-summary th { background: rgba(0,105,92,0.08); color: #00695c; padding: 8px 10px; text-align: left; font-weight: 600; }
+.source-summary td { padding: 6px 10px; border-bottom: 1px solid var(--border-light); }
+.source-summary tr:last-child td { border-bottom: none; }
+.source-summary a { color: var(--primary); text-decoration: none; }
+.source-summary a:hover { text-decoration: underline; }
+.backtest-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+.backtest-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #00838f; border-bottom: 1px solid var(--border); }
+.backtest-item { padding: 12px 18px; border-bottom: 1px solid var(--border); }
+.backtest-item:last-child { border-bottom: none; }
+.backtest-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.backtest-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+.backtest-tag { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.backtest-hit { background: rgba(46,125,50,0.12); color: #2e7d32; }
+.backtest-partial { background: rgba(249,168,37,0.12); color: #f9a825; }
+.backtest-miss { background: rgba(198,40,40,0.12); color: #c62828; }
+.rate-anchor { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 16px; }
+.rate-anchor-header { padding: 12px 18px; font-size: 14px; font-weight: 700; color: #1565c0; border-bottom: 1px solid var(--border); }
+.rate-anchor-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 18px; border-bottom: 1px solid var(--border); }
+.rate-anchor-item:last-child { border-bottom: none; }
+.rate-anchor-name { font-size: 13px; font-weight: 600; }
+.rate-anchor-value { font-size: 13px; font-weight: 700; color: var(--primary); font-family: "SF Mono", "Consolas", monospace; }
+.stats { text-align: center; padding: 8px 0; margin-top: 8px; color: var(--text-secondary); font-size: 12px; }
+footer { text-align: center; padding: 24px 0 32px; color: var(--text-secondary); font-size: 12px; }
+.back-to-top { position: fixed; bottom: 24px; right: 24px; z-index: 100; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); font-size: 18px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: var(--shadow); transition: all 0.2s; }
+.back-to-top:hover { box-shadow: var(--shadow-hover); transform: scale(1.1); }
+.back-to-top.visible { display: flex; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px); background: #323232; color: #fff; padding: 10px 24px; border-radius: 8px; font-size: 14px; z-index: 9999; opacity: 0; transition: all 0.3s; pointer-events: none; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.export-capture #exportWatermark { display: block; }
+.export-capture .filter-bar { display: none !important; }
+.export-capture .reading-progress, .export-capture .back-to-top { display: none !important; }
+#exportWatermark { display: none; text-align: center; padding: 16px 0 8px; font-size: 11px; color: var(--text-secondary); border-top: 1px solid var(--border); margin-top: 8px; }
+.echarts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+@media (max-width: 600px) { .echarts-grid { grid-template-columns: 1fr; } }
+.echarts-box { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); padding: 12px 16px; }
+.echarts-box h4 { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
+.echarts-box .echart { width: 100%; height: 200px; }
+
+.signal-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden; transition: box-shadow 0.3s, transform 0.3s; border-left: 4px solid var(--border); }
+.signal-card[data-lamp="green"] { border-left-color: var(--signal-green); }
+.signal-card[data-lamp="yellow"] { border-left-color: var(--signal-yellow); }
+.signal-card[data-lamp="red"] { border-left-color: var(--signal-red); }
+.signal-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+
+@keyframes fade-in-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.signal-card.in-view { animation: fade-in-up 0.5s ease-out forwards; }
+
+.signal-heatmap { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; padding: 12px; background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 16px; }
+.heatmap-cell { aspect-ratio: 1; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; cursor: pointer; transition: transform 0.2s; }
+.heatmap-cell:hover { transform: scale(1.15); z-index: 2; }
+.heatmap-cell.green { background: var(--signal-green); }
+.heatmap-cell.yellow { background: var(--signal-yellow); }
+.heatmap-cell.red { background: var(--signal-red); }
+
+.fallback-msg { text-align: center; padding: 40px; color: var(--text-secondary); font-size: 14px; }
+@media print { .export-btn, .theme-toggle, .filter-bar, .sidebar, .reading-progress, .back-to-top, .echarts-grid { display: none !important; } .page-layout { display: block !important; max-width: 100% !important; } .main-content { max-width: 100% !important; } body { background: #fff !important; color: #000 !important; } }
+@media (max-width: 960px) { .page-layout { flex-direction: column; padding: 12px; } .main-content { max-width: 100%; } .sidebar { width: 100%; position: static; max-height: none; order: -1; } .export-btn { top: 8px; right: 60px; height: 36px; padding: 0 12px; font-size: 12px; } .export-btn .export-label { display: none; } .theme-toggle { top: 8px; right: 8px; width: 36px; height: 36px; font-size: 16px; } }
+@media (max-width: 600px) { header h1 { font-size: 22px; } .signal-card .signal-header { padding: 12px 16px 0; } .signal-card .signal-body { padding: 10px 16px 14px; } .filter-btn { font-size: 12px; padding: 4px 10px; } .report-meta { flex-direction: column; gap: 4px; } }
+</style>
+</head>
+<body>
+<div class="reading-progress" id="readingProgress"></div>
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="切换明暗模式">&#9790;</button>
+<button class="export-btn" id="exportBtn" onclick="exportAsImage()" title="导出为长图PNG，方便微信分享"><span class="export-icon">&#128247;</span><span class="export-label">导出长图</span></button>
+<div class="export-overlay" id="exportOverlay"><div class="export-modal" id="exportModal"><div class="spinner"></div><p>正在生成长图，请稍候...</p></div></div>
+<div class="page-layout">
+  <div class="main-content">
+    <header>
+      <h1>经济信号监控报告</h1>
+      <p class="subtitle">2026年10月 · 30项信号 · 月度趋势 · 信源可追溯 · v3.0 商用标准版</p>
+      <div class="report-meta">
+        <span>&#128197; v3.0 商用标准版（月度版）</span>
+        <span>&#128338; 数据截至 11月28日（回溯补做，原定 2026-10-16 09:00 生成）</span>
+        <span>&#128240; 监控周期 2026年10月1日 - 10月31日（数据按2026年10月正式公布口径）</span>
+      </div>
+    </header>
+
+    <div class="main-quote">
+      <div class="quote-icon">&#10077;</div>
+      <div class="quote-text">10月是内外两条压力线同时收紧的一个月：外部10年美债月内冲上5.31%、美联储10:2维持高利率，内部PMI回落至49.3%、固投降幅扩大到8.1%、社零仅增0.4%——只有出口（+28.7%）和工业利润（+16.0%）还在硬撑。</div>
+      <div class="quote-divider"></div>
+      <div class="quote-source">经济信号监控报告编辑部 · 综合多方信源（回溯补做）</div>
+    </div>
+
+<div class="summary-trends-box">
+      <h2>本月要点</h2>
+      <ul>
+                <li>【回溯补做】本报告原定 2026-10-16 09:00 生成（10月月报），因断档漏发，现于 2026-11-28 回溯补做；数据统一取 2026年10月 正式公布口径，未公布项在原位标注「未公布」，不用其他月份或预测值替代。</li>
+        <li>需求端是本月最大拖累：10月社零 46463亿元、同比仅 +0.4%（低于市场预期1.1%），1-10月固投 36.48万亿元、同比 -8.1%（降幅扩大0.9pct），房地产开发投资 -21.6%；制造业PMI 49.3%（-0.8pct）、非制造业 49.7%、综合 49.7% 全部落回荣枯线下。</li>
+        <li>供给侧仍有韧性且结构在切换：10月规上工业增加值 +4.8%、高技术制造业 +17.6%、装备制造业 +10.6%；1-10月工业企业利润 67373.6亿元、+16.0%，股份制企业 +21.4% 领跑。</li>
+        <li>外需是本月最强变量：10月进出口 4.87万亿元、+31.2%，其中出口 2.79万亿元 +28.7%、进口 2.08万亿元 +34.7%；1-10月高技术产品出口 +41.6%、机电产品 +25.2%。</li>
+        <li>金融条件“量松价降、信用未起”：10月末M2 359.06万亿元 +7.1%、社融存量 469.16万亿元 +7.2%，但1-10月人民币贷款仅增 11.42万亿元、住户贷款净减 1.46万亿元；10年国债 1.65%、DR001 1.28%。</li>
+        <li>资产价格剧烈再定价：A股上证 3599.02点（月-6.33%）、创业板指 2413.63点（月-23.02%）、科创50 -24.13%，仅中证红利 +1.80%；恒指 -5.36%；伦敦金 3875.19美元/盎司（月-6.3%）；WTI 月内 +13.95% 至 104.12美元。</li>
+      </ul>
+      <div class="trends-divider"></div>
+      <div class="trends-subtitle">月度趋势</div>
+      <div class="trends-list">
+                <div class="trend-item"><span class="trend-arrow down" style="color:#ef5350;">&#8595;</span>PMI 49.3%（较9月回落0.8pct，重回收缩区间）</div>
+        <div class="trend-item"><span class="trend-arrow down" style="color:#ef5350;">&#8595;</span>社零 10月 +0.4%（较9月放缓0.7pct，低于预期）</div>
+        <div class="trend-item"><span class="trend-arrow up" style="color:#a5d6a7;">&#8593;</span>出口 10月 +28.7%（进出口 +31.2%，连续7个月两位数）</div>
+        <div class="trend-item"><span class="trend-arrow up" style="color:#a5d6a7;">&#8593;</span>PPI +5.7%（涨幅扩大0.7pct，能源输入型主导）</div>
+        <div class="trend-item"><span class="trend-arrow flat" style="color:rgba(255,255,255,0.6);">&#8594;</span>M2 +7.1%（较8月末7.5%回落，信用扩张偏弱）</div>
+      </div>
+    </div>
+
+    <div class="filter-bar"><button class="filter-btn active" onclick="filterCategory('全部')">全部</button><button class="filter-btn" onclick="filterCategory('宏观')">宏观</button><button class="filter-btn" onclick="filterCategory('产业')">产业</button><button class="filter-btn" onclick="filterCategory('金融')">金融</button></div>
+
+    <div class="section-title">核心信号（30项 · 展示代表项）</div>
+    <div class="signal-card" id="signal-1" data-signal-num="1" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">1</div>
+    <div class="signal-title">M2增速 · 10月末7.1% · 连续回落但总量仍充裕</div>
+    <span class="signal-lamp yellow">回落</span>
+    <span class="credibility-tag credibility-high">已验证（央行原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>M2余额（10月末）</td><td>359.06万亿元（同比+7.1%）</td></tr><tr><td>M1余额（10月末）</td><td>116.9万亿元（同比+4.4%）</td></tr><tr><td>M0余额（10月末）</td><td>15万亿元（同比+10.7%）</td></tr><tr><td>前十个月净投放现金</td><td>9023亿元</td></tr><tr><td>人民币存款余额</td><td>350.65万亿元（同比+7.7%）</td></tr><tr><td>前十个月人民币存款增加</td><td>21.97万亿元（住户+8.47万亿、非银+5.99万亿）</td></tr><tr><td>M1-M2剪刀差</td><td>-2.7个百分点（资金活化不足）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>“钱的总量”还在涨，但速度降到 7.1%，比 8 月末的 7.5% 又低了 0.4 个百分点。更能说明问题的是 M1（活期+现金）只增 4.4%，比 M2 低 2.7 个百分点——意思是钱大多躺在定期和理财里，企业和居民不太愿意把钱拿出来花或投资。前十个月存款增加 21.97 万亿元，其中住户存款就占了 8.47 万亿元，防御性储蓄的特征很明显。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>10月末M2同比增长7.1%，社融存量同比增长7.2%，货币信贷总量保持较快增长，但M1增速低于M2，反映资金活化程度仍有待提升。 —— 央行2026年10月金融统计数据报告口径<span class="inst-source"> —— ，中国人民银行</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.pbc.gov.cn" target="_blank" rel="noopener">中国人民银行·2026年10月金融统计数据报告</a><span class="source-time"> · 11/19</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://baijiahao.baidu.com/s?id=1882295170622892151" target="_blank" rel="noopener">新浪财经（转21世纪经济报道/中国银行业协会）·2026年10月金融统计数据报告</a><span class="source-time"> · 11/19 21:56</span></span></div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/2026101415422529740/index.html" target="_blank" rel="noopener">中国人民银行·2026年前三季度金融统计数据报告（9月末对比基数）</a><span class="source-time"> · 10/14</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-2" data-signal-num="2" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">2</div>
+    <div class="signal-title">社融 · 10月单月约1.15万亿 · 政府债与直融撑盘</div>
+    <span class="signal-lamp yellow">结构切换</span>
+    <span class="credibility-tag credibility-high">已验证（央行原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>社融存量（10月末）</td><td>469.16万亿元（同比+7.2%）</td></tr><tr><td>1-10月社融增量累计</td><td>28.61万亿元（同比少增2.29万亿元）</td></tr><tr><td>10月单月社融增量</td><td>约1.15万亿元（据1-9月27.46万亿倒算，同比多增约0.34万亿）</td></tr><tr><td>对实体经济人民币贷款（1-10月）</td><td>10.91万亿元（同比少增3.61万亿元）</td></tr><tr><td>政府债券净融资（1-10月）</td><td>11.49万亿元（同比少4592亿元）</td></tr><tr><td>企业债券净融资（1-10月）</td><td>3.1万亿元（同比多1.27万亿元）</td></tr><tr><td>非金融企业股票融资（1-10月）</td><td>5705亿元（同比多1842亿元）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>全社会借到钱的总盘子同比仍增 7.2%，但增量结构已经改由政府和债券主导：前十个月社融新增 28.61 万亿元，比去年同期少 2.29 万亿元，其中“对实体经济的人民币贷款”少增 3.61 万亿元，缺口主要靠政府债券（11.49 万亿）和企业债、股票融资补上。10 月单月社融约 1.15 万亿元，是年内偏弱的月份之一。看信用，不能只盯贷款了。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">10月单月社融为累计数差额倒算值，非央行单独公布口径，使用时请注意。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>社融存量增速7.2%与M2增速7.1%基本匹配，直接融资占比继续抬升，贷款增速放缓是结构转型而非总量收缩。 —— 综合央行数据与机构解读<span class="inst-source"> —— ，中国人民银行/机构综合</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.pbc.gov.cn" target="_blank" rel="noopener">中国人民银行·2026年10月社会融资规模统计数据报告</a><span class="source-time"> · 11/19</span></span></div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/2026101415422529740/index.html" target="_blank" rel="noopener">中国人民银行·2026年前三季度社会融资规模增量累计27.46万亿元</a><span class="source-time"> · 10/14</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://www.xinhuanet.com/fortune/20261014/239da814f60346378cb485c57f91298c/c.html" target="_blank" rel="noopener">新华网·前三季度我国人民币贷款增加11.52万亿元</a><span class="source-time"> · 10/14</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-3" data-signal-num="3" data-lamp="red" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">3</div>
+    <div class="signal-title">土地出让金 · 1-10月18526亿 · 同比-25.8%</div>
+    <span class="signal-lamp red">收缩</span>
+    <span class="credibility-tag credibility-high">已验证（财政部原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>1-10月国有土地使用权出让收入</td><td>18526亿元（同比-25.8%）</td></tr><tr><td>1-10月地方政府性基金预算本级收入</td><td>24566亿元（同比-20.4%）</td></tr><tr><td>1-10月全国政府性基金预算收入</td><td>29123亿元（同比-15.5%）</td></tr><tr><td>1-10月全国政府性基金预算支出</td><td>69746亿元（同比-13.8%）</td></tr><tr><td>1-10月土地出让收入相关支出</td><td>27919亿元（同比-17.3%）</td></tr><tr><td>1-10月全国一般公共预算收入</td><td>195671亿元（同比+4.9%）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>卖地收入继续大幅收缩：前十个月只有 1.85 万亿元，比去年同期少了四分之一。地方政府性基金收入随之下降 20.4%，与土地相关的支出也被迫压缩 17.3%。对比之下，一般公共预算收入还增 4.9%——说明地方财力越来越依赖税收和非税收入，而不是卖地。对地方基建节奏、平台偿债能力都有直接影响。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>政府性基金预算收入同比下降15.5%，其中国有土地使用权出让收入下降25.8%，土地财政收缩趋势未改。 —— 财政部国库司<span class="inst-source"> —— ，财政部</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.mof.gov.cn" target="_blank" rel="noopener">财政部·2026年1-10月财政收支情况</a><span class="source-time"> · 11/21</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://baijiahao.baidu.com/s?id=1882657071658263873" target="_blank" rel="noopener">新浪财经（转财政部国库司）·财政部公布2026年1-10月财政收支情况</a><span class="source-time"> · 11/23 21:48</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://news.10jqka.com.cn/20261123/c682081685.shtml" target="_blank" rel="noopener">同花顺/中房网·2026年1-10月国有土地使用权出让收入18526亿元</a><span class="source-time"> · 11/23</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-4" data-signal-num="4" data-lamp="red" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">4</div>
+    <div class="signal-title">PMI · 10月制造业49.3% · 回落0.8pct重回收缩</div>
+    <span class="signal-lamp red">收缩</span>
+    <span class="credibility-tag credibility-high">已验证（统计局原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>制造业PMI（10月）</td><td>49.3%（环比-0.8pct）</td></tr><tr><td>大型/中型/小型企业</td><td>50.2% / 48.4% / 47.5%</td></tr><tr><td>生产指数 / 新订单指数</td><td>49.8%（-1.9pct） / 49.4%（-1.1pct）</td></tr><tr><td>非制造业商务活动指数</td><td>49.7%（-0.5pct）</td></tr><tr><td>建筑业 / 服务业商务活动</td><td>48.0%（-2.3pct） / 50.0%（-0.2pct）</td></tr><tr><td>综合PMI产出指数</td><td>49.7%（-1.0pct）</td></tr><tr><td>新出口订单指数</td><td>48.7%（-1.3pct）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>10 月制造业景气明显回落：PMI 49.3%，跌破荣枯线；生产和新订单双双掉到 50% 以下，说明“产”和“需”同时转弱。分规模看，只有大型企业还站在 50.2%，中小型企业分别降到 48.4% 和 47.5%——小企业感受最差。非制造业也被建筑业拖累（48.0%），综合产出指数 49.7%。统计局解释为“十一假期前需求提前释放 + 国际环境复杂”，属于季节性叠加外需扰动。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>10月份，受“十一”假期前部分需求提前释放以及国际环境复杂多变等因素影响，制造业PMI降至49.3%，比上月下降0.8个百分点。 —— 霍丽慧（国家统计局服务业调查中心首席统计师）<span class="inst-source"> —— 霍丽慧，国家统计局服务业调查中心</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn/sj/zxfbhjd/202610/t20261031_1965718.html" target="_blank" rel="noopener">国家统计局·2026年10月中国采购经理指数运行情况</a><span class="source-time"> · 10/31 09:30</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.cnstock.com/commonDetail/821691" target="_blank" rel="noopener">中国证券网·国家统计局：10月份制造业PMI为49.3%</a><span class="source-time"> · 10/31 09:54</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://economy.caixin.com/2026-10-31/102499381.html" target="_blank" rel="noopener">财新网·10月统计局制造业PMI降至49.3 供需均由扩张转为收缩</a><span class="source-time"> · 10/31 11:07</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-5" data-signal-num="5" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">5</div>
+    <div class="signal-title">网络体感 · 物价温和但消费与信心偏冷</div>
+    <span class="signal-lamp yellow">体感偏冷</span>
+    <span class="credibility-tag credibility-medium">多项已验证，消费者信心指数未公布</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>CPI（10月）</td><td>+0.7%（核心CPI +0.8%）</td></tr><tr><td>社零（10月）</td><td>46463亿元（同比+0.4%，低于预期1.1%）</td></tr><tr><td>城镇调查失业率（10月）</td><td>5.1%（环比-0.1pct）</td></tr><tr><td>16-24岁劳动力失业率</td><td>17.2%（青年体感压力最大）</td></tr><tr><td>消费者信心指数（10月）</td><td>未公布（截至补做日未检索到权威月度值）</td></tr><tr><td>1-10月社会消费商品和服务零售总额</td><td>+2.5%（其中服务零售+4.9%）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>“宏观数据还行、体感偏冷”的温差在 10 月很明显：物价只涨 0.7%，说明需求不旺；社零只增 0.4%，剔除汽车后也才 2.5%；失业率 5.1% 看着不高，但 16-24 岁青年失业率 17.2%，年轻人感受完全不同。真正在扩张的是服务消费（服务零售 1-10 月 +4.9%）——旅游、文体、餐饮这类“体验型支出”还在撑场面。消费者信心指数的 10 月官方值本次未检索到，故标“未公布”，不做替代。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">消费者信心指数为统计局按月发布指标，本报告回溯期内未检索到10月权威值，按任务要求标注“未公布”，不以9月或预测值冒充。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>当前居民消费能力和意愿还有待进一步增强，市场供给还不能完全适应居民消费升级的需要。 —— 付凌晖（国家统计局新闻发言人）<span class="inst-source"> —— 付凌晖，国家统计局</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.gov.cn/lianbo/fabu/202611/content_7086301.htm" target="_blank" rel="noopener">中国政府网·国家统计局新闻发言人就2026年10月份国民经济运行情况答记者问</a><span class="source-time"> · 11/17</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://data.eastmoney.com/report/zw_strategy.jshtml" target="_blank" rel="noopener">东方财富·社零数据点评：10月国内社零同比增长0.4%，弱于市场一致预期</a><span class="source-time"> · 11/16</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://www.163.com/dy/article/LCOT9I7C0556BP74.html" target="_blank" rel="noopener">网易·钱越来越难挣（引用10月社零46463亿元、剔除汽车43162亿元）</a><span class="source-time"> · 11/27</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-6" data-signal-num="6" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">6</div>
+    <div class="signal-title">CPI · 10月+0.7% · 涨幅回落0.2pct</div>
+    <span class="signal-lamp yellow">温和</span>
+    <span class="credibility-tag credibility-high">已验证（统计局原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>CPI同比（10月）</td><td>+0.7%（涨幅较9月回落0.2pct，环比持平）</td></tr><tr><td>核心CPI（扣除食品能源）</td><td>+0.8%</td></tr><tr><td>食品价格</td><td>-2.9%（鲜菜-16.9%、猪肉-8.6%、鲜果-3.8%）</td></tr><tr><td>能源价格</td><td>+9.9%（汽油+22.4%）</td></tr><tr><td>服务价格</td><td>+0.7%（医疗服务+3.6%、出行服务+1.5%）</td></tr><tr><td>黄金饰品价格</td><td>+4.5%（涨幅回落18pct）</td></tr><tr><td>1-10月CPI累计</td><td>+0.9%（核心CPI +1.1%）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>10 月物价同比涨 0.7%，比 9 月低了 0.2 个百分点，环比持平——属于正常月度波动，不是通缩。结构上很清楚：食品在拖（-2.9%，鲜菜跌 16.9%），能源在推（+9.9%，汽油涨 22.4%），服务和智能电子产品在温和涨价（存储设备涨 45.4%、平板 29.3%、手机 16.7%）。也就是说，涨价的是“能源和升级类商品”，降价的是“菜和肉”。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>10月份，我国居民消费价格继续保持温和上涨态势，环比持平，同比涨幅略有回落，属于月度之间的正常波动。 —— 王冠华（国家统计局国民经济综合统计司副司长）<span class="inst-source"> —— 王冠华，国家统计局</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn" target="_blank" rel="noopener">国家统计局·2026年10月份居民消费价格变动情况</a><span class="source-time"> · 11/9</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://finance.sina.com.cn/roll/2026-11-20/doc-inizkqhz5545885.shtml" target="_blank" rel="noopener">新浪财经·2026年10月原材料价格走势分析报告（CPI/PPI分项）</a><span class="source-time"> · 11/20 17:00</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.gov.cn/lianbo/fabu/202611/content_7086301.htm" target="_blank" rel="noopener">中国政府网·10月份国民经济运行情况发布会（CPI/核心CPI表述）</a><span class="source-time"> · 11/17</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-7" data-signal-num="7" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">7</div>
+    <div class="signal-title">GDP · 前三季度107.11万亿 · 同比+4.6%</div>
+    <span class="signal-lamp yellow">稳中略降</span>
+    <span class="credibility-tag credibility-high">已验证（统计局原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>前三季度GDP</td><td>1071071亿元（同比+4.6%）</td></tr><tr><td>三季度单季GDP</td><td>同比+4.5%（环比+1.2%）</td></tr><tr><td>第一产业增加值</td><td>58994亿元（+3.7%，贡献率4.6%）</td></tr><tr><td>第二产业增加值</td><td>383822亿元（+3.8%，贡献率29.1%）</td></tr><tr><td>第三产业增加值</td><td>628255亿元（+5.2%，贡献率66.3%）</td></tr><tr><td>前三季度规上工业增加值</td><td>+5.3%</td></tr><tr><td>前三季度货物贸易进出口</td><td>+18.8%（39.94万亿元）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>前三季度 GDP 107.11 万亿元、同比增 4.6%，三季度单季 4.5%、环比增 1.2%。结构上“服务强、工业中、消费弱”：三产 +5.2% 贡献了近三分之二的增长，二产只增 3.8%。新动能贡献超过四成，是今年最稳定的增量来源。这个 4.6% 是全年能不能完成目标的关键基数——四季度必须稳住。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>今年前三季度我国经济增长4.6%，放在全球范围内也是一个非常亮眼的表现。 —— 王冠华（国家统计局）<span class="inst-source"> —— 王冠华，国家统计局</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn" target="_blank" rel="noopener">国家统计局·2026年前三季度国民经济运行情况</a><span class="source-time"> · 10/19-10/20</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://www.qingxiu.gov.cn/gongkai/fdzdgk/jcxxgk/tjxx/sjjd/t6763851.html" target="_blank" rel="noopener">青秀区政府（转统计局解读）·全国前三季度经济运行总体平稳、向新向优</a><span class="source-time"> · 11/11</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.gov.cn/lianbo/fabu/202611/content_7086301.htm" target="_blank" rel="noopener">中国政府网（发布会答问）·前三季度增长4.6%、四季度平稳运行态势未变</a><span class="source-time"> · 11/17</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-8" data-signal-num="8" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">8</div>
+    <div class="signal-title">城市财政自给率 · 1-10月测算约56.2% · 收入端缓修复</div>
+    <span class="signal-lamp yellow">紧平衡</span>
+    <span class="credibility-tag credibility-medium">原始数据已验证，自给率为测算值</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>地方一般公共预算本级收入（1-10月）</td><td>107635亿元（同比+2.9%）</td></tr><tr><td>地方一般公共预算支出（1-10月）</td><td>191434亿元（同比+0.2%）</td></tr><tr><td>地方财政自给率（测算）</td><td>约56.2%（本级收入/本级支出，未计转移支付）</td></tr><tr><td>个人所得税（1-10月）</td><td>16428亿元（+22.9%）</td></tr><tr><td>证券交易印花税（1-10月）</td><td>2511亿元（+54.1%）</td></tr><tr><td>契税 / 土地增值税</td><td>3102亿元（-14.9%） / 2991亿元（-16.6%）</td></tr><tr><td>债务付息支出（1-10月）</td><td>11365亿元（+3.8%）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>地方“自己挣的钱”前 10 个月增 2.9%，支出只增 0.2%——不是钱多了，是紧着花。按本级收入/本级支出测算，自给率约 56.2%（这个口径未计中央转移支付，与上半年“城市口径84.5%”不可直接比较，故只作为趋势参考）。结构上很有意思：个税 +22.9%、证券交易印花税 +54.1%（股市成交放大），但契税 -14.9%、土地增值税 -16.6%（地产链仍在收缩）。债务付息支出增 3.8%，刚性压力在上升。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">自给率为本报告按财政部口径自行测算，非官方发布指标；不同机构对“城市财政自给率”取样范围不同（省级/地级市/重点城市），跨月比较须同口径。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>地方财政自给率低于100%是常态，普遍需要中央转移支付支持以实现收支平衡；2026年安排中央对地方转移支付资金10.42万亿元。 —— 财政部（2026年上半年财政收支发布会口径）<span class="inst-source"> —— ，财政部</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.mof.gov.cn" target="_blank" rel="noopener">财政部·2026年1-10月财政收支情况（地方本级收入/支出）</a><span class="source-time"> · 11/21</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://baijiahao.baidu.com/s?id=1882657071658263873" target="_blank" rel="noopener">新浪财经（转财政部国库司）·2026年1-10月财政收支全表</a><span class="source-time"> · 11/23</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://finance.eastmoney.com/a/202611273941994963.html" target="_blank" rel="noopener">东方财富·前十个月个税收入增长为何超20%（个税16428亿元+22.9%）</a><span class="source-time"> · 11/27</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-9" data-signal-num="9" data-lamp="red" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">9</div>
+    <div class="signal-title">常住人口 · 2025年末14.05亿 · 年度口径无10月更新</div>
+    <span class="signal-lamp red">连续负增长</span>
+    <span class="credibility-tag credibility-medium">年度口径，10月无新发布</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>全国常住人口（2025年末）</td><td>14.05亿人（连续四年负增长）</td></tr><tr><td>2026年10月新发布</td><td>无（人口为年度统计口径，随统计公报/年鉴发布）</td></tr><tr><td>城镇化率（2025年末）</td><td>按年度公报口径，2026年数据待发布</td></tr><tr><td>10月相关人口侧信号</td><td>16-24岁失业率17.2%（青年就业压力）</td></tr><tr><td>10月相关人口侧信号</td><td>乡村消费品零售额1-10月+2.2%（快于城镇）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>人口是年度指标，10 月没有新的官方发布，所以这一项只能沿用 2025 年末的年度口径：14.05 亿人、连续四年负增长——本报告不做月度外推，也不拿预测值凑数。真正在 10 月能观察到的人口侧变化是结构性的：青年失业率 17.2%，说明新增劳动力消化不畅；乡村消费增速（+2.2%）快于城镇，说明人口回流和县域消费仍在发挥作用。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">本项为年度存量指标，按任务要求如实标注“10月无新发布”，不使用其他月份数据或预测值替代。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>人口总量进入负增长阶段后，需求结构变化（老龄化、少子化、县域回流）比总量数字更值得跟踪。 —— 综合国家统计局年度公报口径<span class="inst-source"> —— ，国家统计局</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn" target="_blank" rel="noopener">国家统计局·2025年国民经济和社会发展统计公报（常住人口14.05亿）</a><span class="source-time"> · 年度</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://zx.sina.cn/push/2026-11-18/zx-inizcvvf6918834.d.html" target="_blank" rel="noopener">国家统计局·2026年10月份分年龄组失业率数据（青年17.2%）</a><span class="source-time"> · 11/18</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-10" data-signal-num="10" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">10</div>
+    <div class="signal-title">商品房去化 · 待售面积-1.7%连续8个月下降 · 销售仍-13.7%</div>
+    <span class="signal-lamp yellow">去库中</span>
+    <span class="credibility-tag credibility-high">已验证（统计局原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>新建商品房销售面积（1-10月）</td><td>61358万平方米（同比-13.7%，住宅-14.2%）</td></tr><tr><td>新建商品房销售额（1-10月）</td><td>58550亿元（同比-14.3%，住宅-14.1%）</td></tr><tr><td>新建商品房待售面积（10月末）</td><td>74412万平方米（同比-1.7%，连续8个月下降）</td></tr><tr><td>待售3年以下面积</td><td>同比-5.3%（去化快于整体）</td></tr><tr><td>二手房网签面积（1-10月）</td><td>67971万平方米（同比+11.4%，占网签52.6%）</td></tr><tr><td>房地产开发投资（1-10月）</td><td>57215亿元（同比-21.6%）</td></tr><tr><td>70城一线新房价格</td><td>环比0.0%、同比-0.1%（降幅收窄）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>房地产的关键变化是“库存真的在降”：10 月末待售面积同比 -1.7%，已连续 8 个月下降，而且三年以下的“新库存”降得更快（-5.3%）。但销售端还没稳住，1-10 月新房销售面积 -13.7%、销售额 -14.3%。真正的亮点是二手房：网签 6.8 亿平方米、同比 +11.4%，已占全部网签的 52.6%——市场从“买新房”转向“买二手房”，开发投资因此还在 -21.6% 的深坑里。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>10月末，新建商品房待售面积同比下降1.7%，降幅比上月末扩大0.2个百分点，连续8个月下降。 —— 付凌晖（国家统计局新闻发言人）<span class="inst-source"> —— 付凌晖，国家统计局</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn" target="_blank" rel="noopener">国家统计局·2026年1-10月份全国房地产市场基本情况</a><span class="source-time"> · 11/16</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.thepaper.cn/newsDetail_forward_34577062" target="_blank" rel="noopener">澎湃新闻·10月70城房价出炉 一二三线城市同比降幅继续收窄</a><span class="source-time"> · 11/27</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.163.com/dy/article/LCKC38N705563SPX.html" target="_blank" rel="noopener">网易·2026年1-10月房地产数据：二手房占网签52.6%，开发投资降21.6%</a><span class="source-time"> · 11/26</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-11" data-signal-num="11" data-lamp="yellow" data-category="宏观">
+  <div class="signal-header">
+    <div class="signal-num">11</div>
+    <div class="signal-title">安全岗招聘 · 缺口约327万 · 年度行业口径</div>
+    <span class="signal-lamp yellow">缺口大但未月度更新</span>
+    <span class="credibility-tag credibility-low">行业二手口径，10月无官方发布</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>网络安全人才缺口（2026年行业口径）</td><td>约327万人（全球缺口约480万）</td></tr><tr><td>2026年10月新发布</td><td>无专项月度招聘数据发布</td></tr><tr><td>人才供给</td><td>高校相关专业年毕业生约10万人量级</td></tr><tr><td>10月关联信号</td><td>信息传输软件和信息技术服务业生产指数+9.2%</td></tr><tr><td>10月关联信号</td><td>数字产品制造业增加值+18.4%</td></tr><tr><td>岗位需求方向</td><td>内网渗透、安全运维、AI安全、数据合规</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>安全岗缺人是长期结构性事实，行业口径的缺口约 327 万人，供给端每年毕业生只有 10 万量级——供需差是 20 倍以上。但要说清楚：10 月没有专门的月度招聘数据发布，这个数字是年度行业口径，不是 10 月新增。10 月能印证的间接信号是数字产业仍在扩张：信息传输软件业生产指数 +9.2%、数字产品制造业增加值 +18.4%，说明相关岗位的需求底盘还在。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">327万为多手转引的行业估算值，未找到工信部原始发布文件，按C/B级采信并注明“二手口径”；本项不具备月度可验证性，仅作结构性参考。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>2026年国内网络安全人才缺口已突破327万，全球缺口达480万；供给端年毕业生约10万人，供需严重失衡。 —— 行业报告综合（二手口径）<span class="inst-source"> —— ，行业研究/招聘平台综合</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://blog.csdn.net/wananxuexihu/article/details/163050673" target="_blank" rel="noopener">行业综述（转引工信部相关口径）·2026网安就业真相：人才缺口300万</a><span class="source-time"> · 7/20</span></span></div><div class="source-item"><span class="source-grade C">C</span><span class="source-text"><a href="https://blog.csdn.net/kalilinuxsafe/article/details/163693214" target="_blank" rel="noopener">行业自媒体·网络安全全岗位解析（2026版）缺口327万</a><span class="source-time"> · 8/12</span></span></div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.gov.cn/lianbo/fabu/202611/content_7086301.htm" target="_blank" rel="noopener">国家统计局·10月信息传输软件和信息技术服务业生产指数+9.2%（间接印证）</a><span class="source-time"> · 11/17</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-12" data-signal-num="12" data-lamp="yellow" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">12</div>
+    <div class="signal-title">分行业PMI · 高技术51.3%·装备50.6% · 消费品与高耗能走弱</div>
+    <span class="signal-lamp yellow">K型分化</span>
+    <span class="credibility-tag credibility-high">已验证（统计局原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>高技术制造业PMI</td><td>51.3%（高于临界点）</td></tr><tr><td>装备制造业PMI</td><td>50.6%（高于临界点）</td></tr><tr><td>消费品行业PMI</td><td>48.8%（环比-1.9pct）</td></tr><tr><td>高耗能行业PMI</td><td>47.3%（环比-0.7pct）</td></tr><tr><td>产需高景气行业</td><td>铁路船舶航空航天、计算机通信电子（生产与新订单均≥53%）</td></tr><tr><td>产需偏弱行业</td><td>纺织、非金属矿物制品、有色金属冶炼及压延</td></tr><tr><td>主要原材料购进价格 / 出厂价格</td><td>56.8%（-4.0pct） / 51.7%（-2.3pct）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>10 月行业景气是典型的“K 型”：高技术制造 51.3%、装备制造 50.6%，还在扩张；消费品掉到 48.8%、高耗能只有 47.3%，拖累整体读数。产需最活跃的是铁路船舶航空航天和计算机通信电子（都在 53% 以上），最弱的是纺织、非金属矿物（水泥玻璃）和有色冶炼——正好对应“出口链/新动能强、地产链/传统制造弱”。价格指数也从高位回落，说明大宗涨价对中下游的挤压略有缓解。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>新动能保持较快增长。高技术制造业和装备制造业PMI分别为51.3%和50.6%，继续高于临界点。 —— 霍丽慧（国家统计局）<span class="inst-source"> —— 霍丽慧，国家统计局服务业调查中心</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn/sj/zxfbhjd/202610/t20261031_1965718.html" target="_blank" rel="noopener">国家统计局·2026年10月中国采购经理指数运行情况（分行业解读）</a><span class="source-time"> · 10/31</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.stcn.com/article/detail/4315883.html" target="_blank" rel="noopener">证券时报·10月高技术制造业和装备制造业PMI分别为51.3%和50.6%</a><span class="source-time"> · 10/31 09:46</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://finance.sina.com.cn/roll/2026-11-20/doc-inizkqhz5545885.shtml" target="_blank" rel="noopener">新浪财经·10月原材料价格走势分析报告（PMI分行业细项）</a><span class="source-time"> · 11/20</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-13" data-signal-num="13" data-lamp="yellow" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">13</div>
+    <div class="signal-title">用电量 · 10月8709亿千瓦时 · 同比+1.6%</div>
+    <span class="signal-lamp yellow">低速</span>
+    <span class="credibility-tag credibility-high">已验证（国家能源局发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>全社会用电量（10月）</td><td>8709亿千瓦时（同比+1.6%，较9月回升0.4pct）</td></tr><tr><td>1-10月全社会用电量</td><td>同比+3.7%</td></tr><tr><td>第一产业用电（10月）</td><td>124亿千瓦时（+3.3%）</td></tr><tr><td>第二产业用电（10月）</td><td>5790亿千瓦时（+1.8%）</td></tr><tr><td>其中工业用电（10月）</td><td>5742亿千瓦时</td></tr><tr><td>基数效应</td><td>2025年10月同比+10.4%（去年月度最高，高基数）</td></tr><tr><td>两年复合增速（以2024年10月为基准）</td><td>约6.1%</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>10 月全社会用电 8709 亿千瓦时，只增 1.6%——看着很低，但去年 10 月是 +10.4% 的高基数，属于“数字低、实际不差”。如果按两年复合算，增速约 6.1%，与工业增加值 4.8% 基本匹配。结构上二产（工业）增 1.8%，仍是主力；1-10 月累计 +3.7%，全年 10.8 万亿千瓦时、+4%~4.5% 的预测仍站得住。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>10月份全社会用电量8709亿千瓦时，同比增长1.6%，较9月份回升0.4个百分点；考虑去年10月高增长基数，两年复合年均增长率为6.1%。 —— 国家能源局<span class="inst-source"> —— ，国家能源局</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.nea.gov.cn" target="_blank" rel="noopener">国家能源局·2026年1-10月份全社会用电量同比增长3.7%（10月8709亿千瓦时）</a><span class="source-time"> · 11/26</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://mp.weixin.qq.com/s?__biz=MzI5MjQwOTgzNQ==&mid=2247539863&idx=1" target="_blank" rel="noopener">腾讯新闻（转国家能源局）·2026年1-10月全社会用电量同比增长3.7%</a><span class="source-time"> · 11/26 21:45</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.cnstock.com/commonDetail/818252" target="_blank" rel="noopener">中国证券网·中电联：2026年全社会用电量预计约10.8万亿千瓦时（+4%~4.5%）</a><span class="source-time"> · 10/29</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-14" data-signal-num="14" data-lamp="yellow" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">14</div>
+    <div class="signal-title">PPI · 10月+5.7% · 涨幅扩大0.7pct（能源主导）</div>
+    <span class="signal-lamp yellow">输入型上涨</span>
+    <span class="credibility-tag credibility-high">已验证（统计局原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>PPI同比（10月）</td><td>+5.7%（涨幅较9月扩大0.7pct，环比+0.7%）</td></tr><tr><td>煤炭开采和洗选业</td><td>+36.6%（环比+2.7%）</td></tr><tr><td>石油和天然气开采业</td><td>+35.0%（环比+6.0%）</td></tr><tr><td>石油煤炭及其他燃料加工业</td><td>+29.9%（环比+6.1%）</td></tr><tr><td>化学原料和化学制品制造业</td><td>+16.4%（环比+3.1%）</td></tr><tr><td>计算机通信和其他电子设备制造业</td><td>+5.9%（环比+0.1%）</td></tr><tr><td>有色金属冶炼和压延加工业</td><td>+18.6%（涨幅回落）</td></tr><tr><td>行业上涨面</td><td>41个工业大类中21个同比上涨（超半数）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>PPI 涨 5.7%，涨幅还扩大了 0.7 个百分点，但驱动力很集中：煤炭 +36.6%、油气开采 +35.0%、石油加工 +29.9%、化工 +16.4%——这五个能源相关行业一项就拉动 PPI 上涨约 3.63 个百分点。另一半来自 AI：电气机械 +6.2%、电子设备 +5.9%，合计拉动 1.18 个百分点。也就是说，这轮涨价是“地缘冲突推油价 + 算力需求推电子”，不是内需全面回暖。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>受国际大宗商品价格上行传导以及国内部分行业供求关系改善等因素的影响，工业生产者出厂价格同比上涨5.7%，涨幅比上月扩大0.7个百分点。 —— 王冠华（国家统计局）<span class="inst-source"> —— 王冠华，国家统计局</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn" target="_blank" rel="noopener">国家统计局·2026年10月份工业生产者出厂价格变动情况</a><span class="source-time"> · 11/9</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://finance.sina.com.cn/roll/2026-11-20/doc-inizkqhz5545885.shtml" target="_blank" rel="noopener">新浪财经·2026年10月原材料价格走势分析报告（PPI分行业）</a><span class="source-time"> · 11/20 17:00</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.gov.cn/lianbo/fabu/202611/content_7086301.htm" target="_blank" rel="noopener">中国政府网·发布会答问（PPI运行逻辑与传导）</a><span class="source-time"> · 11/17</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-15" data-signal-num="15" data-lamp="red" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">15</div>
+    <div class="signal-title">固定资产投资 · 1-10月-8.1% · 降幅扩大0.9pct</div>
+    <span class="signal-lamp red">加速下行</span>
+    <span class="credibility-tag credibility-high">已验证（统计局原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>固定资产投资（1-10月）</td><td>364824亿元（同比-8.1%，降幅较1-9月扩大0.9pct）</td></tr><tr><td>扣除房地产开发投资</td><td>307609亿元（同比-5.1%）</td></tr><tr><td>房地产开发投资</td><td>同比-21.6%（降幅扩大1.0pct）</td></tr><tr><td>基础设施投资</td><td>同比-5.1%（降幅扩大0.9pct）</td></tr><tr><td>制造业投资</td><td>同比-2.9%（降幅扩大0.8pct）</td></tr><tr><td>高技术产业投资</td><td>同比+3.0%（唯一保持正增长的大类）</td></tr><tr><td>设备工器具购置投资</td><td>同比+8.9%（拉动全部投资1.5pct）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>投资是本月最弱的一环：1-10 月固投 36.48 万亿元、同比 -8.1%，降幅比 1-9 月又扩大 0.9 个百分点。三大块都在退：房地产 -21.6%、基建 -5.1%、制造业 -2.9%。唯一还在正增长的大类是高技术产业（+3.0%），设备购置 +8.9% 也说明“设备更新”政策在生效。翻译成人话：靠地产和基建拉投资的旧模式已经拉不动了，现在的增量在“换设备、上算力、投研发”。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">单月固投降幅在不同信源存在 -16.9%/-17.8% 两种表述（口径与可比基准不同），本报告只采用累计口径 -8.1%，不引用单月值以免口径混淆。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>受多种因素影响，1—10月份固定资产投资降幅有所扩大，这主要是经济发展阶段变化、产业结构调整等多方面因素作用的结果。 —— 付凌晖（国家统计局）<span class="inst-source"> —— 付凌晖，国家统计局</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn" target="_blank" rel="noopener">国家统计局·2026年1-10月份全国固定资产投资情况</a><span class="source-time"> · 11/16</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.163.com/dy/article/LCHCO10005563SPX.html" target="_blank" rel="noopener">网易（转统计局）·2026年1-10月全国固定资产投资同比下降8.1%</a><span class="source-time"> · 11/24</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.163.com/dy/article/LCM66LHD05198FU8.html" target="_blank" rel="noopener">网易·2026年12月资产配置报告（固投三大类拆分：地产-21.6%/基建-5.1%/制造-2.9%）</a><span class="source-time"> · 11/26</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-16" data-signal-num="16" data-lamp="green" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">16</div>
+    <div class="signal-title">出口结构 · 10月出口2.79万亿+28.7% · 高技术出口+41.6%</div>
+    <span class="signal-lamp green">强韧性</span>
+    <span class="credibility-tag credibility-high">已验证（海关总署原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>货物贸易进出口（10月）</td><td>4.87万亿元（同比+31.2%，连续7个月两位数）</td></tr><tr><td>出口（10月）</td><td>2.79万亿元（同比+28.7%）</td></tr><tr><td>进口（10月）</td><td>2.08万亿元（同比+34.7%，快于出口6pct）</td></tr><tr><td>进出口（1-10月）</td><td>44.81万亿元（同比+20%）</td></tr><tr><td>出口 / 进口（1-10月）</td><td>25.99万亿元（+17.6%） / 18.82万亿元（+23.6%）</td></tr><tr><td>机电产品 / 高技术产品出口（1-10月）</td><td>+25.2% / +41.6%</td></tr><tr><td>对东盟 / 非洲 / 拉美（1-10月）</td><td>+24.2% / +17.6% / +14.4%</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>外需是 10 月唯一“超预期”的板块：进出口 4.87 万亿元、增 31.2%，出口 2.79 万亿元、增 28.7%，进口增 34.7%（说明国内也在买）。结构上，高技术产品出口 1-10 月 +41.6%、机电 +25.2%，对东盟 +24.2%、非洲 +17.6%、拉美 +14.4%——市场多元化和产品升级同时在发生。进口增速快于出口 6 个百分点，贸易更平衡，但也意味着顺差对 GDP 的拉动会减弱。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">另有第三方口径称“10月出口4123亿美元、增35%”，与海关人民币口径（+28.7%）存在差异，本报告统一采用海关总署人民币口径。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>10月份，我国货物进出口总额同比增长31.2%，比上月加快3.7个百分点，连续7个月保持两位数高速增长。 —— 付凌晖（国家统计局）<span class="inst-source"> —— 付凌晖，国家统计局</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="http://www.customs.gov.cn" target="_blank" rel="noopener">海关总署·2026年1-10月进出口数据（11/10发布）</a><span class="source-time"> · 11/10</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://finance.people.com.cn/n1/2026/1112/c1004-40832844.html" target="_blank" rel="noopener">人民网·前10月进出口增长20%，中国外贸韧性强劲（10月出口2.79万亿+28.7%）</a><span class="source-time"> · 11/12</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://www.xinhuanet.com/fortune/20261110/f0960ce03fb845c39657f1003f842d63/c.html" target="_blank" rel="noopener">新华网·数说中国丨2026年前10个月我国外贸增长态势</a><span class="source-time"> · 11/10 18:50</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-17" data-signal-num="17" data-lamp="red" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">17</div>
+    <div class="signal-title">社零品类 · 10月+0.4% · 智能绿色商品独撑</div>
+    <span class="signal-lamp red">明显走弱</span>
+    <span class="credibility-tag credibility-high">已验证（统计局原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>社零总额（10月）</td><td>46463亿元（同比+0.4%，低于预期1.1%，较9月放缓0.7pct）</td></tr><tr><td>除汽车以外（10月）</td><td>43162亿元（同比+2.5%）</td></tr><tr><td>商品零售 / 餐饮收入（10月）</td><td>41228亿元（+0.3%） / 5235亿元（+0.7%）</td></tr><tr><td>社零总额（1-10月）</td><td>416464亿元（同比+1.0%，除汽车+2.8%）</td></tr><tr><td>通讯器材类（1-10月）</td><td>+16.5%（可穿戴智能设备+70%以上）</td></tr><tr><td>文化办公用品类（1-10月）</td><td>+6%</td></tr><tr><td>业态分化（1-10月）</td><td>便利店+5.1%、超市+3.5%；百货店-3.5%、品牌专卖店-11.0%</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>10 月社零只增 0.4%，比 9 月又低了 0.7 个百分点，也低于市场预期的 1.1%——这是本月最“打脸”的数据。剔除汽车后是 2.5%，说明汽车（尤其新能源补贴退坡后）在拖累。真正的增量在“智能+绿色”：通讯器材 +16.5%、可穿戴设备 +70% 以上、文化办公 +6%。渠道上，便利店、超市在涨，百货和品牌专卖店在跌（-11.0%）——消费在向“便宜、高频、即时”迁移。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>受中秋错月、部分耐用消费品销售增长放缓的影响，当月商品销售增速有所回落，但综合商品和服务两方面来看，市场规模扩大的趋势没有改变。 —— 付凌晖（国家统计局）<span class="inst-source"> —— 付凌晖，国家统计局</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn/sj/zxfbhjd/202611/t20261116_1965839.html" target="_blank" rel="noopener">国家统计局·2026年1-10月份社会消费品零售总额增长1.0%</a><span class="source-time"> · 11/16 10:00</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://data.eastmoney.com/report/zw_strategy.jshtml" target="_blank" rel="noopener">东方财富·社零数据点评：10月社零+0.4%，弱于市场一致预期</a><span class="source-time"> · 11/16</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.gov.cn/lianbo/fabu/202611/content_7086301.htm" target="_blank" rel="noopener">中国政府网·发布会答问（通讯器材+16.5%、可穿戴+70%、服务零售+4.9%）</a><span class="source-time"> · 11/17</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-18" data-signal-num="18" data-lamp="red" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">18</div>
+    <div class="signal-title">青年失业率 · 10月16-24岁17.2% · 总体5.1%</div>
+    <span class="signal-lamp red">结构性压力</span>
+    <span class="credibility-tag credibility-high">已验证（统计局原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>全国城镇调查失业率（10月）</td><td>5.1%（环比-0.1pct，连续两个月下降）</td></tr><tr><td>16-24岁劳动力失业率</td><td>17.2%（不含在校生口径）</td></tr><tr><td>25-29岁劳动力失业率</td><td>7.3%</td></tr><tr><td>30-59岁劳动力失业率</td><td>3.9%（连续4个月持平）</td></tr><tr><td>1-10月城镇新增就业</td><td>按年度目标进度推进（10月单月数据未单独发布）</td></tr><tr><td>同期社零增速</td><td>+0.4%（就业稳但消费弱）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>总体失业率 5.1%，还降了 0.1 个百分点，30-59 岁主力劳动年龄段只有 3.9%，看上去“充分就业”。但 16-24 岁是 17.2%——每六个年轻人里就有一个在找工作。这就解释了一个怪现象：失业率不高、消费却只增 0.4%，因为最敢花钱的年轻人没有收入预期。“就业稳、消费弱”的裂缝，本质是就业结构问题，不是总量问题。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>10月份全国城镇调查失业率5.1%，比上月下降0.1个百分点；16-24岁劳动力失业率为17.2%。 —— 国家统计局分年龄组失业率数据<span class="inst-source"> —— ，国家统计局</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn" target="_blank" rel="noopener">国家统计局·2026年10月份分年龄组失业率数据</a><span class="source-time"> · 11/18</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://zx.sina.cn/push/2026-11-18/zx-inizcvvf6918834.d.html" target="_blank" rel="noopener">新浪·国家统计局发布2026年10月份分年龄组失业率数据</a><span class="source-time"> · 11/18 14:01</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="http://finance.sina.com.cn/stock/stockzmt/2026-11-24/doc-inizuars2111055.shtml" target="_blank" rel="noopener">新浪财经·为何失业率这么低消费却这么疲软（5.1% vs 社零1%）</a><span class="source-time"> · 11/24</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-19" data-signal-num="19" data-lamp="green" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">19</div>
+    <div class="signal-title">工业利润 · 1-10月67373.6亿 · 同比+16.0%</div>
+    <span class="signal-lamp green">盈利改善</span>
+    <span class="credibility-tag credibility-high">已验证（统计局原始发布）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>规上工业企业利润（1-10月）</td><td>67373.6亿元（同比+16.0%）</td></tr><tr><td>国有控股企业</td><td>21080.3亿元（+13.0%）</td></tr><tr><td>股份制企业</td><td>52426.6亿元（+21.4%，领跑）</td></tr><tr><td>外商及港澳台投资企业</td><td>14678.7亿元（+0.2%）</td></tr><tr><td>私营企业</td><td>17589.3亿元（+11.4%）</td></tr><tr><td>营业收入（1-10月）</td><td>同比+6.7%</td></tr><tr><td>营业收入利润率</td><td>约8.6%（测算：利润/营收）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>企业赚钱能力在改善：1-10 月规上工业利润 6.74 万亿元、增 16.0%，明显快于营收（+6.7%），说明利润率在抬升（测算约 8.6%）。结构上股份制企业 +21.4% 最强，私营 +11.4% 也不错，但外资只有 +0.2%——外企在这轮“能源涨价+出口强”的行情里几乎没分到。利润改善主要来自上游涨价（煤炭、油气）和出口链，中下游仍受挤压。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">营业收入利润率为按“利润总额/营业收入”自行测算，官方发布口径为每百元营业收入中的利润，数值可能略有差异。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>1—10月份，全国规模以上工业企业实现利润总额67373.6亿元，同比增长16.0%；营业收入同比增长6.7%。 —— 国家统计局<span class="inst-source"> —— ，国家统计局</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://www.stats.gov.cn" target="_blank" rel="noopener">国家统计局·2026年1-10月份全国规模以上工业企业利润数据</a><span class="source-time"> · 11/27 09:30</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://mp.weixin.qq.com/s?__biz=MzU5NzQ2NzkzNg==&mid=2247562191&idx=6" target="_blank" rel="noopener">腾讯新闻（转国家统计局）·2026年1—10月份全国规模以上工业企业利润增长16.0%</a><span class="source-time"> · 11/27 22:29</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://mp.weixin.qq.com/s?__biz=MzA3NDYwNTQzOQ==&mid=2448673507&idx=2" target="_blank" rel="noopener">腾讯新闻·1-10月工业企业利润涨16.0%，营业收入只涨6.7%（利润率8.6%）</a><span class="source-time"> · 11/27</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-20" data-signal-num="20" data-lamp="red" data-category="产业">
+  <div class="signal-header">
+    <div class="signal-num">20</div>
+    <div class="signal-title">黄金价格 · 10月末3875.19美元 · 月跌6.3%</div>
+    <span class="signal-lamp red">深度回调</span>
+    <span class="credibility-tag credibility-high">已验证（央行/上金所原始数据）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>现货黄金XAU（10月末）</td><td>3875.19美元/盎司（月内-282.22美元，-6.3%）</td></tr><tr><td>上海金Au(T+D)（10月末）</td><td>853.3元/克（环比-5.9%）</td></tr><tr><td>上海金月度涨跌</td><td>-5.88%</td></tr><tr><td>伦敦金年初至10月</td><td>-7.1%（人民币金价-9.4%）</td></tr><tr><td>上金所黄金成交（10月）</td><td>5096.3吨（同比+12.3%）</td></tr><tr><td>央行黄金储备（10月末）</td><td>7830万盎司（增83万盎司，连续24个月增持）</td></tr><tr><td>黄金饰品CPI分项</td><td>+4.5%（涨幅回落18pct）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>黄金 10 月跌得不轻：伦敦金月末 3875.19 美元/盎司，单月跌 6.3%；上海金 853.3 元/克，跌 5.9%。原因不是“避险消失”，而是“利率太高”——美债 10 年期月内冲到 5.31%，拿着不生息的黄金机会成本太大；同时股市下跌时资金先跑去买债，黄金反而被抛。有意思的是央行还在买：黄金储备连增 24 个月到 7830 万盎司，官方和市场的动作是相反的。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">世界黄金协会采用伦敦午盘价（3913美元），上金所采用XAU收盘价（3875.19美元），两者相差约1%，属报价时点差异。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>10月末上海黄金交易所Au（T+D）合约收于每克853.3元，环比下降5.9%。 —— 中国人民银行2026年10月金融市场运行情况<span class="inst-source"> —— ，中国人民银行</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://jr.jl.gov.cn/jrzx/jrdt/jgdt/202611/t20261126_3689178.html" target="_blank" rel="noopener">中国人民银行·2026年10月金融市场运行情况（黄金市场）</a><span class="source-time"> · 11/20</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://finance.eastmoney.com/a/202611253939438083.html" target="_blank" rel="noopener">东方财富·上海黄金交易所10月数据：现货黄金收于3875.19美元/盎司</a><span class="source-time"> · 11/25</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://baijiahao.baidu.com/s?id=1881748250201209943" target="_blank" rel="noopener">新浪财经（世界黄金协会）·10月金价收于3913美元/盎司，环比-6.3%</a><span class="source-time"> · 11/13</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-21" data-signal-num="21" data-lamp="red" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">21</div>
+    <div class="signal-title">A股 · 上证3599.02点月跌6.33% · 双创跌超23%</div>
+    <span class="signal-lamp red">深度调整</span>
+    <span class="credibility-tag credibility-high">已验证（交易所收盘+央行月报）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>上证指数（10/30收盘）</td><td>3599.02点（月-6.33%，年内-9.32%）</td></tr><tr><td>深证成指</td><td>10833.78点（月-15.94%）</td></tr><tr><td>创业板指</td><td>2413.63点（月-23.02%，较6月高点-44%以上）</td></tr><tr><td>科创50</td><td>月-24.13%</td></tr><tr><td>沪深300</td><td>月-8.54%（连续12周收跌）</td></tr><tr><td>中证红利</td><td>月+1.80%（唯一逆势上涨）</td></tr><tr><td>两市日均成交额（10月）</td><td>15983.4亿元（环比-12.0%）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>10 月 A 股是“指数跌幅分层”的典型：上证 -6.33%、沪深300 -8.54%、深成指 -15.94%、创业板 -23.02%、科创50 -24.13%——越靠近科技成长，跌得越狠。全月超 4500 只个股月线收阴，个股涨跌幅中位数约 -12%，多数人的实际感受远差于沪指的 6%。唯一逆势的是红利：中证红利 +1.80%，建行、工行、中行、陕煤创历史新高。这不是普跌，是资金从“高估值AI”搬去“高股息防御”的一次大迁徙。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>10月末，上证指数收于3599.0点，环比下降6.3%；深证成指收于10833.8点，环比下降15.9%；两市日均成交15983.4亿元，环比下降12.0%。 —— 中国人民银行2026年10月金融市场运行情况<span class="inst-source"> —— ，中国人民银行</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://jr.jl.gov.cn/jrzx/jrdt/jgdt/202611/t20261126_3689178.html" target="_blank" rel="noopener">中国人民银行·2026年10月金融市场运行情况（股票市场）</a><span class="source-time"> · 11/20</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://caifuhao.eastmoney.com/news/20261030152249395155110" target="_blank" rel="noopener">东方财富·收评：沪指失守3600周线收阴 创业板指2413.63点</a><span class="source-time"> · 10/30 15:22</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://city.sina.com.cn/city_finance/2026-10-30/detail-iniwywtx4602792.shtml" target="_blank" rel="noopener">新浪·A股十月收官：主要指数本月集体收跌 双创指数月跌超23%</a><span class="source-time"> · 10/30 15:00</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-22" data-signal-num="22" data-lamp="yellow" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">22</div>
+    <div class="signal-title">美股 · 纳指月跌5.3% · 道指逆势收涨1.70%</div>
+    <span class="signal-lamp yellow">科技杀估值</span>
+    <span class="credibility-tag credibility-high">已验证（收盘数据+多家信源一致）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>标普500（10/30收盘）</td><td>7580.07点（当日-1.82%，月线收跌）</td></tr><tr><td>纳斯达克综合指数</td><td>25437点（当日-2.86%，月-5.3%）</td></tr><tr><td>道琼斯工业指数</td><td>51770.31点（当日-1.09%，月+1.70%）</td></tr><tr><td>费城半导体指数</td><td>月-15.36%（10/30单日-7.2%）</td></tr><tr><td>英特尔（10/30）</td><td>单日-28.58%（1974年以来第二大单日跌幅）</td></tr><tr><td>美联储政策利率</td><td>3.75%-4.00%（10/28维持，投票10:2）</td></tr><tr><td>12月加息定价</td><td>约85%（CME，会后）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>美股 10 月是“科技杀、价值撑”：纳指 -5.3%（2025年3月以来最差月度），费半 -15.36%，英特尔一天跌 28.58%；但道指 +1.70%，能源、必需消费、医药逆势走强。10/28 美联储维持 3.75%-4.00% 不变，投票 10:2，两位委员主张立即加息，市场对 12 月加息的定价升到 85% 左右。高利率 + AI 业绩验证期，是 10 月全球风险资产的两条压制线。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>10月份，纳指累计下跌5.3%，为2025年3月以来最差月度表现；标普500指数同样月线收跌，道指则在10月收涨。 —— 财联社<span class="inst-source"> —— ，财联社</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.cls.cn/detail/2521391" target="_blank" rel="noopener">财联社·美股收盘：三大指数全线收跌 纳指跌近3%（含10月月度涨跌）</a><span class="source-time"> · 10/31 06:05</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="http://weibo.com/detail/5369242717258779" target="_blank" rel="noopener">微博·2026年10月宏观经济与投资学月度总结（道指+1.70%、费半-15.36%）</a><span class="source-time"> · 11/25</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://xueqiu.com/2753428279/414876873" target="_blank" rel="noopener">雪球·全球市场一周简报（10月31日当周：美联储10:2、12月加息定价85%）</a><span class="source-time"> · 10/31</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-23" data-signal-num="23" data-lamp="red" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">23</div>
+    <div class="signal-title">恒生 · 23294.42点月跌5.36% · 科技指数跌11.73%</div>
+    <span class="signal-lamp red">跟随调整</span>
+    <span class="credibility-tag credibility-high">已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>恒生指数（10/30收盘）</td><td>23294.42点（月-5.36%）</td></tr><tr><td>恒生科技指数</td><td>3754.90点（月-11.73%，年内单月最大跌幅）</td></tr><tr><td>恒生国企指数</td><td>7662.22点（月-4.35%）</td></tr><tr><td>月内节奏</td><td>10月中旬一度站上24000点，随后拐头下行</td></tr><tr><td>南向资金</td><td>10月持续净流入（回购+外资回补+南向共振）</td></tr><tr><td>同期A股</td><td>上证-6.33%，港股跌幅小于A股成长板块</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>港股跟跌但比 A 股成长板块抗跌：恒指 -5.36%，恒生科技 -11.73%（年内最差单月）。月内一度反弹站上 24000 点，随后被美债利率和 AI 情绪带下来。相对亮点是资金结构：回购升温、南向持续流入、外资开始回补，这三路资金被机构视为 2027 年港股“流动性与估值双升”的前置条件。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>10月港股整体呈冲高回落走势，主要指数延续震荡下行，其中恒生科技指数单月跌幅创下年内最大。 —— 财联社<span class="inst-source"> —— ，财联社</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://finance.sina.com.cn/roll/2026-10-30/doc-iniwywtv8222079.shtml" target="_blank" rel="noopener">新浪财经（财联社）·港股收盘：科技指数创年内单月最大跌幅</a><span class="source-time"> · 10/30 16:34</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1881995549008169622" target="_blank" rel="noopener">禅龙权益·再次下跌后，资金结构切换（恒指-5.36%、恒科-11.73%）</a><span class="source-time"> · 11/16</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://baijiahao.baidu.com/s?id=1882693074567067816" target="_blank" rel="noopener">上海证券报（转百家号）·回购升温、外资回补、“北水”提速</a><span class="source-time"> · 11/24</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-24" data-signal-num="24" data-lamp="yellow" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">24</div>
+    <div class="signal-title">中美利差 · 10年美债月末约4.94% · 倒挂约329bp</div>
+    <span class="signal-lamp yellow">高位倒挂</span>
+    <span class="credibility-tag credibility-high">已验证（中债/美债收盘+央行月报）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>美国10年期国债收益率（10月末）</td><td>约4.94%（月内高点5.31%，月初5.29%）</td></tr><tr><td>美国30年期国债收益率</td><td>月内高点5.348%</td></tr><tr><td>中国10年期国债收益率（10月末）</td><td>1.65%</td></tr><tr><td>中美10年期利差</td><td>倒挂约329bp</td></tr><tr><td>中国10年期与1年期国债利差</td><td>48bp（环比走阔2bp）</td></tr><tr><td>DR001 / DR007（10月加权）</td><td>1.28%（-10bp） / 1.34%（-6bp）</td></tr><tr><td>美联储10/28决议</td><td>维持3.75%-4.00%（10:2，两票主张加息）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>外部利率仍是最大约束：10 年美债月内一度冲到 5.31%，月末回落到约 4.94%，但相对中国 10 年国债 1.65% 仍倒挂约 329bp。这个倒挂意味着人民币资产对套息资金没有吸引力，也压缩了国内降息空间。国内资金面反而是宽松的：DR001 1.28%、DR007 1.34%，都环比下行，10 年国债 1.65%、10Y-1Y 利差走阔到 48bp——曲线在“温和变陡”。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">美债月末值在不同信源存在 4.92%-5.02% 的时点差异（10/30收盘 vs 月末最后交易日），本报告取“约4.94%”并标注月内区间，不做单一小数点式断言。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>2026年10月末，10年期国债收益率为1.65%；10年期与1年期国债收益率利差为48个基点，环比走阔2个基点。 —— 中国人民银行<span class="inst-source"> —— ，中国人民银行</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://jr.jl.gov.cn/jrzx/jrdt/jgdt/202611/t20261126_3689178.html" target="_blank" rel="noopener">中国人民银行·2026年10月金融市场运行情况（债券市场收益率）</a><span class="source-time"> · 11/20</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="http://weibo.com/detail/5369242717258779" target="_blank" rel="noopener">微博·2026年10月宏观经济月度总结（10年美债由5.29%降至4.94%）</a><span class="source-time"> · 11/25</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.cls.cn/detail/2521391" target="_blank" rel="noopener">财联社·美股收盘（10年期美债仅小幅下行、加息预期主导）</a><span class="source-time"> · 10/31</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-25" data-signal-num="25" data-lamp="green" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">25</div>
+    <div class="signal-title">人民币汇率 · 10月末6.6557 · 升值0.75%</div>
+    <span class="signal-lamp green">稳中有升</span>
+    <span class="credibility-tag credibility-high">已验证（央行/CFETS原始数据）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>银行间即期收盘价（10月末）</td><td>6.6557（较上月末升值0.75%）</td></tr><tr><td>人民币中间价（10月末）</td><td>6.7138</td></tr><tr><td>CFETS人民币汇率指数</td><td>103.77（较上月末升值0.55%）</td></tr><tr><td>美元指数（10月末）</td><td>101.97（月+0.49%）</td></tr><tr><td>银行间外汇即期成交（10月）</td><td>7979.79亿美元（环比-19.99%，受国庆长假影响）</td></tr><tr><td>中美利差</td><td>收窄带动长期限掉期点上行</td></tr><tr><td>日元 / 欧元兑美元（10月）</td><td>-0.1% / -1.5%</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>人民币是 10 月少见的“逆势升值”资产：美元指数还涨了 0.49% 到 101.97，人民币对美元即期却升 0.75% 到 6.6557，CFETS 一篮子指数也升 0.55%。支撑主要来自贸易顺差（10 月出口 +28.7%）和结汇需求。要注意区分：中间价 6.7138 与即期 6.6557 是两个口径，别混着用。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>2026年10月末，银行间外汇市场人民币对美元汇率收盘价为6.6557，较上月末升值0.75%，CFETS人民币汇率指数为103.77，较上月末升值0.55%。 —— 中国人民银行<span class="inst-source"> —— ，中国人民银行</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://jr.jl.gov.cn/jrzx/jrdt/jgdt/202611/t20261126_3689178.html" target="_blank" rel="noopener">中国人民银行·2026年10月金融市场运行情况（外汇市场）</a><span class="source-time"> · 11/20</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.financialnews.com.cn/2026-11/26/content_461646.html" target="_blank" rel="noopener">中国金融新闻网·即期市场交投平稳（10月人民币外汇即期成交7979.79亿美元）</a><span class="source-time"> · 11/26</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://finance.sina.com.cn/roll/2026-11-26/doc-inizzftt3858051.shtml" target="_blank" rel="noopener">新浪财经（管涛）·人民币延续升势，市场预期总体保持稳定（美元指数102.0）</a><span class="source-time"> · 11/26</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-26" data-signal-num="26" data-lamp="yellow" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">26</div>
+    <div class="signal-title">铜价 · 沪铜110335元/吨 · 环比-1.0%高位震荡</div>
+    <span class="signal-lamp yellow">高位回调</span>
+    <span class="credibility-tag credibility-high">已验证（现货/期货报价）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>沪铜（10月末）</td><td>110335元/吨（环比-1.0%，同比+25.9%）</td></tr><tr><td>月内高点</td><td>112595元/吨</td></tr><tr><td>LME铜（10/22）</td><td>14,098美元/吨（开盘14,081.5）</td></tr><tr><td>电解铜现货沪伦比值</td><td>7.68（10/28）</td></tr><tr><td>LME铜库存</td><td>持续去库（10/28减少1275吨）</td></tr><tr><td>电解铝（10月末）</td><td>23780元/吨（环比-1.0%，同比+11.8%）</td></tr><tr><td>有色金属冶炼PPI</td><td>+18.6%（涨幅较9月回落）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>铜价 10 月是“高位震荡、小幅回调”：沪铜月末 110335 元/吨，环比跌 1.0%，但同比还涨 25.9%，月内一度摸到 112595。伦铜在 14000 美元/吨上方波动，库存持续去化。回调的直接原因是制造业景气回落（PMI 49.3%、原材料购进价格指数降 4 个点），但 AI 算力、电网、新能源的长期需求没变，所以只是“高位歇脚”，不是转势。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">LME月末官方收盘价本报告未检索到，采用10/22报价（14,098美元/吨）作为10月下旬参照，并以沪铜月末价为国内口径主锚。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>2026年10月，电解铜价格高位震荡，月内一度触及112595元/吨，月底回落至110335元/吨，环比下降1.0%、同比上涨25.9%。 —— 慧眼看车·10月原材料价格走势<span class="inst-source"> —— ，市场资讯（新浪财经转载）</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://finance.sina.com.cn/roll/2026-11-20/doc-inizkqhz5545885.shtml" target="_blank" rel="noopener">新浪财经·2026年10月原材料价格走势分析报告（电解铜/铝/铅分项）</a><span class="source-time"> · 11/20 17:00</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://futures.cngold.org/c/2026-10-23/c10832945.html" target="_blank" rel="noopener">金投网·LME铜期货价格行情（2026年10月22日：昨收14,098）</a><span class="source-time"> · 10/23</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://baijiahao.baidu.com/s?id=1880351923188603000" target="_blank" rel="noopener">百家号（市场资讯）·伦铜价格继续下跌 10月28日LME铜库存（沪伦比7.68）</a><span class="source-time"> · 10/29</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-27" data-signal-num="27" data-lamp="red" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">27</div>
+    <div class="signal-title">原油 · 10月WTI均价96.54美元 · 月内涨13.95%</div>
+    <span class="signal-lamp red">地缘溢价</span>
+    <span class="credibility-tag credibility-high">已验证（收盘价+月度均价）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>WTI均价（10月）</td><td>96.54美元/桶（同比+61.38%，环比+1%以上）</td></tr><tr><td>WTI收盘（10/30）</td><td>104.12美元/桶（当日+2.08%）</td></tr><tr><td>布伦特收盘（10/30）</td><td>117.64美元/桶（当日+2.4%）</td></tr><tr><td>WTI月度涨跌幅</td><td>+13.95%</td></tr><tr><td>SC原油（上期能源）</td><td>月+4.42%</td></tr><tr><td>汽油批发价（10月底）</td><td>10500元/吨（环比-5.3%，同比+35.5%）</td></tr><tr><td>柴油批发价（10月底）</td><td>9695元/吨（环比+3.6%，同比+40.5%）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>原油是 10 月涨幅最大的大类资产：WTI 月内涨 13.95%，月末收 104.12 美元/桶；布伦特 117.64 美元。驱动几乎全是地缘：霍尔木兹海峡油轮起火、胡塞袭击沙特油田和管线、俄炼厂遭袭，叠加美国原油持续去库。要注意，油价上涨对国内是“输入型通胀”——10 月 PPI 的 5.7% 里，能源五个行业就贡献了 3.63 个百分点，而 CPI 里汽油也涨了 22.4%。</div>
+    
+    <div class="inst-view"><span class="inst-label">机构观点：</span>10月国际原油价格整体呈现震荡上涨行情，均值水平同比涨幅明显；10月WTI均价在96.54美元/桶，同比上涨61.38%。 —— 卓创资讯（同花顺转载）<span class="inst-source"> —— ，卓创资讯</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://goodsfu.10jqka.com.cn/20261124/c682156464.shtml" target="_blank" rel="noopener">同花顺（卓创资讯）·10月成品油出口价差环比下跌（WTI均价96.54美元）</a><span class="source-time"> · 11/24 16:36</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.cls.cn/detail/2521391" target="_blank" rel="noopener">财联社·美股收盘（10/30 WTI 104.12美元、布伦特117.64美元，地缘推涨）</a><span class="source-time"> · 10/31 06:05</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="http://weibo.com/detail/5369242717258779" target="_blank" rel="noopener">微博·2026年10月宏观经济月度总结（WTI月+13.95%、SC原油+4.42%）</a><span class="source-time"> · 11/25</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-28" data-signal-num="28" data-lamp="yellow" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">28</div>
+    <div class="signal-title">北向资金 · 未公布 · 仅见成交额环比下降</div>
+    <span class="signal-lamp yellow">未公布</span>
+    <span class="credibility-tag credibility-medium">净额未公布，替代指标已验证</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>北向资金10月净买入</td><td>未公布（沪深港通自2024年8月起不再披露单日/单月净买卖金额）</td></tr><tr><td>可获取替代指标</td><td>北向资金10月最后一周日均成交额环比-14.58%</td></tr><tr><td>两融余额</td><td>10月整体下降（高位杠杆资金主动去杠杆）</td></tr><tr><td>A股日均成交（10月）</td><td>15983.4亿元（环比-12.0%）</td></tr><tr><td>ETF资金</td><td>科创板ETF近三周净流入近500亿元、科创50相关ETF超380亿元</td></tr><tr><td>行业资金流（10月最后一周）</td><td>电子净流出471亿、通信净流出136亿；有色净流入87亿</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>这一项要如实说明：交易所自 2024 年 8 月起不再公布北向资金单日/单月净买卖金额，所以 10 月的“净流入多少亿”属于未公布，不能用其他口径估算去填空。能拿到的替代信息是：10 月最后一周北向日均成交额环比降 14.58%，两融余额下降，说明杠杆和外资的边际增量都在缩。反过来，ETF 在低位逆势买：科创板相关 ETF 三周净流入近 500 亿元。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">按“禁止编造”原则，本项净额标“未公布”；后续如需月度外资口径，建议改用“沪深港通成交额+陆股通持股季度变化”组合替代。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>北向资金在10月最后一周的日均成交额较前一周下降14.58%，外部增量资金的流入节奏也在放缓。 —— 雪球·ETF全天候策略月报<span class="inst-source"> —— ，雪球（个人投资者口径）</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://xueqiu.com/1641764976/414926901" target="_blank" rel="noopener">雪球·2026年10月：ETF全天候策略投资总结（北向成交额-14.58%、两融下降）</a><span class="source-time"> · 10/31 22:30</span></span></div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://jr.jl.gov.cn/jrzx/jrdt/jgdt/202611/t20261126_3689178.html" target="_blank" rel="noopener">中国人民银行·2026年10月金融市场运行情况（两市日均成交15983.4亿元）</a><span class="source-time"> · 11/20</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://licai.cofool.com/ask/qa_7343776.html" target="_blank" rel="noopener">叩富网·北向资金每日买卖数据披露渠道说明（净额披露口径变化）</a><span class="source-time"> · 10/29</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-29" data-signal-num="29" data-lamp="yellow" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">29</div>
+    <div class="signal-title">VIX恐慌指数 · 10月末值未公布 · 波动率抬升</div>
+    <span class="signal-lamp yellow">未公布</span>
+    <span class="credibility-tag credibility-low">关键值未公布，仅列事实性替代</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>VIX 10月末收盘值</td><td>未公布（截至补做日未检索到权威月末收盘值）</td></tr><tr><td>10月美股波动事实</td><td>纳指月-5.3%、费半月-15.36%、英特尔单日-28.58%</td></tr><tr><td>10月美股最大事件</td><td>10/28 FOMC 10:2 维持高利率、12月加息定价85%</td></tr><tr><td>11月已验证的波动</td><td>11/20 VIX一度破35、11/21一度破40（超出本报告统计期，仅作后续参照）</td></tr><tr><td>同期美债</td><td>10年美债月内高点5.31%</td></tr><tr><td>同期黄金</td><td>月-6.3%（股债金同跌的“无避险”特征）</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>VIX 这一项按任务规则标注“未公布”——本报告没有检索到 10 月最后一个交易日的权威收盘值，就不写数字。能确认的是波动的“事实层面”：纳指月跌 5.3%、费半跌 15.36%、英特尔一天跌 28.58%，10 月末还有 FOMC 10:2 的鹰派表态。到了 11 月 VIX 才真正失控（11/20 破 35、11/21 破 40），那已超出 10 月统计期，只作后续参照，不并入本月读数。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">VIX为每日发布指标，但回溯期内未检索到10月末权威数值，按任务要求不编造；后续补做建议直接从CBOE历史数据接口取月末收盘。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>VIX衡量标普500期权隐含波动率，25以上通常被视为恐慌区间；10月美股以科技股杀估值为主，波动率抬升但尚未进入全面恐慌。 —— 综合市场公开信息<span class="inst-source"> —— ，综合</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://www.cls.cn/detail/2521391" target="_blank" rel="noopener">财联社·美股收盘（10月纳指-5.3%、费半-7.2%单日）</a><span class="source-time"> · 10/31</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://finance.eastmoney.com/a/202611223936890284.html" target="_blank" rel="noopener">东方财富·美股点金丨VIX爆表（11月VIX破40，作后续参照）</a><span class="source-time"> · 11/22</span></span></div><div class="source-item"><span class="source-grade B">B</span><span class="source-text"><a href="https://m.jrj.com.cn/madapter/24h/2026/11/23235059235537.shtml" target="_blank" rel="noopener">金融界·芝加哥期权交易所波动率指数短暂触及10月14日以来最低（11月口径）</a><span class="source-time"> · 11/23</span></span></div></div>
+  </div>
+</div>
+<div class="signal-card" id="signal-30" data-signal-num="30" data-lamp="yellow" data-category="金融">
+  <div class="signal-header">
+    <div class="signal-num">30</div>
+    <div class="signal-title">信用利差 · 3年AAA中票-国债35bp · 环比基本持平</div>
+    <span class="signal-lamp yellow">低位平稳</span>
+    <span class="credibility-tag credibility-high">已验证（央行月报原始口径）</span>
+  </div>
+  <div class="signal-body">
+    <table class="signal-table"><thead><tr><th style="width:38%">指标</th><th>数值 / 说明</th></tr></thead><tbody><tr><td>3年期AAA中票与3年国债利差（10月末）</td><td>35bp（环比基本持平，未剔除税收因素）</td></tr><tr><td>10年期国债收益率（10月末）</td><td>1.65%</td></tr><tr><td>10Y-1Y国债利差</td><td>48bp（环比走阔2bp）</td></tr><tr><td>政府债券净融资（10月）</td><td>11835.2亿元（同比多6983.4亿元）</td></tr><tr><td>企业债券净融资（10月）</td><td>3445.6亿元（同比多945.8亿元）</td></tr><tr><td>债券市场托管余额（10月末）</td><td>212.8万亿元</td></tr><tr><td>银行间现券成交（10月）</td><td>33.6万亿元（同比+12.5%），换手率14.8%</td></tr></tbody></table>
+    <div class="plain-talk"><span class="plain-label">大白话：</span>信用利差还趴在低位：3 年 AAA 中票比同期限国债只贵 35bp，环比基本没动——说明高等级信用债的“风险溢价”被压得很薄，资金在抢票息。10 月债市整体是“利率下行、曲线小幅走陡”：10 年国债 1.65%，10Y-1Y 利差走阔到 48bp。供给端压力不小：政府债净融资 1.18 万亿元、同比多增近 7000 亿元，但市场消化得掉，说明配置盘（银行、保险）需求仍强。</div>
+    <div class="pro-analysis"><details><summary class="pro-summary">专业解读（点击展开）</summary><div class="pro-content">央行口径为“环比基本持平”，市场机构口径称“信用利差走阔”，差异来自样本券与评级结构不同；本报告以央行口径为主，机构口径作旁证。</div></details></div>
+    <div class="inst-view"><span class="inst-label">机构观点：</span>3年期AAA级中期票据收益率与3年期国债收益率的利差为35个基点（未剔除债券税收政策因素），环比基本持平。 —— 中国人民银行<span class="inst-source"> —— ，中国人民银行</span></div>
+    <div class="source-bar"><div class="source-label">信源</div><div class="source-item"><span class="source-grade S">S</span><span class="source-text"><a href="https://jr.jl.gov.cn/jrzx/jrdt/jgdt/202611/t20261126_3689178.html" target="_blank" rel="noopener">中国人民银行·2026年10月金融市场运行情况（债券市场/信用利差）</a><span class="source-time"> · 11/20</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="http://baijiahao.baidu.com/s?id=1882254567825426171" target="_blank" rel="noopener">百家号·2026年10月银行间本外币市场运行报告（信用利差走阔、曲线小幅走陡）</a><span class="source-time"> · 11/19</span></span></div><div class="source-item"><span class="source-grade A">A</span><span class="source-text"><a href="https://finance.eastmoney.com/a/202611203936267830.html" target="_blank" rel="noopener">东方财富·中国人民银行：10月上海黄金交易所黄金成交5096.3吨（月报全文转载）</a><span class="source-time"> · 11/20</span></span></div></div>
+  </div>
+</div>
+
+<div class="signal-card" style="border: 2px solid #6a1b9a; overflow: visible;">
+  <div class="signal-header" style="background: linear-gradient(135deg, rgba(106,27,154,0.08), rgba(123,31,162,0.04)); padding-bottom: 14px;">
+    <div class="signal-num" style="background: #6a1b9a;">B</div>
+    <div class="signal-title" style="color: #6a1b9a;">智脑研判：预测台账板块命中率分析</div>
+    <span class="signal-lamp" style="background: rgba(106,27,154,0.12); color: #6a1b9a;">月度评估</span>
+  </div>
+  <div class="signal-body">
+
+    <table class="signal-table" style="margin-bottom: 16px;">
+      <thead>
+        <tr style="background: rgba(106,27,154,0.06);">
+          <th>板块</th><th>已验证总数</th><th>命中</th><th>部分命中</th><th>未命中</th><th>纯命中率</th><th>含部分命中率</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr><td>本期未纳入回溯回测</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="color:#c62828;font-weight:700;">0%</td><td style="color:#c62828;font-weight:700;">0%</td></tr>
+      </tbody>
+    </table>
+
+    <div style="height: 300px; position: relative; margin-bottom: 16px;">
+      <canvas id="chartHitRate"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+    new Chart(document.getElementById('chartHitRate'), {
+      type: 'bar',
+      data: {
+        labels: ["本期未纳入", "外需", "内需", "利率"],
+        datasets: [{
+          label: '纯命中率(%)',
+          data: [0, 0, 0, 0],
+          backgroundColor: ["rgba(198,40,40,0.7)", "rgba(198,40,40,0.7)", "rgba(198,40,40,0.7)", "rgba(198,40,40,0.7)"],
+          borderColor: ["#c62828", "#c62828", "#c62828", "#c62828"],
+          borderWidth: 1
+        }, {
+          label: '含部分命中率(%)',
+          data: [0, 0, 0, 0],
+          backgroundColor: 'rgba(13,71,161,0.4)',
+          borderColor: '#0d47a1',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'top' } },
+        scales: { y: { beginAtZero: true, max: 110, title: { display: true, text: '命中率 (%)' } } }
+      }
+    });
+    </script>
+
+      <div style="background: rgba(249,168,37,0.06); border-left: 4px solid #f9a825; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px;">
+        <div style="font-weight: 700; color: #f9a825; font-size: 14px; margin-bottom: 6px;">台账说明：回溯补做不虚构命中率</div>
+        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">本报告为 2026-10-16 应发而未发的月报，于 2026-11-28 回溯补做。原预测台账按实时发布节奏滚动结算，本期没有对应的当期预测条目，因此不给出“10月命中率”这类无法核验的数字，命中率表统一置零并标注“本期未纳入回溯回测”。</div>
+      </div>
+      <div style="background: rgba(106,27,154,0.06); border-left: 4px solid #6a1b9a; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px;">
+        <div style="font-weight: 700; color: #6a1b9a; font-size: 14px; margin-bottom: 6px;">可核对的一致性预期偏差（事实层面）</div>
+        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">10月社零实际 +0.4%，市场一致预期约 +1.1%，低于预期约0.7pct；10月制造业PMI 49.3%，较9月回落0.8pct，低于荣枯线；10月CPI +0.7%，较9月回落0.2pct，符合“温和”方向。以上为可公开核对的预期与实际差异，不构成对任何交易方向的判断。</div>
+      </div>
+      <div style="background: rgba(46,125,50,0.06); border-left: 4px solid #2e7d32; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px;">
+        <div style="font-weight: 700; color: #2e7d32; font-size: 14px; margin-bottom: 6px;">本月最稳的判断：外需强于内需</div>
+        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">10月出口 +28.7%、进口 +34.7%、进出口 +31.2%，与内需端的社零 +0.4%、固投 -8.1% 形成鲜明反差。这一“外强内弱”的结构在9月月报中已有提示，10月数据进一步确认。</div>
+      </div>
+      <div style="background: rgba(198,40,40,0.06); border-left: 4px solid #c62828; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 12px;">
+        <div style="font-weight: 700; color: #c62828; font-size: 14px; margin-bottom: 6px;">本月最大意外：利率对资产的压制强于基本面</div>
+        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.7;">10月A股、港股、黄金同跌，而国内基本面（工业利润 +16.0%、出口 +28.7%）并不差；主导变量是10年美债月内冲上5.31%与美联储10:2的鹰派表态。提示：跨资产判断中，外部利率应作为一级变量前置，而不是事后解释。</div>
+      </div>
+
+    <div style="background: rgba(106,27,154,0.06); border: 1px solid rgba(106,27,154,0.2); border-radius: 8px; padding: 14px 18px; margin-top: 8px;">
+      <div style="font-weight: 700; color: #6a1b9a; font-size: 14px; margin-bottom: 8px;">总体研判</div>
+      <div style="font-size: 13px; color: var(--text); line-height: 1.8;">
+        本期为回溯补做，预测台账不纳入结算（命中率表置零以示区分）。从可核对的事实看，10月的主线是“外需强、内需弱、利率高压”，三条线同时成立：出口 +28.7% 与工业利润 +16.0% 支撑分子端，社零 +0.4% 与固投 -8.1% 拖累内需，美债 5.31% 的月内高点压制估值分母。后续跟踪重点是：油价能否回落（决定PPI与CPI剪刀差）、12月美联储是否加息（决定人民币与外资流向）、以及设备更新与算力投资能否对冲地产投资 -21.6% 的下拉。
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="signal-card" style="overflow: visible;">
+  <div class="signal-header">
+    <div class="signal-num" style="background: #6a1b9a;">T</div>
+    <div class="signal-title">月度趋势图（ECharts 交互式）</div>
+  </div>
+  <div class="signal-body" style="overflow: visible;">
+    <div class="echarts-grid">
+
+    <div class="echarts-box" style="grid-column: span 2;">
+      <h4>CPI / PPI / PMI 近3月走势（8-10月，均为官方月度值）</h4>
+      <div id="chartMacro" class="echart" style="height: 260px;"></div>
+    </div>
+    <div class="echarts-box" style="grid-column: span 2;">
+      <h4>10月大宗商品月度涨跌幅（%）</h4>
+      <div id="chartCommodity" class="echart" style="height: 260px;"></div>
+    </div>
+    <div class="echarts-box" style="grid-column: span 2;">
+      <h4>10月主要股指月度涨跌幅（%）</h4>
+      <div id="chartStock" class="echart" style="height: 260px;"></div>
+    </div>
+    <div class="echarts-box" style="grid-column: span 2;">
+      <h4>10月末货币信用增速（%，同比）</h4>
+      <div id="chartCredit" class="echart" style="height: 260px;"></div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script>
+
+      var chart_0 = echarts.init(document.getElementById('chartMacro'), null, { renderer: 'canvas' });
+      chart_0.setOption({
+        tooltip: { trigger: 'axis' },
+        legend: { top: 0, textStyle: { fontSize: 11 } },
+        grid: { left: '8%', right: '8%', bottom: '10%', top: '20%', containLabel: true },
+        xAxis: { type: 'category', data: ["8月", "9月", "10月"], axisLabel: { fontSize: 11 } },
+        yAxis: [
+        { type: 'value', name: "CPI/PPI (%)", position: 'left' },
+        { type: 'value', name: "PMI (%)", position: 'right', min: 48.5, max: 51, splitLine: { show: false } }
+      ],
+        series: [{
+        name: "CPI同比(%)",
+        type: 'line',
+        data: [0.8, 0.9, 0.7],
+        smooth: true,
+        yAxisIndex: 0,
+        lineStyle: { width: 2, color: '#e65100' },
+        itemStyle: { color: '#e65100' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#e651001a' }, 
+      },{
+        name: "PPI同比(%)",
+        type: 'line',
+        data: [3.8, 5.0, 5.7],
+        smooth: true,
+        yAxisIndex: 0,
+        lineStyle: { width: 2, color: '#1565c0' },
+        itemStyle: { color: '#1565c0' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#1565c01a' }, 
+      },{
+        name: "PMI(%)",
+        type: 'line',
+        data: [49.8, 50.1, 49.3],
+        smooth: true,
+        yAxisIndex: 0,
+        lineStyle: { width: 2, color: '#2e7d32' },
+        itemStyle: { color: '#2e7d32' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#2e7d321a' }, 
+      },]
+      });
+      window.addEventListener('resize', function() { chart_0.resize(); });
+
+      var chart_1 = echarts.init(document.getElementById('chartCommodity'), null, { renderer: 'canvas' });
+      chart_1.setOption({
+        tooltip: { trigger: 'axis' },
+        legend: { top: 0, textStyle: { fontSize: 11 } },
+        grid: { left: '8%', right: '8%', bottom: '10%', top: '20%', containLabel: true },
+        xAxis: { type: 'category', data: ["伦敦金", "上海金", "WTI原油", "沪铜", "沪铝"], axisLabel: { fontSize: 11 } },
+        yAxis: [{ type: 'value', position: 'left' }],
+        series: [{
+        name: "10月涨跌幅(%)",
+        type: 'line',
+        data: [-6.3, -5.88, 13.95, -1.0, -1.0],
+        smooth: true,
+        
+        lineStyle: { width: 2, color: '#bf360c' },
+        itemStyle: { color: '#bf360c' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#bf360c1a' }, 
+      },]
+      });
+      window.addEventListener('resize', function() { chart_1.resize(); });
+
+      var chart_2 = echarts.init(document.getElementById('chartStock'), null, { renderer: 'canvas' });
+      chart_2.setOption({
+        tooltip: { trigger: 'axis' },
+        legend: { top: 0, textStyle: { fontSize: 11 } },
+        grid: { left: '8%', right: '8%', bottom: '10%', top: '20%', containLabel: true },
+        xAxis: { type: 'category', data: ["上证", "深证成指", "创业板指", "科创50", "沪深300", "恒生"], axisLabel: { fontSize: 11 } },
+        yAxis: [{ type: 'value', position: 'left' }],
+        series: [{
+        name: "10月涨跌幅(%)",
+        type: 'line',
+        data: [-6.33, -15.94, -23.02, -24.13, -8.54, -5.36],
+        smooth: true,
+        
+        lineStyle: { width: 2, color: '#c62828' },
+        itemStyle: { color: '#c62828' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#c628281a' }, 
+      },]
+      });
+      window.addEventListener('resize', function() { chart_2.resize(); });
+
+      var chart_3 = echarts.init(document.getElementById('chartCredit'), null, { renderer: 'canvas' });
+      chart_3.setOption({
+        tooltip: { trigger: 'axis' },
+        legend: { top: 0, textStyle: { fontSize: 11 } },
+        grid: { left: '8%', right: '8%', bottom: '10%', top: '20%', containLabel: true },
+        xAxis: { type: 'category', data: ["M2", "社融存量", "人民币贷款余额", "M1"], axisLabel: { fontSize: 11 } },
+        yAxis: [{ type: 'value', position: 'left' }],
+        series: [{
+        name: "同比增速(%)",
+        type: 'line',
+        data: [7.1, 7.2, 4.7, 4.4],
+        smooth: true,
+        
+        lineStyle: { width: 2, color: '#0d47a1' },
+        itemStyle: { color: '#0d47a1' },
+        symbol: 'circle',
+        symbolSize: 5,
+        areaStyle: { color: '#0d47a11a' }, 
+      },]
+      });
+      window.addEventListener('resize', function() { chart_3.resize(); });
+
+</script>
+
+    <div id="echarts-section"><div class="echarts-grid"><div class="echarts-box"><h4>CPI</h4><div id="gauge0" class="echart"></div></div><div class="echarts-box"><h4>PPI</h4><div id="gauge1" class="echart"></div></div><div class="echarts-box"><h4>PMI</h4><div id="gauge2" class="echart"></div></div></div>
+<script>
+
+    var gauge0 = echarts.init(document.getElementById('gauge0'), null, { renderer: 'canvas' });
+    gauge0.setOption({
+      series: [{
+        type: 'gauge',
+        min: -3, max: 5,
+        progress: { show: true, width: 10, itemStyle: { color: '#e65100' } },
+        axisLine: { lineStyle: { width: 10, color: [[0.5, '#e8eaed'], [1, '#e8eaed']] } },
+        detail: { valueAnimation: true, offsetCenter: [0, '60%'], formatter: '{value}', fontSize: 18, color: '#e65100' },
+        data: [{ value: 0.7, name: 'CPI' }],
+        title: { show: true, fontSize: 11, color: '#5f6368' }
+      }]
+    });
+    window.addEventListener('resize', function() { gauge0.resize(); });
+
+    var gauge1 = echarts.init(document.getElementById('gauge1'), null, { renderer: 'canvas' });
+    gauge1.setOption({
+      series: [{
+        type: 'gauge',
+        min: -10, max: 10,
+        progress: { show: true, width: 10, itemStyle: { color: '#1565c0' } },
+        axisLine: { lineStyle: { width: 10, color: [[0.5, '#e8eaed'], [1, '#e8eaed']] } },
+        detail: { valueAnimation: true, offsetCenter: [0, '60%'], formatter: '{value}', fontSize: 18, color: '#1565c0' },
+        data: [{ value: 5.7, name: 'PPI' }],
+        title: { show: true, fontSize: 11, color: '#5f6368' }
+      }]
+    });
+    window.addEventListener('resize', function() { gauge1.resize(); });
+
+    var gauge2 = echarts.init(document.getElementById('gauge2'), null, { renderer: 'canvas' });
+    gauge2.setOption({
+      series: [{
+        type: 'gauge',
+        min: 45, max: 55,
+        progress: { show: true, width: 10, itemStyle: { color: '#2e7d32' } },
+        axisLine: { lineStyle: { width: 10, color: [[0.5, '#e8eaed'], [1, '#e8eaed']] } },
+        detail: { valueAnimation: true, offsetCenter: [0, '60%'], formatter: '{value}', fontSize: 18, color: '#2e7d32' },
+        data: [{ value: 49.3, name: 'PMI' }],
+        title: { show: true, fontSize: 11, color: '#5f6368' }
+      }]
+    });
+    window.addEventListener('resize', function() { gauge2.resize(); });
+
+</script>
+<div class="signal-card" style="overflow: visible;">
+  <div class="signal-header">
+    <div class="signal-num" style="background: #00838f;">E</div>
+    <div class="signal-title">信号全景图（ECharts 交互式）</div>
+  </div>
+  <div class="signal-body" style="overflow: visible;">
+    <div class="echarts-grid">
+      <div class="echarts-box"><h4>30信号 Treemap（点击跳转）</h4><div id="treemapChart" class="echart"></div></div>
+    </div>
+  </div>
+</div>
+<script>
+
+    var treemapChart = echarts.init(document.getElementById('treemapChart'), null, { renderer: 'canvas' });
+    treemapChart.setOption({
+      tooltip: { formatter: function(p) { return p.name + '<br/>' + (p.data.lamp_text || ''); } },
+      series: [{
+        type: 'treemap',
+        data: [{"name": "#1 M2增速 · 1", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "回落", "num": 1}, {"name": "#2 社融 · 10月", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "结构切换", "num": 2}, {"name": "#3 土地出让金 · ", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "收缩", "num": 3}, {"name": "#4 PMI · 10", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "收缩", "num": 4}, {"name": "#5 网络体感 · 物", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "体感偏冷", "num": 5}, {"name": "#6 CPI · 10", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "温和", "num": 6}, {"name": "#7 GDP · 前三", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "稳中略降", "num": 7}, {"name": "#8 城市财政自给率 ", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "紧平衡", "num": 8}, {"name": "#9 常住人口 · 2", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "连续负增长", "num": 9}, {"name": "#10 商品房去化 · ", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "去库中", "num": 10}, {"name": "#11 安全岗招聘 · ", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "缺口大但未月度更新", "num": 11}, {"name": "#12 分行业PMI ·", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "K型分化", "num": 12}, {"name": "#13 用电量 · 10", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "低速", "num": 13}, {"name": "#14 PPI · 10", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "输入型上涨", "num": 14}, {"name": "#15 固定资产投资 ·", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "加速下行", "num": 15}, {"name": "#16 出口结构 · 1", "value": 1, "itemStyle": {"color": "#2e7d32"}, "lamp_text": "强韧性", "num": 16}, {"name": "#17 社零品类 · 1", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "明显走弱", "num": 17}, {"name": "#18 青年失业率 · ", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "结构性压力", "num": 18}, {"name": "#19 工业利润 · 1", "value": 1, "itemStyle": {"color": "#2e7d32"}, "lamp_text": "盈利改善", "num": 19}, {"name": "#20 黄金价格 · 1", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "深度回调", "num": 20}, {"name": "#21 A股 · 上证3", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "深度调整", "num": 21}, {"name": "#22 美股 · 纳指月", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "科技杀估值", "num": 22}, {"name": "#23 恒生 · 232", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "跟随调整", "num": 23}, {"name": "#24 中美利差 · 1", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "高位倒挂", "num": 24}, {"name": "#25 人民币汇率 · ", "value": 1, "itemStyle": {"color": "#2e7d32"}, "lamp_text": "稳中有升", "num": 25}, {"name": "#26 铜价 · 沪铜1", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "高位回调", "num": 26}, {"name": "#27 原油 · 10月", "value": 1, "itemStyle": {"color": "#c62828"}, "lamp_text": "地缘溢价", "num": 27}, {"name": "#28 北向资金 · 未", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "未公布", "num": 28}, {"name": "#29 VIX恐慌指数 ", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "未公布", "num": 29}, {"name": "#30 信用利差 · 3", "value": 1, "itemStyle": {"color": "#f9a825"}, "lamp_text": "低位平稳", "num": 30}],
+        roam: false,
+        nodeClick: false,
+        breadcrumb: { show: false },
+        label: { show: true, fontSize: 10, color: '#fff', formatter: function(p) { return p.name; } },
+        itemStyle: { borderColor: '#fff', borderWidth: 2, gapWidth: 2 },
+        levels: [{ itemStyle: { borderColor: '#fff', borderWidth: 2, gapWidth: 2 } }]
+      }]
+    });
+    treemapChart.on('click', function(p) {
+      if (p.data && p.data.num) {
+        var card = document.querySelector('[data-signal-num="' + p.data.num + '"]');
+        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+    window.addEventListener('resize', function() { treemapChart.resize(); });
+
+</script></div>
+
+    
+<div class="backtest-card" id="backtest">
+  <div class="backtest-header">2026年10月（回溯补做·不含预测回测）</div>
+  <div class="backtest-item">
+    <div class="backtest-title">✅ 命中（0条）<span class="backtest-tag backtest-hit">已验证</span></div>
+    <div class="backtest-detail"></div>
+  </div>
+  <div class="backtest-item">
+    <div class="backtest-title">🟡 部分命中（0条）<span class="backtest-tag backtest-partial">待兑现</span></div>
+    <div class="backtest-detail"></div>
+  </div>
+  <div class="backtest-item">
+    <div class="backtest-title">❌ 未命中（0条）<span class="backtest-tag backtest-miss">偏差</span></div>
+    <div class="backtest-detail"></div>
+  </div>
+  <div class="backtest-item">
+    <div class="backtest-title">规律总结</div>
+    <div class="backtest-detail">本期为回溯补做，未在10月当期形成可结算的预测条目，故不做命中/未命中归因，避免事后倒推式“伪回测”。可核对的口径偏差：10月社零 +0.4%（预期约 +1.1%，低0.7pct）、10月PMI 49.3%（低于荣枯线0.7pct）、10月CPI +0.7%（较9月回落0.2pct，符合温和方向）。</div>
+  </div>
+</div>
+
+    
+<div class="source-summary" id="sources">
+  <div class="ss-header">来源汇总表（按等级分组）</div>
+  <table>
+    <thead><tr><th style="width:8%">等级</th><th style="width:20%">来源机构</th><th style="width:42%">引用内容</th><th style="width:18%">发布时间</th><th style="width:12%">链接</th></tr></thead>
+    <tbody><tr><td><span class="source-grade S">S</span></td><td>国家统计局</td><td>10月PMI 49.3%、CPI +0.7%、PPI +5.7%、社零 +0.4%、固投 -8.1%、工业增加值 +4.8%、失业率5.1%、1-10月工业利润+16.0%</td><td>10/31-11/27</td><td><a href="https://www.stats.gov.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade S">S</span></td><td>中国人民银行</td><td>10月末M2 +7.1%、社融存量469.16万亿(+7.2%)、1-10月贷款+11.42万亿；10月金融市场运行（上证3599.0、10Y国债1.65%、人民币6.6557、Au(T+D)853.3元/克）</td><td>11/19-11/20</td><td><a href="https://www.pbc.gov.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade S">S</span></td><td>财政部</td><td>1-10月一般公共预算收入195671亿(+4.9%)、土地出让收入18526亿(-25.8%)、政府性基金收入29123亿(-15.5%)</td><td>11/21</td><td><a href="https://www.mof.gov.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade S">S</span></td><td>海关总署</td><td>10月进出口4.87万亿(+31.2%)、出口2.79万亿(+28.7%)、进口2.08万亿(+34.7%)；1-10月进出口44.81万亿(+20%)</td><td>11/10</td><td><a href="http://www.customs.gov.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade S">S</span></td><td>国家能源局</td><td>10月全社会用电量8709亿千瓦时(+1.6%)、1-10月+3.7%</td><td>11/26</td><td><a href="https://www.nea.gov.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade S">S</span></td><td>中国外汇交易中心/CFETS</td><td>10月末人民币对美元收盘6.6557(升值0.75%)、CFETS指数103.77(+0.55%)</td><td>11/20-11/26</td><td><a href="https://www.chinamoney.com.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade A">A</span></td><td>财联社/东方财富/新浪财经</td><td>10月A股收盘（上证3599.02、创业板2413.63）、恒指23294.42、美股10月（纳指-5.3%、道指+1.70%）、油价与金价收盘</td><td>10/30-10/31</td><td><a href="https://www.cls.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade A">A</span></td><td>上海黄金交易所/世界黄金协会</td><td>10月现货黄金收3875.19美元/盎司(-6.3%)、上海金-5.88%、央行黄金储备7830万盎司</td><td>11/13-11/25</td><td><a href="https://www.sge.com.cn" target="_blank">访问</a></td></tr><tr><td><span class="source-grade B">B</span></td><td>卓创资讯/慧眼看车（新浪转载）</td><td>10月WTI均价96.54美元/桶(+61.38%)、电解铜110335元/吨(-1.0%)、汽油批发10500元/吨</td><td>11/20-11/24</td><td><a href="https://finance.sina.com.cn" target="_blank">访问</a></td></tr></tbody>
+  </table>
+</div>
+
+    <div class="glossary-card" id="glossary">
+  <div class="glossary-header">术语速查（本期报告涉及的金融名词）</div>
+  <div class="glossary-list"><div class="glossary-item"><span class="glossary-term">M2 / M1</span><span class="glossary-def">M2是全社会钱的总量（含各类存款），M1是现金+活期存款。10月末M2 +7.1%、M1 +4.4%，剪刀差-2.7pct，说明钱更多留在定期而非活期，资金活化不足</span></div><div class="glossary-item"><span class="glossary-term">社融</span><span class="glossary-def">社会融资规模，实体经济从金融体系拿到的钱总量。10月末存量469.16万亿元、同比+7.2%，但增量主要由政府债和直融贡献</span></div><div class="glossary-item"><span class="glossary-term">财政自给率</span><span class="glossary-def">地方本级一般公共预算收入÷本级支出，衡量“自己挣的钱够花多少”。1-10月测算约56.2%，未计中央转移支付，仅作趋势参考</span></div><div class="glossary-item"><span class="glossary-term">中美利差</span><span class="glossary-def">中美10年期国债收益率之差。10月末中债1.65%、美债约4.94%，倒挂约329bp，是人民币汇率与国内降息空间的关键约束</span></div><div class="glossary-item"><span class="glossary-term">信用利差</span><span class="glossary-def">企业债与同期限国债收益率之差。3年AAA中票-3年国债为35bp，处于低位，说明高等级信用债风险溢价被压得很薄</span></div><div class="glossary-item"><span class="glossary-term">PPI与CPI剪刀差</span><span class="glossary-def">10月PPI +5.7%、CPI +0.7%，差值约5个百分点。上游能源涨价未充分传导到消费端，中下游企业毛利被两头挤压</span></div><div class="glossary-item"><span class="glossary-term">待售面积</span><span class="glossary-def">已竣工未销售的商品房面积。10月末74412万平方米、同比-1.7%，连续8个月下降，是房地产“去库存”最直接的量化证据</span></div></div>
+</div>
+
+    
+<div class="disclaimer">
+  <h3>免责声明与使用须知</h3>
+  <div class="disclaimer-tag">不构成投资建议</div>
+  <p><b>1. 数据来源：</b>本报告所有数据均来自公开渠道，以官方原始发布（S级）和权威媒体（A级）为优先来源。每条数据均标注来源机构、发布时间和可追溯链接。数据可能存在发布延迟或后续修正，请以官方最新发布为准。</p>
+  <p><b>2. 投资风险：</b>本报告内容仅供信息参考和学习交流使用，不构成任何投资建议、交易策略或推荐。金融市场有风险，投资需谨慎。读者据此操作的任何后果均由本人承担。</p>
+  <p><b>3. 预测说明：</b>报告中涉及的"预测"和"展望"部分为基于公开信息的市场方向性判断，不保证准确性。预测台账持续追踪命中率，但历史命中不代表未来表现。</p>
+  <p><b>4. 数据口径：</b>所有数据均标注统计口径（同比/环比、累计/当月、名义/实际等），严格区分实际值与预期值。如有数据修正，以官方最新发布为准。</p>
+  <p><b>5. 报告版本：</b>v3.0 商用标准版（月度版·回溯补做稿） · 制作日期 2026年11月28日 · 下一期预告 2026年11月月报</p>
+</div>
+
+    <div class="stats">本报告覆盖30项月度信号 | 信号分类：宏观财政11项/产业分化9项/金融资金面10项 | 制作于2026-11-28（回溯补做，原定2026-10-16 09:00）</div>
+    <div id="exportWatermark">经济信号监控报告 · 2026年10月 · v3.0商用标准版 · 数据仅供参考，不构成投资建议</div>
+    <footer>经济信号监控报告 · v3.0 商用标准版 · 信源可追溯 · 制作日期 2026-11-28</footer>
+  </div>
+
+  <aside class="sidebar">
+    <div class="rate-anchor">
+      <div class="rate-anchor-header">利率锚点表（2026-11-28）</div>
+      <div class="rate-anchor-item"><span class="rate-anchor-name">1年期LPR</span><span class="rate-anchor-value">3.0%（10月报价维持）</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">5年期以上LPR</span><span class="rate-anchor-value">3.5%（10月报价维持）</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">7天逆回购</span><span class="rate-anchor-value">1.40%（11/2起退为阶段性工具）</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">隔夜逆回购</span><span class="rate-anchor-value">1.25%（10/30起作为主要政策利率）</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">DR001 / DR007（10月加权）</span><span class="rate-anchor-value">1.28% / 1.34%</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">10年期国债</span><span class="rate-anchor-value">1.65%</span></div><div class="rate-anchor-item"><span class="rate-anchor-name">美国联邦基金利率</span><span class="rate-anchor-value">3.75%-4.00%（10/28维持）</span></div>
+    </div>
+
+    <div class="tips-card">
+      <div class="tips-header">本月金融术语</div>
+      <div class="tip-item"><div class="tip-title">为什么PMI跌破50这么关键</div><div class="tip-desc">PMI以50%为荣枯线，10月制造业49.3%、非制造业49.7%、综合49.7%，三项同时低于50%，意味着企业采购、生产、订单整体转为收缩</div><div class="tip-scenario">实用场景：看月度数据时，先看PMI方向，再看社零和固投验证需求</div></div><div class="tip-item"><div class="tip-title">PPI涨不等于经济好</div><div class="tip-desc">10月PPI +5.7%，但主要由煤炭+36.6%、油气+35.0%、石油加工+29.9%拉动，属输入型/地缘型涨价；CPI只涨0.7%，下游需求并未同步扩张</div><div class="tip-scenario">实用场景：看到PPI大涨时，先拆分是“需求拉动”还是“成本推动”</div></div><div class="tip-item"><div class="tip-title">北向资金净额已不公布</div><div class="tip-desc">沪深港通自2024年8月起不再披露单日/单月净买卖金额，只能用成交额、持股季度变化、两融余额等替代指标观察外资</div><div class="tip-scenario">实用场景：看到“北向净流入XX亿”的自媒体数据时，先确认口径来源</div></div><div class="tip-item"><div class="tip-title">高利率如何同时打压股与金</div><div class="tip-desc">10年美债月内冲上5.31%，一方面压低高估值成长股（创业板-23%），一方面提高持有黄金的机会成本（伦敦金-6.3%），形成“股金同跌”</div><div class="tip-scenario">实用场景：美债快速上行阶段，避险资产未必避险，先看实际利率</div></div>
+    </div>
+
+    <div class="event-calendar">
+      <div class="event-header">下月事件日历</div>
+      <div class="event-item"><span class="event-name">10月CPI/PPI公布</span><div class="event-meta"><span class="event-date">11/9</span><span class="event-tag-upcoming">已公布</span></div></div><div class="event-item"><span class="event-name">10月进出口数据（海关总署）</span><div class="event-meta"><span class="event-date">11/10</span><span class="event-tag-upcoming">已公布</span></div></div><div class="event-item"><span class="event-name">10月经济数据发布会（统计局）</span><div class="event-meta"><span class="event-date">11/16</span><span class="event-tag-upcoming">已公布</span></div></div><div class="event-item"><span class="event-name">10月分年龄组失业率</span><div class="event-meta"><span class="event-date">11/18</span><span class="event-tag-upcoming">已公布</span></div></div><div class="event-item"><span class="event-name">1-10月工业企业利润</span><div class="event-meta"><span class="event-date">11/27</span><span class="event-tag-upcoming">已公布</span></div></div>
+    </div>
+
+    <div class="policy-card">
+      <div class="policy-header">政策速递</div>
+      <div class="policy-item"><div class="policy-title">利率框架调整：隔夜逆回购升为主要政策利率</div><div class="policy-meta"><span class="policy-tag">货币政策</span> 10月30日央行宣布，自11月2日起将隔夜逆回购利率1.25%作为主要政策利率，7天期逆回购利率1.40%退为阶段性工具，利率走廊下移15个基点</div></div><div class="policy-item"><div class="policy-title">美联储10月议息：维持3.75%-4.00%，10:2偏鹰</div><div class="policy-meta"><span class="policy-tag">海外政策</span> 10月28日维持利率不变，两名委员主张立即加息25bp；会后市场对12月加息定价升至约85%</div></div><div class="policy-item"><div class="policy-title">设备更新与“两重”建设继续发力</div><div class="policy-meta"><span class="policy-tag">投资政策</span> 1-10月设备工器具购置投资+8.9%、拉动全部投资1.5pct；知识产权产品投资+9.2%；互联网和相关服务业投资+48.4%</div></div><div class="policy-item"><div class="policy-title">房地产“控增量、去库存、优供给”</div><div class="policy-meta"><span class="policy-tag">地产政策</span> 各地因城施策推进购房补贴、贷款贴息、存量房收购；10月末新建商品房待售面积连续8个月下降，二手房网签占比升至52.6%</div></div>
+    </div>
+  </aside>
+
+  <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="回到顶部">&#9650;</button>
+</div>
+<div class="toast" id="toast">已复制</div>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+function toggleTheme(){var h=document.documentElement,b=document.getElementById('themeToggle');if(h.classList.contains('dark')){h.classList.remove('dark');h.classList.add('light');b.innerHTML='&#9790;';localStorage.setItem('theme','light');}else{h.classList.remove('light');h.classList.add('dark');b.innerHTML='&#9788;';localStorage.setItem('theme','dark');}}
+(function(){var s=localStorage.getItem('theme');if(s==='dark'){document.documentElement.classList.add('dark');document.getElementById('themeToggle').innerHTML='&#9788;';}else if(s==='light'){document.documentElement.classList.add('light');}})();
+function filterCategory(c){var cards=document.querySelectorAll('.signal-card');var btns=document.querySelectorAll('.filter-btn');btns.forEach(function(b){b.classList.remove('active');});event.target.classList.add('active');cards.forEach(function(card){if(c==='\u5168\u90e8'||card.dataset.category===c){card.style.display='';}else{card.style.display='none';}});}
+function exportAsImage(){var btn=document.getElementById('exportBtn'),ov=document.getElementById('exportOverlay'),mc=document.querySelector('.main-content');btn.classList.add('exporting');ov.classList.add('active');var hc=document.querySelectorAll('.signal-card[style*="display: none"]');hc.forEach(function(c){c.setAttribute('data-was-hidden','1');c.style.display='';});mc.classList.add('export-capture');html2canvas(mc,{scale:2,useCORS:true,allowTaint:false,backgroundColor:null,logging:false,onclone:function(d){var s=d.querySelector('.sidebar');if(s)s.style.display='none';}}).then(function(canvas){hc.forEach(function(c){c.style.display='none';c.removeAttribute('data-was-hidden');});mc.classList.remove('export-capture');var l=document.createElement('a');l.download='经济信号-'+new Date().toISOString().slice(0,10)+'.png';l.href=canvas.toDataURL('image/png');l.click();var m=document.getElementById('exportModal');m.innerHTML='<div class="success-icon">&#9989;</div><p>长图已生成并下载！<br>可直接发送到微信分享</p>';setTimeout(function(){ov.classList.remove('active');m.innerHTML='<div class="spinner"></div><p>正在生成长图，请稍候...</p>';btn.classList.remove('exporting');},2000);}).catch(function(e){hc.forEach(function(c){c.style.display='none';c.removeAttribute('data-was-hidden');});mc.classList.remove('export-capture');console.error('导出失败:',e);ov.classList.remove('active');btn.classList.remove('exporting');var t=document.getElementById('toast');t.textContent='导出失败，请重试';t.classList.add('show');setTimeout(function(){t.classList.remove('show');t.textContent='已复制';},3000);});}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
+window.addEventListener('scroll',function(){var bt=document.getElementById('backToTop');if(window.scrollY>400){bt.classList.add('visible');}else{bt.classList.remove('visible');}var rp=document.getElementById('readingProgress');var sh=document.documentElement.scrollHeight-window.innerHeight;rp.style.width=(sh>0?(window.scrollY/sh*100):0)+'%';});
+</script>
+</body>
+</html>
